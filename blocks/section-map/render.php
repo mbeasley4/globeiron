@@ -19,7 +19,8 @@ declare(strict_types=1);
 
 $heading     = (string) (get_field('heading')             ?: '');
 $map_content = (string) (get_field('map_section_content') ?: '');
-$regions     = get_field('regions') ?: [];
+$regions_raw = get_field('regions');
+$regions     = is_array($regions_raw) ? $regions_raw : [];
 $map_embed   = (string) (get_field('map_embed')           ?: '');
 $bg_color    = (string) (get_field('background_color')    ?: 'white');
 
