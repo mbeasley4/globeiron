@@ -1,0 +1,74 @@
+@use 'variables' as *;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-serif;
+  font-weight: 700;
+  line-height: $line-height-tight;
+  color: $color-iron-dark;
+  margin-top: 0;
+  margin-bottom: $spacing-4;
+}
+
+h1 { font-size: $font-size-5xl; }
+h2 { font-size: $font-size-4xl; }
+h3 { font-size: $font-size-3xl; }
+h4 { font-size: $font-size-2xl; }
+h5 { font-size: $font-size-xl; }
+h6 { font-size: $font-size-lg; }
+
+p {
+  margin-top: 0;
+  margin-bottom: $spacing-4;
+}
+
+.lead {
+  font-size: $font-size-xl;
+  line-height: $line-height-loose;
+  color: $color-iron-mid;
+}
+
+blockquote {
+  margin: $spacing-8 0;
+  padding: $spacing-4 $spacing-6;
+  border-left: 4px solid $color-brand-primary;
+  background: $color-iron-light;
+  border-radius: 0 $border-radius-md $border-radius-md 0;
+  font-style: italic;
+  font-size: $font-size-lg;
+  color: $color-iron-dark;
+
+  cite {
+    display: block;
+    margin-top: $spacing-3;
+    font-size: $font-size-sm;
+    font-style: normal;
+    color: $color-iron-mid;
+  }
+}
+
+code {
+  font-family: $font-mono;
+  font-size: 0.875em;
+  background: $color-iron-light;
+  padding: 0.15em 0.4em;
+  border-radius: $border-radius-sm;
+  color: $color-brand-secondary;
+}
+
+pre {
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+  background: $color-iron-dark;
+  color: $color-iron-light;
+  padding: $spacing-6;
+  border-radius: $border-radius-lg;
+  overflow-x: auto;
+  margin-block: $spacing-8;
+
+  code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    border-radius: 0;
+  }
+}

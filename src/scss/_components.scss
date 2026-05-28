@@ -1,0 +1,1725 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ─── Skip-to-content link (ADA / WCAG 2.4.1) ─────────────────────────────────
+// Visually hidden at all times using the clip technique — this is the correct
+// approach used by Bootstrap, a11y-css-reset, and WCAG reference implementations.
+// clip+clip-path removes the element from the visual layer while keeping it
+// fully accessible to screen readers and in the natural tab order.
+// display:none / visibility:hidden must never be used — they remove it from AT.
+// On :focus (keyboard Tab) it becomes visible so keyboard-only users can also
+// activate it, satisfying WCAG 2.4.1 (Bypass Blocks).
+.skip-to-content {
+  // ── Visually hidden (screen-reader accessible) ──
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  text-decoration: none;
+
+  // ── Revealed on keyboard focus ──────────────────
+  &:focus {
+    position: fixed;
+    top: $spacing-4;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: $z-modal + 100;
+
+    width: auto;
+    height: auto;
+    padding: $spacing-3 $spacing-6;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: nowrap;
+
+    background: $color-pine-tree;
+    color: $color-white;
+    font-size: $font-size-base;
+    font-weight: 700;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-lg;
+    outline: 3px solid $color-brand-primary;
+    outline-offset: 3px;
+  }
+}
+
+// ─── Buttons ─────────────────────────────────────────────────────────────────
+.btn {
+  @include btn-base;
+  background: $color-brand-primary;
+  color: $color-pine-tree;
+  text-transform: uppercase;
+  &:hover { background: $color-brand-secondary; color: $color-pine-tree; text-decoration: none; }
+  &:focus-visible { outline-color: $color-pine-tree; }
+}
+
+.btn--primary {
+  background: $color-brand-primary;
+  color: $color-pine-tree;
+
+  &:hover { background: $color-brand-secondary; color: $color-pine-tree; text-decoration: none; }
+}
+
+.btn--secondary {
+  background: transparent;
+  color: $color-pine-tree;
+  border: 2px solid $color-pine-tree;
+
+  &:hover { background: $color-pine-tree; color: $color-white; text-decoration: none; }
+}
+
+// Yellow / roofing-brand CTA button (alias of default)
+.btn--brand {
+  background: $color-yellow;
+  color: $color-pine-tree;
+
+  &:hover { background: $color-yellow-hover; color: $color-pine-tree; text-decoration: none; }
+
+  &:focus-visible { outline-color: $color-pine-tree; }
+}
+
+.btn--ghost {
+  background: transparent;
+  color: $color-iron-dark;
+  border: 2px solid $border-color;
+
+  &:hover { background: $color-iron-light; text-decoration: none; }
+}
+
+.btn--outline-gold {
+  background: transparent;
+  color: $color-brand-primary;
+  border: 2px solid $color-brand-primary;
+
+  &:hover { background: $color-brand-primary; color: $color-pine-tree; text-decoration: none; }
+  &:focus-visible { outline-color: $color-brand-primary; }
+}
+
+.btn--sm { padding: $spacing-2 $spacing-4; font-size: $font-size-sm; }
+.btn--lg { padding: $spacing-4 $spacing-8; font-size: $font-size-lg; }
+
+// ─── Card ────────────────────────────────────────────────────────────────────
+.card {
+  @include card;
+}
+
+.card__image {
+  margin: calc(-1 * $spacing-6) calc(-1 * $spacing-6) $spacing-6;
+  border-radius: $border-radius-lg $border-radius-lg 0 0;
+  overflow: hidden;
+
+  img { width: 100%; height: 200px; object-fit: cover; }
+}
+
+.card__title {
+  font-size: $font-size-xl;
+  font-weight: 700;
+  margin-bottom: $spacing-2;
+}
+
+.card__body {
+  color: $color-iron-mid;
+  font-size: $font-size-base;
+}
+
+// ─── Nav toggle (hamburger) ───────────────────────────────────────────────────
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: $spacing-2;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: $border-radius-sm;
+  transition: background $transition-fast;
+
+  span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: $color-iron-dark;
+    border-radius: 2px;
+    transition: transform $transition-normal, opacity $transition-fast, width $transition-fast;
+    transform-origin: center;
+  }
+
+  &[aria-expanded="true"] {
+    span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    span:nth-child(2) { opacity: 0; width: 0; }
+    span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+
+  &:hover { background: $color-iron-light; }
+  &:focus-visible { @include focus-ring; }
+
+  @include respond-to('lg') { display: none; }
+}
+
+// ─── Primary nav ─────────────────────────────────────────────────────────────
+
+// Slideout panel: fixed off-canvas drawer on mobile, inline on desktop
+.site-header__nav {
+  // Mobile: fixed full-height panel that slides in from the right
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 88vw);
+  background: $color-pine-tree;
+  z-index: 200; // above overlay (z 99); inside sticky context (z 100), so effective z > 100
+  transform: translateX(100%);
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  &.is-open {
+    transform: translateX(0);
+  }
+
+  // Desktop: back to static inline position in the header bar
+  @include respond-to('lg') {
+    position: static;
+    width: auto;
+    background: transparent;
+    z-index: auto;
+    transform: none;
+    transition: none;
+    overflow: visible;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    bottom: auto;
+  }
+}
+
+// ── Panel header (logo + close button) — mobile only ─────────────────────────
+.nav-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4 $spacing-6;
+  border-bottom: 1px solid rgba($color-white, 0.12);
+  flex-shrink: 0;
+
+  @include respond-to('lg') { display: none; }
+}
+
+.nav-panel__logo {
+  height: 44px;
+  width: auto;
+}
+
+.nav-panel__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: rgba($color-white, 0.10);
+  border: none;
+  border-radius: $border-radius-sm;
+  color: $color-white;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background $transition-fast;
+
+  &:hover  { background: rgba($color-white, 0.20); }
+  &:focus-visible { outline: 2px solid $color-brand-primary; outline-offset: 2px; }
+
+  @include respond-to('lg') { display: none; }
+}
+
+// ── Panel footer CTA — mobile only ────────────────────────────────────────────
+.nav-panel__cta {
+  padding: $spacing-6;
+  flex-shrink: 0;
+
+  .btn { width: 100%; justify-content: center; }
+
+  @include respond-to('lg') { display: none; }
+}
+
+// ── Overlay backdrop ───────────────────────────────────────────────────────────
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba($color-black, 0.50);
+  z-index: 99; // below sticky header stacking context (z 100), above page content
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms ease;
+
+  &.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @include respond-to('lg') { display: none; }
+}
+
+// ── Header logo responsive height ─────────────────────────────────────────────
+.header-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  // custom-logo-link is the anchor WP wraps around custom logos
+  .custom-logo-link { display: flex; align-items: center; }
+
+  .custom-logo,
+  .site-logo {
+    height: 46px;
+    width: auto;
+
+    @include respond-to('sm')  { height: 58px; }
+    @include respond-to('lg')  { height: 73px; }
+  }
+}
+
+.nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // Mobile: always visible within the slideout panel
+  display: block;
+  position: static;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  max-height: none;
+  overflow-y: visible;
+  flex: 1; // fill panel height so CTA sits below nav items
+
+  // Desktop: horizontal flex row, pushed to the right
+  @include respond-to('lg') {
+    display: flex !important;
+    align-items: center;
+    gap: $spacing-2;
+    position: static;
+    width: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    max-height: none;
+    overflow: visible;
+    flex: 1;
+    justify-content: flex-end;
+  }
+}
+
+// ─── Top-level menu items ─────────────────────────────────────────────────────
+.nav > .menu-item {
+  position: relative;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child { border-bottom: none; }
+
+  > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-3 $spacing-6;
+    font-family: $font-serif;
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $color-iron-dark;
+    text-decoration: none;
+    transition: color $transition-fast, background $transition-fast;
+
+    &:hover { color: $color-pine-tree; background: $color-iron-light; }
+  }
+
+  &.current-menu-item > a,
+  &.current-menu-ancestor > a {
+    color: $color-pine-tree;
+  }
+
+  // Desktop
+  @include respond-to('lg') {
+    border-bottom: none;
+
+    > a {
+      padding: $spacing-2 $spacing-3;
+      border-radius: $border-radius-sm;
+      font-size: clamp(0.625rem, 1.1vw, $font-size-sm);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    // Reveal dropdown on hover and keyboard focus-within
+    &:hover > .sub-menu,
+    &:focus-within > .sub-menu {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+      transition:
+        visibility 0ms 0ms,
+        opacity 160ms ease,
+        transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+
+  // Wider screens: comfortable horizontal padding, font stays at sm
+  @include respond-to('xl') {
+    > a {
+      padding: $spacing-2 $spacing-4;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+// ─── Submenu chevron ──────────────────────────────────────────────────────────
+.menu-item-has-children > a::after {
+  content: '';
+  display: inline-block;
+  flex-shrink: 0;
+  margin-left: $spacing-2;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  transition: transform $transition-fast;
+
+  @include respond-to('lg') {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+.menu-item-has-children.is-open > a::after {
+  transform: rotate(-135deg) translateY(-2px);
+}
+
+// ─── Sub-menu ─────────────────────────────────────────────────────────────────
+.sub-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // Mobile: hidden accordion panel
+  display: none;
+  background: $color-iron-light;
+
+  .menu-item { border-top: 1px solid $border-color; }
+
+  .menu-item a {
+    display: block;
+    padding: $spacing-3 $spacing-8;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $color-iron-mid;
+    text-decoration: none;
+    transition: color $transition-fast, background $transition-fast;
+
+    &:hover { color: $color-pine-tree; }
+  }
+
+  // Mobile open state (toggled via JS)
+  .menu-item-has-children.is-open > & { display: block; }
+
+  // ── Desktop dropdown panel ─────────────────────────────────────────────────
+  @include respond-to('lg') {
+    // Always rendered in the DOM so CSS transitions can fire.
+    // Hidden via visibility + opacity instead of display:none.
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    // Combine the centering offset and the entry animation in one transform.
+    transform: translateX(-50%) translateY(-6px);
+    transition:
+      visibility 0ms 160ms,
+      opacity    160ms ease,
+      transform  160ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    padding-top: 12px; // hover bridge — keeps pointer coverage contiguous
+    padding-bottom: $spacing-2;
+    min-width: 260px;
+    white-space: nowrap;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+    z-index: $z-overlay;
+
+    // ── Visual panel (background layer) ───────────────────────────────────────
+    // Separated from list items so border-radius and shadow apply cleanly.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 12px 0 0;
+      background: $color-white;
+      border-top: 3px solid $color-brand-primary;
+      box-shadow:
+        0 24px 56px rgba(0, 0, 0, 0.16),
+        0  8px 20px rgba(0, 0, 0, 0.10),
+        0  0   0 1px rgba($color-brand-primary, 0.10);
+      z-index: -1;
+    }
+
+    // ── Caret pointer ─────────────────────────────────────────────────────────
+    &::before {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 12px;
+      height: 12px;
+      background: $color-brand-primary;
+      border-radius: 2px 0 0 0;
+      box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    // ── Menu items ────────────────────────────────────────────────────────────
+    .menu-item {
+      border-top: 1px solid rgba($color-iron-dark, 0.06);
+      background: transparent;
+
+      &:first-child { border-top: none; }
+    }
+
+    .menu-item a {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+      padding: $spacing-3 $spacing-6 $spacing-3 $spacing-4;
+      color: $color-iron-dark;
+      font-size: $font-size-sm;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      background: transparent;
+      border-left: 3px solid transparent;
+      transition:
+        color       $transition-fast,
+        background  $transition-fast,
+        border-color $transition-fast;
+
+      &:hover {
+        color: $color-pine-tree;
+        background: rgba($color-brand-primary, 0.09);
+        border-left-color: $color-brand-primary;
+      }
+    }
+
+    // ── Current page highlight inside the dropdown ─────────────────────────────
+    .menu-item.current-menu-item > a,
+    .menu-item.current-menu-ancestor > a {
+      color: $color-pine-tree;
+      background: rgba($color-brand-primary, 0.09);
+      border-left-color: $color-brand-primary;
+    }
+  }
+}
+
+// ─── Nav variant: white bars + white text for dark header backgrounds ─────────
+.nav-toggle--light {
+  span { background: $color-white; }
+  &:hover { background: rgba($color-white, 0.10); }
+}
+
+.nav--light {
+  @include respond-to('lg') {
+    > .menu-item {
+      > a {
+        color: $color-white;
+        &:hover { color: $color-brand-primary; background: rgba($color-white, 0.10); }
+      }
+
+      &.current-menu-item > a,
+      &.current-menu-ancestor > a {
+        color: $color-brand-primary;
+        background: rgba($color-white, 0.12);
+      }
+    }
+  }
+}
+
+// ─── Nav item styled as a CTA button ─────────────────────────────────────────
+// Add class "menu-item-cta" to any top-level menu item in the WP menu manager.
+// On desktop it renders as a filled brand button; on mobile it stays as a link.
+.nav > .menu-item.menu-item-cta {
+  @include respond-to('lg') {
+    margin-left: $spacing-2;
+
+    > a {
+      padding: $spacing-2 1.25rem;
+      background: $color-brand-primary;
+      color: $color-pine-tree !important;
+      border-radius: 0;
+      font-family: $font-sans;
+      font-size: $font-size-base;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      transition: background $transition-fast, color $transition-fast;
+
+      &:hover {
+        background: $color-brand-secondary;
+        color: $color-pine-tree !important;
+      }
+    }
+
+    &.current-menu-item > a,
+    &.current-menu-ancestor > a {
+      background: $color-brand-secondary;
+      color: $color-pine-tree !important;
+    }
+  }
+}
+
+// ─── Mobile panel nav overrides (white text on dark navy panel) ──────────────
+@media (max-width: #{$bp-lg - 1px}) {
+  .site-header__nav {
+    // Top-level items
+    .nav > .menu-item {
+      border-bottom: 1px solid rgba($color-white, 0.10);
+
+      &:last-child { border-bottom: none; }
+
+      > a {
+        color: rgba($color-white, 0.88);
+        padding-inline: $spacing-6;
+
+        &:hover {
+          color: $color-white;
+          background: rgba($color-white, 0.07);
+        }
+      }
+
+      &.current-menu-item > a,
+      &.current-menu-ancestor > a { color: $color-brand-primary; }
+    }
+
+    // Sub-menus: slightly darker inset on the panel
+    .sub-menu {
+      background: rgba($color-black, 0.22);
+
+      .menu-item { border-top: 1px solid rgba($color-white, 0.08); }
+
+      .menu-item a {
+        color: rgba($color-white, 0.68);
+        padding-left: $spacing-8;
+
+        &:hover { color: $color-white; background: rgba($color-white, 0.05); }
+      }
+    }
+  }
+}
+
+// ─── Blog post grid ──────────────────────────────────────────────────────────
+.wp-block-globeiron-section-post-listing {
+  background-color: #fff;
+}
+
+// ─── Blog listing header ─────────────────────────────────────────────────────
+.blog-listing__header {
+  margin-bottom: $spacing-10;
+}
+
+.blog-listing__heading {
+  font-family: $font-serif;
+  font-size: clamp($font-size-3xl, 4vw, $font-size-4xl);
+  font-weight: 700;
+  color: $color-brand-blue;
+  line-height: $line-height-tight;
+  margin: 0 0 $spacing-3;
+}
+
+.blog-listing__description {
+  font-size: $font-size-base;
+  color: $color-iron-mid;
+  line-height: $line-height-normal;
+  max-width: 560px;
+  margin: 0;
+}
+
+// ─── Blog controls: filter tabs + search bar ─────────────────────────────────
+.blog-controls {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $spacing-6;
+  margin-bottom: $spacing-10;
+  flex-wrap: wrap;
+}
+
+.blog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: flex-end;
+}
+
+.blog-filters__tab {
+  font-family: $font-serif;
+  font-size: $font-size-base;
+  font-weight: 700;
+  color: $color-iron-dark;
+  background: none;
+  border: none;
+  border-bottom: 3px solid #d0d4db;
+  padding: $spacing-2 $spacing-4 $spacing-2 0;
+  margin-right: $spacing-6;
+  cursor: pointer;
+  transition: color $transition-normal, border-color $transition-normal;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+
+  &:last-child { margin-right: 0; }
+
+  &:hover:not(.is-active) {
+    color: $color-brand-blue;
+    border-bottom-color: rgba($color-brand-primary, 0.5);
+  }
+
+  &.is-active {
+    color: $color-brand-blue;
+    border-bottom-color: $color-brand-primary;
+  }
+}
+
+.blog-search {
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #d0d4db;
+  background: transparent;
+  overflow: visible;
+  flex-shrink: 0;
+  min-width: 180px;
+  transition: border-color $transition-normal;
+
+  &:focus-within {
+    border-bottom-color: $color-brand-blue;
+  }
+}
+
+.blog-search__input {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  padding: $spacing-2 $spacing-2 $spacing-2 0;
+  font-size: $font-size-base;
+  font-family: $font-serif;
+  color: $color-iron-dark;
+  background: transparent;
+  min-width: 0;
+  line-height: normal;
+
+  &::placeholder { color: $color-iron-mid; }
+
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-decoration { display: none; }
+
+  &:focus { outline: none; box-shadow: none; }
+}
+
+.blog-search__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2 0 $spacing-2 $spacing-2;
+  background: none;
+  border: none;
+  color: $color-brand-blue;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+// ─── Posts grid ──────────────────────────────────────────────────────────────
+.posts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-8;
+
+  @include respond-to('md') { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to('lg') { grid-template-columns: repeat(3, 1fr); }
+
+  &--loading {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity $transition-normal;
+  }
+}
+
+// ─── Post card ───────────────────────────────────────────────────────────────
+.post-card {
+  display: flex;
+  flex-direction: column;
+  background: $color-white;
+  overflow: hidden;
+  transition: box-shadow $transition-normal, transform $transition-normal;
+
+  &:hover {
+    box-shadow: $shadow-xl;
+    transform: translateY(-2px);
+  }
+}
+
+.post-card__image {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: $color-iron-light;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform $transition-slow;
+  }
+
+  .post-card:hover & img { transform: scale(1.04); }
+}
+
+.post-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: $spacing-6;
+  gap: $spacing-3;
+}
+
+.post-card__cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-1 $spacing-2;
+}
+
+.post-card__title {
+  font-family: $font-sans;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  line-height: $line-height-tight;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+
+  a {
+    color: $color-brand-blue;
+    text-decoration: none;
+
+    &:hover { color: $color-brand-blue-dark; }
+  }
+}
+
+.post-card__excerpt {
+  color: $color-iron-mid;
+  font-size: $font-size-sm;
+  line-height: $line-height-loose;
+  margin: 0;
+  flex: 1;
+}
+
+.post-card__date {
+  display: block;
+  font-family: $font-sans;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $color-iron-mid;
+  margin-top: auto;
+  padding-top: $spacing-4;
+  border-top: 1px solid $color-iron-light;
+}
+
+.post-card__cat {
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: $color-brand-blue;
+  border: none;
+  border-bottom: 2px solid #d0d4db;
+  padding: 2px $spacing-1 2px 0;
+  text-decoration: none;
+  transition: color $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    color: $color-brand-blue-dark;
+    border-bottom-color: $color-brand-primary;
+  }
+
+  &--meta {
+    color: $color-iron-mid;
+    border-bottom-color: transparent;
+  }
+}
+
+// ─── Posts pagination ─────────────────────────────────────────────────────────
+.navigation.pagination {
+  margin-top: $spacing-12;
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+  }
+
+  .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding-inline: $spacing-3;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    font-family: $font-sans;
+    text-decoration: none;
+    transition: background $transition-fast, color $transition-fast;
+    border: 1px solid $border-color;
+    color: $color-iron-dark;
+    background: $color-white;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: $color-iron-light;
+      text-decoration: none;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &.current {
+      background: $color-brand-primary;
+      color: $color-pine-tree;
+      border-color: $color-brand-primary;
+    }
+
+    &.dots {
+      border-color: transparent;
+      background: transparent;
+      cursor: default;
+      color: $color-iron-mid;
+    }
+
+    &.prev,
+    &.next {
+      padding-inline: $spacing-4;
+    }
+  }
+}
+
+// ─── Badge ───────────────────────────────────────────────────────────────────
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-1 $spacing-3;
+  border-radius: 9999px;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.badge--primary {
+  background: rgba($color-brand-primary, 0.18);
+  color: $color-pine-tree;
+}
+
+.badge--iron {
+  background: $color-iron-light;
+  color: $color-iron-mid;
+}
+
+// ─── Alert ───────────────────────────────────────────────────────────────────
+.alert {
+  padding: $spacing-4 $spacing-6;
+  border-radius: $border-radius-md;
+  border: 1px solid transparent;
+  font-size: $font-size-base;
+}
+
+.alert--info {
+  background: $color-alert-info-bg;
+  border-color: $color-alert-info-border;
+  color: $color-alert-info-text;
+}
+
+.alert--success {
+  background: $color-alert-success-bg;
+  border-color: $color-alert-success-border;
+  color: $color-alert-success-text;
+}
+
+.alert--warning {
+  background: $color-alert-warning-bg;
+  border-color: $color-alert-warning-border;
+  color: $color-alert-warning-text;
+}
+
+.alert--error {
+  background: $color-alert-error-bg;
+  border-color: $color-alert-error-border;
+  color: $color-alert-error-text;
+}
+
+// ─── Contact Form 7 ───────────────────────────────────────────────────────────
+// Inputs render as bottom-border-only underline fields; labels are blue
+// uppercase Franklin Gothic. Add <label> tags inside CF7 admin form template.
+.wpcf7 {
+
+  form p {
+    margin: 0 0 $spacing-8;
+  }
+
+  // Field labels (added manually inside CF7 template as <label>)
+  label {
+    display: block;
+    font-family: $font-sans;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: $color-brand-blue;
+    margin-bottom: $spacing-3;
+    cursor: default;
+  }
+
+  // Underline-only text inputs, email, tel, textarea, select
+  input:not([type="submit"]),
+  textarea,
+  select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #c4c9d4;
+    border-radius: 0;
+    padding: $spacing-3 0;
+    font-family: $font-serif;
+    font-size: $font-size-base;
+    color: $color-iron-dark;
+    outline: none;
+    appearance: none;
+    box-shadow: none;
+
+    &::placeholder { color: $color-iron-mid; }
+
+    &:focus {
+      border-bottom-color: $color-brand-blue;
+      box-shadow: none;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  // Submit button — gold, uppercase Franklin Gothic
+  input[type="submit"] {
+    background: $color-brand-primary;
+    color: $color-pine-tree;
+    border: none;
+    padding: $spacing-4 $spacing-10;
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+    margin-top: $spacing-4;
+
+    &:hover { background: $color-brand-secondary; }
+  }
+
+  // Validation error message
+  .wpcf7-not-valid-tip {
+    font-size: 0.75rem;
+    color: $color-alert-error-text;
+    margin-top: $spacing-1;
+  }
+
+  .wpcf7-response-output {
+    border: none;
+    padding: $spacing-3 0;
+    font-size: $font-size-sm;
+  }
+}
+
+// ─── Contact page layout ──────────────────────────────────────────────────────
+// The Columns block sits directly in the page article and is constrained by
+// the rule in _layout.scss (.entry.page > .wp-block-columns).
+// If the editor wraps it in a Group block with background, use .contact-section
+// or the iron-light color class on that Group.
+.contact-section,
+.wp-block-group.has-iron-light-background-color {
+  background: $color-iron-light;
+
+  // Inner columns — constrain to container width
+  > .wp-block-columns {
+    max-width: $container-max-width;
+    margin-inline: auto;
+    padding-inline: $spacing-4;
+
+    @include respond-to('md') { padding-inline: $spacing-8; }
+    @include respond-to('lg') { padding-inline: $spacing-12; }
+  }
+
+  // Heading — large serif, brand blue
+  h1.wp-block-heading,
+  h2.wp-block-heading {
+    font-family: $font-serif;
+    color: $color-brand-blue;
+    font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+    line-height: $line-height-tight;
+    margin-top: 0;
+  }
+
+  // Body copy inside the left column
+  p.wp-block-paragraph {
+    font-size: $font-size-base;
+    color: $color-iron-dark;
+    line-height: $line-height-loose;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SINGLE POST LAYOUT
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Hero banner ───────────────────────────────────────────────────────────────
+.single-post-hero {
+  background: linear-gradient(135deg, $color-dark-deep-1 0%, $color-dark-deep-2 60%, $color-dark-deep-3 100%);
+  color: $color-white;
+  overflow: hidden;
+
+  // ── Two-column grid: text left, image right ─────────────────────────────────
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 340px;
+    max-width: 1440px;
+    margin-inline: auto;
+
+    @include respond-to('lg') {
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+    }
+  }
+
+  // Text-only (no featured image): revert to single centred column
+  &--text-only &__inner {
+    grid-template-columns: 1fr;
+
+    @include respond-to('lg') {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &--text-only &__content {
+    @include container;
+    padding-block: $spacing-12 $spacing-20;
+  }
+
+  // ── Left: text column ───────────────────────────────────────────────────────
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: $spacing-10 $spacing-4 $spacing-10;
+
+    @include respond-to('md') {
+      padding: $spacing-10 $spacing-8;
+    }
+
+    @include respond-to('lg') {
+      // mirror the container left-padding, add right breathing room
+      padding: $spacing-12 $spacing-10 $spacing-12 clamp($spacing-8, 6vw, $spacing-20);
+    }
+  }
+
+  // ── Right: image column ─────────────────────────────────────────────────────
+  &__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $color-dark-deep-2; // navy fill behind any letterbox gaps
+
+    // Mobile: full-width band below the text
+    width: 100%;
+    min-height: 220px;
+
+    @include respond-to('lg') {
+      min-height: 0;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; // never crops — full image always visible
+    object-position: center;
+  }
+
+  // ── Text elements ───────────────────────────────────────────────────────────
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    margin-bottom: $spacing-4;
+  }
+
+  &__cat {
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-brand-primary;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-brand-secondary; text-decoration: none; }
+  }
+
+  &__meta-sep {
+    color: rgba($color-white, 0.25);
+    font-size: $font-size-sm;
+  }
+
+  &__date {
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    color: rgba($color-white, 0.5);
+  }
+
+  &__title {
+    font-family: $font-serif;
+    font-size: clamp($font-size-2xl, 4vw, $font-size-5xl);
+    font-weight: 700;
+    line-height: $line-height-tight;
+    color: $color-white;
+    margin: 0;
+    text-wrap: balance;
+  }
+}
+
+// ── Breadcrumb ────────────────────────────────────────────────────────────────
+.post-breadcrumb {
+  margin-bottom: $spacing-8;
+}
+
+.post-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-breadcrumb__item {
+  display: flex;
+  align-items: center;
+  font-family: $font-sans;
+  font-size: $font-size-sm;
+  color: rgba($color-white, 0.4);
+
+  & + & {
+    &::before {
+      content: '/';
+      margin-right: $spacing-1;
+      color: rgba($color-white, 0.2);
+    }
+  }
+
+  &--current {
+    color: rgba($color-white, 0.55);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include respond-to('md') { max-width: 420px; }
+    @include respond-to('lg') { max-width: 600px; }
+  }
+}
+
+.post-breadcrumb__link {
+  color: rgba($color-white, 0.6);
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-brand-primary; text-decoration: none; }
+}
+
+// ── Featured image ────────────────────────────────────────────────────────────
+.single-post-thumb {
+  background: $color-white;
+
+  &__inner {
+    @include container;
+    max-width: 900px;
+    padding-block: 0;
+    margin-top: -$spacing-10;
+
+    @include respond-to('lg') {
+      margin-top: -$spacing-16;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: $shadow-xl;
+  }
+}
+
+// ── Content body ─────────────────────────────────────────────────────────────
+.single-post-body {
+  background: $color-white;
+  padding-bottom: $spacing-20;
+
+  &--no-thumb { padding-top: $spacing-12; }
+
+  &__inner {
+    @include container;
+    max-width: 900px;
+    padding-top: $spacing-12;
+  }
+}
+
+// ── Prose (WordPress block content) ─────────────────────────────────────────
+.single-post-body .entry {
+  h2, h3, h4 {
+    font-family: $font-serif;
+    color: $color-brand-blue;
+    margin-top: $spacing-10;
+    margin-bottom: $spacing-4;
+  }
+
+  h2 { font-size: clamp($font-size-2xl, 3vw, $font-size-3xl); }
+  h3 { font-size: clamp($font-size-xl, 2.5vw, $font-size-2xl); }
+  h4 { font-size: $font-size-xl; }
+
+  p {
+    font-size: $font-size-base;
+    line-height: $line-height-loose;
+    color: $color-iron-dark;
+    margin-bottom: $spacing-6;
+  }
+
+  ul, ol {
+    padding-left: $spacing-6;
+    margin-bottom: $spacing-6;
+
+    li {
+      font-size: $font-size-base;
+      line-height: $line-height-loose;
+      color: $color-iron-dark;
+      margin-bottom: $spacing-2;
+    }
+  }
+
+  a {
+    color: $color-brand-blue;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-brand-blue-dark; }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-block: $spacing-8;
+  }
+
+  blockquote {
+    border-left-color: $color-brand-primary;
+  }
+
+  figure { margin-block: $spacing-8; }
+
+  figcaption {
+    font-size: $font-size-sm;
+    color: $color-iron-mid;
+    text-align: center;
+    margin-top: $spacing-2;
+  }
+}
+
+// ── Back to blog ─────────────────────────────────────────────────────────────
+.single-post-back {
+  margin-top: $spacing-12;
+  padding-top: $spacing-8;
+  border-top: 1px solid $color-iron-light;
+}
+
+// ─── Single Project ───────────────────────────────────────────────────────────
+
+.project-header {
+  // position:relative is the containing block for the ornament (which spans hero + body)
+  position: relative;
+  background: linear-gradient(135deg, $color-dark-deep-1 0%, $color-dark-deep-2 60%, $color-dark-deep-3 100%);
+
+  // ── Ornament: lives at block level so it bridges hero → description ──────────
+  // JS sets --ornament-left/top/bottom, --line-white-height, --line-blue-height.
+  // --ornament-left is now the container's left edge, not the H1's left edge.
+  &__ornament {
+    display: none;
+
+    @include respond-to('lg') {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      left: var(--ornament-left, 0px);
+      top: var(--ornament-top, 0px);
+      bottom: var(--ornament-bottom, 0px);
+      width: 44px;
+      z-index: 10;
+      color: $color-white;
+      pointer-events: none;
+    }
+  }
+
+  &__ornament-crosshair {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+
+    &:last-child { color: $color-brand-blue; }  // bottom crosshair on white bg
+  }
+
+  &__ornament-line {
+    flex: 1;
+    width: 2px;
+    position: relative;
+
+    // White dashes in the hero (dark image) section
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--line-white-height, 50%);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba($color-white, 0.8) 0px,
+        rgba($color-white, 0.8) 4px,
+        transparent 4px,
+        transparent 12px
+      );
+    }
+
+    // Blue dashes in the project-body (white bg) section
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--line-blue-height, 50%);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        $color-brand-blue 0px,
+        $color-brand-blue 4px,
+        transparent 4px,
+        transparent 12px
+      );
+    }
+  }
+
+  // ── Hero: full-bleed image container ────────────────────────────────────────
+  &__hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;          // stretches __hero-inner to fill height
+    flex-direction: column;
+    min-height: 240px;
+
+    @include respond-to('lg') { min-height: 380px; }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        to top,
+        rgba($color-dark-deep-1, 0.90) 0%,
+        rgba($color-dark-deep-1, 0.55) 50%,
+        rgba($color-dark-deep-1, 0.30) 100%
+      );
+    }
+  }
+
+  // Full-width photo, aligned to top
+  &__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    opacity: 0.82;
+    z-index: 0;
+  }
+
+  // ── Container-width inner: headline content ─────────────────────────────────
+  &__hero-inner {
+    flex: 1;               // fills remaining __hero height below the topbar
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: $spacing-8;
+
+    @include respond-to('lg') {
+      display: block;
+      // Left: ornament width (44px) + gap (1rem) keeps text clear of the ornament
+      padding-left: calc(44px + #{$spacing-4});
+      // Right: snapshot width + gap
+      padding-right: calc(400px + #{$spacing-8} + #{$spacing-12});
+      padding-bottom: $spacing-10;
+    }
+
+    @include respond-to('xl') {
+      padding-right: calc(440px + #{$spacing-8} + #{$spacing-12});
+    }
+  }
+
+  &__topbar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-4;
+    padding-block: $spacing-3;
+
+    // At lg the topbar is a flex column child of __hero (display:flex).
+    // Switch to position:static so __hero becomes the containing block for the
+    // absolutely-positioned __cat-label. z-index still works on flex children.
+    @include respond-to('lg') {
+      position: static;
+    }
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-brand-primary;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+
+    svg { flex-shrink: 0; }
+    &:hover { color: $color-brand-secondary; }
+  }
+
+  &__cat-label {
+    display: none;
+    font-size: $font-size-sm;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba($color-white, 0.7);
+
+    strong { font-weight: 700; color: $color-white; }
+
+    @include respond-to('lg') {
+      // __hero is position:relative and full-viewport-width, so "right" here is
+      // viewport-relative — the same reference frame the snapshot uses.
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      padding-block: $spacing-3;
+      right: max(#{$spacing-10}, calc((100vw - 1440px) / 2 + #{$spacing-10}));
+      z-index: 2;
+    }
+  }
+
+  &__cat-mobile {
+    margin: 0 0 $spacing-2;
+    font-size: $font-size-sm;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba($color-white, 0.65);
+
+    strong { font-weight: 700; color: $color-white; }
+
+    @include respond-to('lg') { display: none; }
+  }
+
+  // ── Headline content area ───────────────────────────────────────────────────
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding-top: $spacing-6;
+
+    @include respond-to('lg') {
+      padding-top: $spacing-8;
+      padding-bottom: $spacing-10;
+    }
+  }
+
+  &__eyebrow {
+    display: block;
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-white;
+    margin-bottom: $spacing-2;
+  }
+
+  &__headline {
+    font-family: $font-serif;
+    font-size: clamp($font-size-2xl, 5vw, 3.5rem);
+    font-weight: 800;
+    color: $color-white;
+    line-height: $line-height-tight;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  // ── Technical Snapshot panel ────────────────────────────────────────────────
+  // Mobile: in-flow card between hero and description.
+  // Desktop: absolutely positioned, straddles hero + body. JS sets --snapshot-top.
+  &__snapshot {
+    background: $color-brand-blue;
+    padding: $spacing-8 $spacing-4;
+    margin-top: $spacing-10;
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to('sm') { padding-inline: $spacing-8; }
+
+    @include respond-to('lg') {
+      position: absolute;
+      right: max(#{$spacing-10}, calc((100vw - 1440px) / 2 + #{$spacing-10}));
+      top: var(--snapshot-top, 5rem);
+      width: 400px;
+      padding: $spacing-10 $spacing-8;
+      z-index: 5;
+    }
+
+    @include respond-to('xl') { width: 440px; }
+  }
+
+  &__snapshot-title {
+    font-family: $font-serif;
+    font-size: $font-size-xl;
+    font-weight: 700;
+    color: $color-white;
+    margin: 0 0 $spacing-2;
+  }
+
+  &__snapshot-intro {
+    font-size: $font-size-sm;
+    color: rgba($color-white, 0.7);
+    line-height: $line-height-normal;
+    margin: 0 0 $spacing-6;
+  }
+
+  &__specs {
+    list-style: none;
+    margin: 0;
+    padding: $spacing-4 0 0;
+    border-top: 1px solid rgba($color-white, 0.2);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__spec {
+    font-size: $font-size-sm;
+    color: rgba($color-white, 0.85);
+    line-height: $line-height-normal;
+    padding: $spacing-3 0 $spacing-3 $spacing-4;
+    position: relative;
+
+    &::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      top: $spacing-3;
+      color: $color-brand-primary;
+      font-weight: 700;
+    }
+
+    strong {
+      font-weight: 700;
+      color: $color-white;
+    }
+  }
+}
+
+.project-body {
+  background: $color-white;
+  padding-block: $spacing-16;
+
+  &__description {
+    font-size: $font-size-lg;
+    color: $color-iron-dark;
+    line-height: $line-height-loose;
+
+    // Mirror the hero-inner indents so text aligns with the headline above
+    @include respond-to('lg') {
+      padding-left: calc(44px + #{$spacing-4});
+      padding-right: calc(400px + #{$spacing-8});
+    }
+    @include respond-to('xl') {
+      padding-right: calc(440px + #{$spacing-8});
+    }
+
+    p { margin: 0 0 $spacing-6; &:last-child { margin-bottom: 0; } }
+
+    h2, h3 {
+      font-family: $font-serif;
+      color: $color-brand-blue;
+      margin: $spacing-8 0 $spacing-3;
+    }
+  }
+}

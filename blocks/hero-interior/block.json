@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "globeiron/hero-interior",
+  "version": "1.0.0",
+  "title": "Interior Page Hero",
+  "category": "globeiron",
+  "icon": "align-center",
+  "description": "Compact page banner for interior pages with title and optional subtitle.",
+  "keywords": ["hero", "banner", "interior", "page header"],
+  "textdomain": "globeiron",
+  "editorScript": "file:./index.js",
+  "attributes": {
+    "align":              { "type": "string", "default": "full" },
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "backgroundImageId":  { "type": "number", "default": 0 },
+    "overlayOpacity":     { "type": "number", "default": 65 },
+    "title":              { "type": "string", "default": "Page Title" },
+    "subtitle":           { "type": "string", "default": "" },
+    "textAlign":          { "type": "string", "default": "left" }
+  },
+  "supports": {
+    "html":            false,
+    "align":           ["full"],
+    "anchor":          true,
+    "customClassName": true
+  }
+}

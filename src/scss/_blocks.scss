@@ -1,0 +1,4187 @@
+@use 'sass:color';
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ─── Custom block: globeiron/hero ─────────────────────────────────────────────
+// Outer element spans full viewport width; inner content aligns with the nav.
+.wp-block-globeiron-hero {
+  // Full-width breakout (works in classic themes where page content has a max-width)
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  color: $color-white;
+  isolation: isolate;
+
+  // ── Background variants ───────────────────────────────────────────────────
+  &.has-bg-solid {
+    background-color: $color-brand-primary;
+  }
+
+  &.has-bg-image {
+    // background-image set inline by the block; ensure cover behaviour
+    background-color: $color-iron-dark; // fallback
+    background-size: cover;
+    background-position: center;
+  }
+
+  // ── Overlay (image background only) ──────────────────────────────────────
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-color: rgba($color-black, var(--hero-overlay, 0.40));
+  }
+
+  // ── Inner content — constrained to nav width ──────────────────────────────
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    @include container; // same max-width + padding as site-header__inner
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // left-align to match nav brand position
+    padding-block: $spacing-24;
+  }
+
+  // ── Typography ────────────────────────────────────────────────────────────
+  .hero__heading {
+    color: $color-white;
+    font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
+    font-weight: 800;
+    line-height: $line-height-tight;
+    max-width: 820px;
+    margin-top: 0;
+    margin-bottom: $spacing-6;
+    text-wrap: balance;
+  }
+
+  .hero__content {
+    color: rgba($color-white, 0.88);
+    font-size: clamp($font-size-base, 2vw, $font-size-xl);
+    line-height: $line-height-loose;
+    max-width: 620px;
+    margin-top: 0;
+    margin-bottom: $spacing-8;
+  }
+
+  // ── CTAs ──────────────────────────────────────────────────────────────────
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+
+  .btn:focus-visible {
+    outline: 3px solid $color-white;
+    outline-offset: 3px;
+  }
+}
+
+// ── Scroll indicator animations ───────────────────────────────────────────────
+@keyframes si-stroke-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes si-track-draw {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0% 0);
+  }
+}
+
+@keyframes si-dots-march {
+  to {
+    background-position: 0 8px;
+  }
+}
+
+@keyframes border-draw-h {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0%   0 0); }
+}
+
+@keyframes border-draw-h-rtl {
+  from { clip-path: inset(0 0 0 100%); }
+  to   { clip-path: inset(0 0 0 0%);   }
+}
+
+@keyframes border-draw-v-btt {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0%   0 0 0); }
+}
+
+@keyframes si-pulse {
+
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+// ─── Custom block: globeiron/hero-home ────────────────────────────────────────
+.wp-block-globeiron-hero-home {
+  position: relative;
+  // Full-width breakout
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2; // keep overflowing scroll indicator above the next section
+  background-color: $color-brand-blue-dark;
+  background-size: cover;
+  background-position: center;
+  isolation: isolate;
+
+  .hero-home__content {
+    position: relative;
+    z-index: 1;
+    @include container;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: $spacing-16;
+    padding-bottom: 7rem; // must exceed 100px to clear the scroll-indicator's top crosshair
+
+    @include respond-to('md') {
+      padding-top: $spacing-20;
+      padding-bottom: 7rem;
+    }
+
+    @include respond-to('lg') {
+      padding-top: $spacing-24;
+      padding-bottom: 8rem;
+    }
+  }
+
+  // ── Typography ────────────────────────────────────────────────────────────
+
+  .hero-home__heading {
+    font-family: $font-serif;
+    color: $color-white;
+    font-size: clamp($font-size-2xl, 4.5vw, 3rem);
+    font-weight: 800;
+    line-height: $line-height-tight;
+    max-width: 820px;
+    margin-top: 0;
+    margin-bottom: $spacing-3; // tighter on mobile
+    text-wrap: balance;
+
+    @include respond-to('md') { margin-bottom: $spacing-6; }
+  }
+
+  .hero-home__content-body {
+    color: rgba($color-white, 0.88);
+    font-size: clamp($font-size-sm, 2vw, $font-size-xl);
+    line-height: $line-height-loose;
+    max-width: 620px;
+    margin-top: 0;
+    margin-bottom: $spacing-4;
+    text-wrap: balance;
+    @include respond-to('md') { margin-bottom: $spacing-8; }
+
+    // Strip default margins from wysiwyg-generated block elements
+    p,
+    ul,
+    ol {
+      margin-top: 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // ── CTAs ──────────────────────────────────────────────────────────────────
+  .hero-home__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  // ── Globe corner ornaments ────────────────────────────────────────────────
+  .hero-home__globe-left,
+  .hero-home__globe-right {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+    width: clamp(80px, 18vw, 300px);
+    height: auto;
+  }
+
+  .hero-home__globe-left {
+    left: 0;
+  }
+
+  .hero-home__globe-right {
+    right: 0;
+  }
+
+  // ── Scroll indicator ──────────────────────────────────────────────────────
+  .hero-home__scroll-indicator {
+    position: absolute;
+    bottom: -106px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+
+    // Initial state: all strokes hidden via dashoffset
+    .hero-home__scroll-crosshair {
+      display: block;
+      position: relative;
+      z-index: 1;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+
+      circle,
+      line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+      }
+    }
+
+    .hero-home__scroll-crosshair--top {
+      color: rgba($color-white, 0.85);
+    }
+
+    .hero-home__scroll-crosshair--end {
+      color: $color-brand-primary;
+    }
+
+    .hero-home__scroll-line {
+      position: relative;
+      z-index: 0;
+      width: 2px;
+      height: 150px;
+      flex-shrink: 0;
+      clip-path: inset(0 0 var(--gi-track-clip, 100%) 0);
+      background-image: repeating-linear-gradient(to bottom, $color-brand-primary 0px, $color-brand-primary 4px, transparent 4px, transparent 12px);
+    }
+
+  }
+
+  // WCAG 2.2 §2.4.11 – focus appearance: 2px+ outline, 3:1+ contrast
+  .btn:focus-visible {
+    outline: 3px solid $color-white;
+    outline-offset: 3px;
+  }
+}
+
+// ── Outline-white button (hero CTAs) ─────────────────────────────────────────
+// white text + white border on dark overlay → 15:1 ✓
+.btn--outline-white {
+  background: transparent;
+  color: $color-white;
+  border: 2px solid rgba($color-white, 0.75);
+
+  &:hover,
+  &:focus {
+    background: rgba($color-white, 0.12);
+    border-color: $color-white;
+    color: $color-white;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $color-white;
+    outline-offset: 3px;
+  }
+}
+
+// ─── Custom block: globeiron/hero-interior ─────────────────────────────────────
+.wp-block-globeiron-hero-interior {
+  position: relative;
+  // Full-width breakout — mirrors the main hero approach
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  display: flex;
+  align-items: flex-end;
+  background-color: $color-brand-blue-dark;
+  background-image:
+    var(--hero-bg, none),
+    linear-gradient(160deg, $color-brand-blue 0%, $color-brand-blue-dark 100%);
+  background-size: cover, cover;
+  background-position: center top, center;
+  // Height driven by content + padding — long headings push the block taller
+  padding-top: clamp(5rem, 16vw, 10rem);
+  isolation: isolate;
+
+  .hero-interior__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    // Gradient: fully opaque at bottom (where text sits), lighter at top
+    background: linear-gradient(to top,
+        rgba($color-black, var(--hero-overlay, 0.80)) 0%,
+        rgba($color-black, calc(var(--hero-overlay, 0.80) * 0.55)) 60%,
+        rgba($color-black, calc(var(--hero-overlay, 0.80) * 0.30)) 100%);
+  }
+
+  .hero-interior__inner {
+    @include container;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-bottom: clamp(2rem, 3.5vw, 2.75rem);
+  }
+
+  .hero-interior__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  // Standard layout heading — slightly compact to accommodate longer page titles
+  .hero-interior__heading {
+    color: $color-white;
+    font-size: clamp(1.5rem, 2.75vw, 2.75rem);
+    font-weight: 800;
+    line-height: $line-height-tight;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .hero-interior__subheading {
+    color: rgba($color-white, 0.88);
+    margin-top: $spacing-3;
+    margin-bottom: 0;
+    font-size: $font-size-lg;
+    max-width: 600px;
+  }
+
+  // Text alignment variants
+  &.is-align-center {
+    .hero-interior__content {
+      text-align: center;
+    }
+
+    .hero-interior__subheading {
+      margin-inline: auto;
+    }
+  }
+
+  &.is-align-right {
+    .hero-interior__content {
+      text-align: right;
+    }
+
+    .hero-interior__subheading {
+      margin-left: auto;
+    }
+  }
+
+  // ── Split Collage layout ─────────────────────────────────────────────────────
+  &.hero-interior--collage {
+    margin-top: 0;
+    margin-bottom: 0; // mobile: no bottom gap; images fill to the edge
+    padding-top: 0;   // collage manages its own internal spacing
+    min-height: auto; // mobile: height driven by content + images
+    flex-direction: column; // mobile: stack children vertically
+    align-items: stretch;
+    overflow: hidden;
+    background-color: $color-brand-blue-dark;
+    background-image:
+      linear-gradient(90deg, rgba($color-brand-blue-dark, 0.18), rgba($color-brand-blue-dark, 0.70)),
+      linear-gradient(180deg, rgba($color-brand-blue-dark, 0.25), rgba($color-brand-blue-dark, 0.90)),
+      var(--hero-bg, none),
+      linear-gradient(155deg, #1b66bd 0%, $color-brand-blue-dark 52%, #0a244c 100%);
+    background-size: cover;
+    background-position: center;
+
+    @include respond-to('lg') {
+      flex-direction: row;
+      min-height: clamp(760px, 53vw, 908px);
+    }
+
+    &::after {
+      display: none; // hidden on mobile; only needed for desktop image overhang
+
+      @include respond-to('lg') {
+        display: block;
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        height: clamp(170px, 13vw, 225px);
+        background: $color-white;
+        pointer-events: none;
+      }
+    }
+
+    .hero-interior__collage-ornament,
+    .hero-interior__collage-line {
+      display: none;
+    }
+
+    // Aerial photo — mobile: full-width, layered below the worker photo
+    .hero-interior__collage-top {
+      order: 2; // push below the content wrap on mobile
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      margin: 0;
+      margin-top: -$spacing-16; // overlap with the worker photo above
+      overflow: hidden;
+
+      @include respond-to('lg') {
+        order: 0;
+        position: absolute;
+        top: clamp($spacing-10, 3.9vw, $spacing-20);
+        right: 0;
+        width: min(37vw, 650px);
+        height: clamp(320px, 27vw, 460px);
+        aspect-ratio: auto;
+        margin: 0;
+      }
+
+      @include respond-to('xl') {
+        width: min(37vw, 660px);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+
+    .hero-interior--collage-wrap {
+      order: 1; // content first on mobile
+      position: relative;
+      z-index: 3;
+      width: min(100%, 1440px);
+      min-height: auto; // mobile: no inherited min-height
+      margin-inline: auto;
+      padding: $spacing-8 $spacing-4 $spacing-4;
+      align-items: stretch;
+
+      @include respond-to('lg') {
+        order: 0;
+        min-height: inherit;
+        display: grid;
+        grid-template-columns: minmax(0, 56fr) minmax(430px, 44fr);
+        padding: 0 clamp($spacing-12, 5.5vw, $spacing-24);
+      }
+
+      .hero-interior__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 100%; // full width on mobile
+        padding: $spacing-4 0 $spacing-6;
+
+        @include respond-to('lg') {
+          max-width: 640px;
+          min-height: inherit;
+          justify-content: flex-start;
+          padding: clamp(6rem, 6.8vw, 7.5rem) 0 0;
+        }
+      }
+
+      .hero-interior__heading {
+        font-family: $font-serif;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 700;
+        color: $color-white;
+        line-height: 1.02;
+        letter-spacing: 0;
+        margin: 0 0 $spacing-4;
+        max-width: 620px;
+        text-wrap: balance;
+
+        @include respond-to('lg') {
+          margin-bottom: $spacing-6;
+        }
+      }
+
+      .hero-interior__body {
+        color: rgba($color-white, 0.94);
+        font-size: clamp($font-size-base, 1.32vw, $font-size-lg);
+        line-height: 1.42;
+        max-width: 560px;
+        margin: 0 0 $spacing-6;
+
+        p, ul, ol { margin: 0 0 $spacing-3; &:last-child { margin-bottom: 0; } }
+        ul, ol { padding-left: $spacing-4; }
+        strong { color: $color-white; }
+
+        @include respond-to('lg') {
+          margin-bottom: $spacing-8;
+        }
+      }
+
+      .hero-interior__cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-4;
+        align-items: center;
+      }
+
+      // Worker photo — mobile: centered below content, overlaps aerial below it
+      .hero-interior__collage {
+        position: relative;
+        z-index: 2;
+        min-height: auto;
+
+        @include respond-to('lg') {
+          min-height: inherit;
+        }
+      }
+
+      .hero-interior__collage-worker {
+        position: relative;
+        width: min(100%, 300px);
+        aspect-ratio: 0.84;
+        z-index: 2; // sits above the aerial
+        overflow: hidden;
+        margin: 0 auto;
+
+        @include respond-to('lg') {
+          position: absolute;
+          top: 30%;
+          left: 0;
+          width: min(24vw, 410px);
+          height: min(31vw, 535px);
+          aspect-ratio: auto;
+          margin: 0;
+        }
+
+        @include respond-to('xl') {
+          left: -2%;
+          width: min(24vw, 410px);
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+      }
+
+      // Bottom-right cell: diagonal stripe bg shows through
+      .hero-interior__collage-fill {
+        display: none;
+      }
+    }
+
+    @include respond-to('lg') {
+      --collage-rail-top: 29%;
+      --collage-rail-x: clamp(220px, 16vw, 260px);
+      --collage-rail-bottom: 0px;
+      --collage-horizontal-y: clamp(50px, 4.4vw, 68px);
+      --collage-horizontal-left: clamp(128px, 11vw, 190px);
+      --collage-horizontal-width: clamp(420px, 38vw, 650px);
+
+      .hero-interior__collage-ornament {
+        display: block;
+        position: absolute;
+        z-index: 4;
+        width: 28px;
+        height: 28px;
+        color: rgba($color-white, 0.82);
+        opacity: 0;
+        pointer-events: none;
+
+        circle,
+        line {
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+        }
+      }
+
+      .hero-interior__collage-ornament--top {
+        top: var(--collage-rail-top);
+        right: var(--collage-rail-x);
+      }
+
+      .hero-interior__collage-ornament--bottom {
+        right: var(--collage-rail-x);
+        bottom: var(--collage-rail-bottom);
+        color: rgba($color-brand-blue, 0.95);
+      }
+
+      .hero-interior__collage-ornament--left,
+      .hero-interior__collage-ornament--right {
+        bottom: var(--collage-horizontal-y);
+        color: rgba($color-brand-blue, 0.95);
+      }
+
+      .hero-interior__collage-ornament--left {
+        left: var(--collage-horizontal-left);
+      }
+
+      .hero-interior__collage-ornament--right {
+        left: calc(var(--collage-horizontal-left) + var(--collage-horizontal-width) - 28px);
+      }
+
+      .hero-interior__collage-line {
+        display: block;
+        position: absolute;
+        z-index: 3;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .hero-interior__collage-line--vertical {
+        top: calc(var(--collage-rail-top) + 34px);
+        right: calc(var(--collage-rail-x) + 14px);
+        bottom: calc(var(--collage-rail-bottom) + 28px);
+        width: 2px;
+        transform-origin: top center;
+        background-image: repeating-linear-gradient(to bottom, rgba($color-white, 0.78) 0px, rgba($color-white, 0.78) 4px, transparent 4px, transparent 12px);
+
+        &::after {
+          content: "";
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          width: 2px;
+          height: calc(clamp(170px, 13vw, 225px) - var(--collage-rail-bottom) - 28px);
+          background-image: repeating-linear-gradient(to bottom, rgba($color-brand-blue, 0.95) 0px, rgba($color-brand-blue, 0.95) 4px, transparent 4px, transparent 12px);
+        }
+      }
+
+      .hero-interior__collage-line--horizontal {
+        left: calc(var(--collage-horizontal-left) + 14px);
+        bottom: calc(var(--collage-horizontal-y) + 14px);
+        width: calc(var(--collage-horizontal-width) - 28px);
+        height: 2px;
+        transform-origin: left center;
+        background-image: repeating-linear-gradient(to right, rgba($color-brand-blue, 0.95) 0px, rgba($color-brand-blue, 0.95) 4px, transparent 4px, transparent 12px);
+      }
+    }
+  }
+}
+
+// ─── Custom block: globeiron/card-grid ────────────────────────────────────────
+.wp-block-globeiron-card-grid {
+  @include container;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $spacing-6;
+  padding-block: $spacing-section;
+}
+
+// ─── Custom block: globeiron/partners ─────────────────────────────────────────
+.wp-block-globeiron-section-partnership {
+  // Full-width breakout — same pattern as hero blocks
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  isolation: isolate;
+  overflow: hidden;
+
+  // ── Background style variants ──────────────────────────────────────────────
+
+  // DARK (default) — brand navy blue
+  &.is-style-dark {
+    background-color: $color-pine-tree;
+    background-image:
+      radial-gradient(ellipse 120% 80% at 50% 0%, rgba($color-brand-primary, 0.10) 0%, transparent 60%),
+      linear-gradient(160deg, $color-dark-deep-2 0%, $color-pine-tree 55%, $color-dark-deep-3 100%);
+
+    .partners__eyebrow {
+      color: $color-partnership-eyebrow;
+    }
+
+    .partners__heading {
+      color: $color-white;
+    }
+
+    .partners__subheading {
+      color: rgba($color-white, 0.65);
+    }
+
+    .partners__intro {
+      color: rgba($color-white, 0.72);
+    }
+
+    .partners__tile {
+      background: $color-white;
+      border-color: rgba($color-white, 0.12);
+      box-shadow: 0 2px 12px rgba(#000, 0.25);
+    }
+
+    .partners__tile-link:hover .partners__tile,
+    .partners__item:not(:has(.partners__tile-link)):hover .partners__tile {
+      box-shadow: 0 4px 20px rgba(#000, 0.35);
+      border-color: rgba($color-brand-primary, 0.4);
+    }
+
+    .partners__logo {
+      filter: none;
+    }
+
+    .partners__logo-placeholder {
+      background: $color-iron-light;
+      color: $color-iron-mid;
+    }
+
+    // Decorative top stripe
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, $color-brand-primary 30%, $color-brand-secondary 70%, transparent 100%);
+      opacity: 0.8;
+    }
+  }
+
+  // LIGHT — bright, open, airy
+  &.is-style-light {
+    background-color: $color-iron-light;
+    background-image: radial-gradient(ellipse 100% 70% at 50% 0%, rgba($color-brand-primary, 0.05) 0%, transparent 55%);
+
+    .partners__eyebrow {
+      color: $color-brand-primary;
+    }
+
+    .partners__heading {
+      color: $color-iron-dark;
+    }
+
+    .partners__subheading {
+      color: $color-iron-mid;
+    }
+
+    .partners__intro {
+      color: $color-iron-mid;
+    }
+
+    .partners__tile {
+      background: $color-white;
+      border-color: $border-color;
+      box-shadow: $shadow-sm;
+    }
+
+    .partners__tile-link:hover .partners__tile,
+    .partners__item:not(:has(.partners__tile-link)):hover .partners__tile {
+      box-shadow: $shadow-lg;
+      border-color: rgba($color-brand-primary, 0.25);
+    }
+
+    .partners__logo {
+      filter: none;
+    }
+
+    .partners__logo-placeholder {
+      background: $color-iron-light;
+      color: $color-iron-mid;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      top: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, $color-brand-primary 30%, $color-brand-secondary 70%, transparent 100%);
+    }
+  }
+
+  // BRAND — full brand-color saturation
+  &.is-style-brand {
+    background-color: $color-brand-primary;
+    background-image:
+      radial-gradient(ellipse 100% 80% at 50% -10%, rgba($color-white, 0.12) 0%, transparent 55%),
+      linear-gradient(150deg, $color-brand-primary 0%, $color-brand-secondary 100%);
+
+    .partners__eyebrow {
+      color: rgba($color-white, 0.80);
+    }
+
+    .partners__heading {
+      color: $color-white;
+    }
+
+    .partners__subheading {
+      color: rgba($color-white, 0.70);
+    }
+
+    .partners__intro {
+      color: rgba($color-white, 0.72);
+    }
+
+    .partners__tile {
+      background: $color-white;
+      border-color: rgba($color-white, 0.2);
+      box-shadow: 0 2px 12px rgba(#000, 0.15);
+    }
+
+    .partners__tile-link:hover .partners__tile,
+    .partners__item:not(:has(.partners__tile-link)):hover .partners__tile {
+      box-shadow: 0 4px 20px rgba(#000, 0.25);
+      border-color: rgba($color-white, 0.5);
+    }
+
+    .partners__logo {
+      filter: none;
+    }
+
+    .partners__logo-placeholder {
+      background: $color-iron-light;
+      color: $color-iron-mid;
+    }
+  }
+
+  // ── Inner wrapper: constrained + padded ────────────────────────────────────
+  .partners__inner {
+    @include container;
+    padding-block: $spacing-16;
+  }
+
+  // ── Section header ─────────────────────────────────────────────────────────
+  .partners__header {
+    text-align: center;
+    margin-bottom: $spacing-8;
+  }
+
+  .partners__eyebrow {
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 $spacing-3;
+  }
+
+  .partners__heading {
+    font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+    font-weight: 800;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-4;
+    text-wrap: balance;
+  }
+
+  .partners__subheading {
+    font-size: clamp($font-size-base, 1.8vw, $font-size-xl);
+    line-height: $line-height-loose;
+    max-width: 560px;
+    margin-inline: auto;
+    margin-bottom: 0;
+  }
+
+  .partners__intro {
+    font-size: clamp($font-size-base, 1.8vw, $font-size-xl);
+    line-height: $line-height-loose;
+    max-width: 600px;
+    margin-inline: auto;
+    margin-top: $spacing-4;
+    margin-bottom: 0;
+  }
+
+  // ── 5-column grid ─────────────────────────────────────────────────────────
+  .partners__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: $spacing-2;
+
+    @include respond-to('sm') { grid-template-columns: repeat(3, 1fr); }
+    @include respond-to('md') { grid-template-columns: repeat(4, 1fr); }
+    @include respond-to('lg') { grid-template-columns: repeat(5, 1fr); }
+  }
+
+  // ── Individual item ────────────────────────────────────────────────────────
+  .partners__item {
+    display: flex;
+    align-items: stretch;
+  }
+
+  // ── Linked tile: strip anchor styles ─────────────────────────────────────
+  .partners__tile-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+
+    &:focus-visible {
+      outline: 3px solid $color-brand-primary;
+      outline-offset: 3px;
+    }
+  }
+
+  // ── Tile card ──────────────────────────────────────────────────────────────
+  .partners__tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 96px;
+    padding: 1.25rem $spacing-6;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: background $transition-normal, border-color $transition-normal,
+      box-shadow $transition-normal;
+  }
+
+  // ── Logo image ─────────────────────────────────────────────────────────────
+  .partners__logo {
+    display: block;
+    max-width: 100%;
+    max-height: 64px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: filter $transition-normal, opacity $transition-normal;
+  }
+
+  // ── Fallback when no logo image is set ─────────────────────────────────────
+  .partners__logo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    padding-inline: $spacing-3;
+    white-space: nowrap;
+  }
+
+  // ── Focus ring on dark/brand backgrounds ───────────────────────────────────
+  &.is-style-dark .partners__tile-link:focus-visible,
+  &.is-style-brand .partners__tile-link:focus-visible {
+    outline-color: $color-white;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  HOMEPAGE SECTIONS  (Figma "Roofing Community" design)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─── Shared helpers ───────────────────────────────────────────────────────────
+%full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+%section-pad {
+  padding-block: $spacing-20;
+
+  @include respond-to('lg') {
+    padding-block: $spacing-24;
+  }
+}
+
+%yellow-icon-sq {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: $color-yellow;
+  border-radius: $border-radius-md;
+  flex-shrink: 0;
+  color: $color-pine-tree;
+
+  svg,
+  img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+
+// ─── Section: Features (Why Choose Us) ───────────────────────────────────────
+.wp-block-globeiron-section-features {
+  @extend %full-bleed;
+  position: relative;
+  background: $color-white;
+  // z-index creates stacking context so the scroll indicator overflows above services
+  z-index: 1;
+  isolation: isolate;
+
+  // ── Inner clip wrapper — contains globe ornaments without clipping indicator ─
+  .section-features__overflow-clip {
+    position: relative;
+    overflow: hidden;
+  }
+
+  // ── Globe corner ornaments (opt-in via ACF show_globes toggle) ────────────
+  .section-features__globe-left,
+  .section-features__globe-right {
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    pointer-events: none;
+    width: clamp(80px, 18vw, 300px);
+    height: auto;
+  }
+
+  .section-features__globe-left {
+    left: 0;
+  }
+
+  .section-features__globe-right {
+    right: 0;
+  }
+
+  .section-features__inner {
+    @include container;
+    @extend %section-pad;
+    position: relative;
+    z-index: 1;
+    // Extra top clearance so the hero scroll-indicator (~106px below hero) doesn't overlap content
+    padding-block-start: calc(#{$spacing-24} + #{$spacing-12});
+
+    @include respond-to('lg') {
+      padding-block-start: calc(#{$spacing-24} + #{$spacing-16});
+    }
+  }
+
+  // ── Scroll indicator (overflows into next section) ────────────────────────
+  .section-features__scroll-indicator {
+    position: absolute;
+    bottom: -106px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .section-features__scroll-crosshair {
+      display: block;
+      position: relative;
+      z-index: 1;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+
+      circle,
+      line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+      }
+    }
+
+    // Top crosshair: brand blue on white features background
+    .section-features__scroll-crosshair--top {
+      color: $color-brand-blue;
+    }
+
+    // Bottom crosshair: white on dark navy services header
+    .section-features__scroll-crosshair--end {
+      color: rgba($color-white, 0.85);
+    }
+
+    .section-features__scroll-line {
+      position: relative;
+      z-index: 0;
+      width: 2px;
+      height: 150px;
+      flex-shrink: 0;
+      clip-path: inset(0 0 var(--gi-track-clip, 100%) 0);
+      background-image: repeating-linear-gradient(to bottom, $color-brand-blue 0px, $color-brand-blue 4px, transparent 4px, transparent 12px);
+    }
+
+  }
+
+  .section-features__header {
+    text-align: center;
+    max-width: 780px;
+    margin-inline: auto;
+    margin-bottom: $spacing-16;
+  }
+
+  &.style--xtra .section-features__heading {
+    margin-top: 2rem;
+  }
+
+  .section-features__eyebrow {
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-yellow;
+    margin: 0 0 $spacing-3;
+  }
+
+  .section-features__heading {
+    font-size: clamp($font-size-3xl, 4.5vw, 2.75rem);
+    font-weight: 800;
+    color: $color-brand-blue;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-6;
+    text-wrap: balance;
+  }
+
+  .section-features__body {
+    color: $color-iron-mid;
+    font-size: $font-size-lg;
+    line-height: $line-height-loose;
+    margin: 0;
+  }
+
+  .section-features__grid {
+    padding-inline: $spacing-12;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-8;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .section-features__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-4;
+    text-align: left;
+    max-width: 325px;
+    padding-top: $spacing-8;
+    background-image: url('../../img/features/blue-dash-line.svg');
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 100% 3px;
+    margin:0 auto;
+  }
+
+  .section-features__item-title {
+    font-family: $font-sans;
+    font-size: $font-size-xl;
+    font-weight: 800;
+    color: $color-brand-blue;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .section-features__item-desc {
+    color: $color-iron-dark;
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  // ── Side crosshair ornaments ────────────────────────────────────────────────
+  // top is set via --features-ornament-top (JS-measured grid offset, centred on crosshair)
+  .section-features__ornament {
+    position: absolute;
+    top: var(--features-ornament-top, 0px);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba($color-brand-blue, 0.45);
+    z-index: 0;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      flex: 1;
+      width: 2px;
+      margin-top: $spacing-2;
+      clip-path: inset(0 0 var(--gi-ornament-line-clip, 100%) 0);
+      background-image: repeating-linear-gradient(to bottom, rgba($color-brand-blue, 0.4) 0px, rgba($color-brand-blue, 0.4) 4px, transparent 4px, transparent 12px);
+    }
+
+    &--left {
+      left: 0;
+    }
+
+    &--right {
+      right: 0;
+    }
+
+    .section-features__ornament-crosshair {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+
+      circle,
+      line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+      }
+    }
+  }
+  @media (min-width: 1024px) {
+    &.desktop-no-padding-top {
+      .section-features__inner {
+        padding-top:0!important;
+      }
+    }
+  }
+}
+
+// When section-features sits directly below the hero, pull it up tight —
+// the scroll indicator (z-index 2) floats above so no clearance needed
+.wp-block-globeiron-hero-home + .wp-block-globeiron-section-features {
+  .section-features__inner {
+    padding-block-start: $spacing-16;
+
+    @include respond-to('lg') {
+      padding-block-start: $spacing-20;
+    }
+  }
+}
+
+// ─── Section: Services ───────────────────────────────────────────────────────
+.wp-block-globeiron-section-services {
+  background: linear-gradient(to bottom,
+      $color-dark-deep-2 0%,
+      $color-dark-deep-2 70%,
+      $color-iron-light 50%,
+      $color-iron-light 100%);
+  padding-bottom: $spacing-16;
+
+  // ── Header (dark blue headline area) ──────────────────────────────────────
+  .section-services__header {
+    position: relative;
+    width: 100%;
+    max-width: $container-max-width;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-white;
+    // Top clearance for features scroll-indicator crosshair (~106px)
+    padding-block: calc(#{$spacing-16} + #{$spacing-12}) $spacing-16;
+
+    @include respond-to('lg') {
+      padding-block: calc(#{$spacing-20} + #{$spacing-12}) $spacing-20;
+    }
+  }
+
+  // ── Crosshair ornaments ────────────────────────────────────────────────────
+  .section-services__ornament {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: $spacing-6;
+    color: rgba($color-white, 0.40);
+
+    &::before {
+      content: '';
+      flex: 1;
+      width: 2px;
+      background-image: repeating-linear-gradient(to bottom, rgba($color-white, 0.45) 0px, rgba($color-white, 0.45) 4px, transparent 4px, transparent 12px);
+      margin-bottom: $spacing-2;
+      clip-path: inset(0 0 var(--gi-ornament-line-clip, 100%) 0);
+    }
+
+    &--left {
+      left: 0;
+    }
+
+    &--right {
+      right: 0;
+    }
+  }
+
+  .section-services__crosshair {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+
+    circle,
+    line {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+  }
+
+  // ── Headline + subtitle ────────────────────────────────────────────────────
+  .section-services__headline {
+    text-align: center;
+    max-width: 720px;
+    padding-inline: $spacing-16;
+  }
+
+  .section-services__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 4.5vw, 2.75rem);
+    font-weight: 800;
+    color: $color-white;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-4;
+    text-wrap: balance;
+  }
+
+  .section-services__subtitle {
+    color: rgba($color-white, 0.75);
+    font-size: $font-size-lg;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+
+  // ── 3-column card grid ─────────────────────────────────────────────────────
+  .section-services__grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 440px);
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: $spacing-4;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, minmax(0, 440px));
+      padding-inline: $spacing-6;
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, minmax(0, 440px));
+      padding-inline: $spacing-8;
+    }
+  }
+
+  .section-services__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 440 / 380;
+    overflow: hidden;
+    background-color: $color-dark-deep-2;
+    transition: background-color 0.4s ease;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-brand-primary;
+
+      .section-services__img {
+        opacity: 0.18;
+      }
+
+      .section-services__card-overlay {
+        opacity: 0;
+      }
+
+      .section-services__card-top {
+        background: transparent;
+      }
+
+      .section-services__card-bottom {
+        background: transparent;
+      }
+
+      .section-services__type-title {
+        color: $color-dark-deep-1;
+      }
+
+      .section-services__type-desc {
+        color: $color-iron-dark;
+
+        li::marker {
+          color: $color-dark-deep-1;
+        }
+      }
+    }
+  }
+
+  .section-services__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.55;
+    transition: opacity 0.4s ease;
+  }
+
+  // Gold hover overlay (kept at 0 — background-color handles the tint)
+  .section-services__card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: $color-brand-primary;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  // Title pinned to top of card
+  .section-services__card-top {
+    position: relative;
+    z-index: 2;
+    padding: $spacing-6 $spacing-6 $spacing-8;
+    background: linear-gradient(to bottom,
+        rgba($color-black, 0.65) 0%,
+        transparent 100%);
+    transition: background 0.4s ease;
+  }
+
+  // Description panel at bottom of card
+  .section-services__card-bottom {
+    position: relative;
+    z-index: 2;
+    padding: $spacing-8 $spacing-6 $spacing-6;
+    background: linear-gradient(to top,
+        rgba($color-black, 0.85) 0%,
+        rgba($color-black, 0.55) 60%,
+        transparent 100%);
+    transition: background 0.4s ease;
+  }
+
+  .section-services__type-title {
+    font-family: $font-sans;
+    font-size: $font-size-base;
+    font-weight: 800;
+    color: $color-white;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0;
+    transition: color 0.4s ease;
+  }
+
+  .section-services__type-desc {
+    color: rgba($color-white, 0.90);
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+    transition: color 0.4s ease, font-weight 0.4s ease;
+
+    p {
+      margin: 0 0 $spacing-2;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.25rem;
+      list-style: disc;
+    }
+
+    li {
+      margin-bottom: $spacing-2;
+      list-style: disc;
+
+      &::marker {
+        color: $color-white;
+      }
+    }
+  }
+
+  .section-services__cta {
+    display: inline-block;
+    margin-top: $spacing-4;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: $color-dark-deep-1;
+    background: $color-brand-primary;
+    border: 2px solid $color-brand-primary;
+    transition: background 0.25s ease, color 0.25s ease;
+
+    &:hover {
+      background: transparent;
+      color: $color-brand-primary;
+    }
+  }
+
+  // On hover the card background turns gold — invert the button
+  .section-services__card:hover .section-services__cta {
+    background: $color-dark-deep-1;
+    border-color: $color-dark-deep-1;
+    color: $color-white;
+
+    &:hover {
+      background: transparent;
+      border-color: $color-dark-deep-1;
+      color: $color-dark-deep-1;
+    }
+  }
+}
+
+// ─── Block: Service Hubs ─────────────────────────────────────────────────────
+.wp-block-globeiron-service-hubs {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-block: $spacing-section;
+  background-color: $color-iron-light; // default grey
+
+  // ── Background variants ────────────────────────────────────────────────────
+  &.has-bg-white { background-color: $color-white; }
+
+  &.has-bg-blue {
+    background-color: $color-brand-blue-dark;
+
+    .section-service-hubs__heading {
+      color: $color-white;
+    }
+
+    .section-service-hubs__card-title {
+      color: rgba($color-white, 0.9);
+    }
+
+    .section-service-hubs__card-content {
+      color: rgba($color-white, 0.80);
+    }
+
+    .section-service-hubs__cta {
+      color: $color-white;
+    }
+  }
+
+  // ── Corner crosshair ornaments — mirrors section-services exactly ────────────
+  .section-service-hubs__ornament {
+    position: absolute;
+    top: -5rem;
+    height: clamp(120px, 16vw, 200px); // line + crosshair near section top
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: $spacing-6;
+    color: rgba($color-brand-blue, 0.40);
+    z-index: 0;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      flex: 1;
+      width: 2px;
+      background-image: repeating-linear-gradient(to bottom, rgba($color-brand-blue, 0.4) 0px, rgba($color-brand-blue, 0.4) 4px, transparent 4px, transparent 12px);
+      margin-bottom: $spacing-2;
+      clip-path: inset(0 0 var(--gi-ornament-line-clip, 100%) 0);
+    }
+
+    &--left { left: 0; }
+    &--right { right: 0; }
+  }
+
+  .section-service-hubs__ornament-crosshair {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+
+    circle,
+    line {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+  }
+
+  // Blue background: swap to white (identical to section-services)
+  &.has-bg-blue .section-service-hubs__ornament {
+    color: rgba($color-white, 0.40);
+
+    &::before {
+      background-image: repeating-linear-gradient(to bottom, rgba($color-white, 0.45) 0px, rgba($color-white, 0.45) 4px, transparent 4px, transparent 12px);
+    }
+  }
+
+  // ── Inner container ────────────────────────────────────────────────────────
+  .section-service-hubs__inner {
+    position: relative;
+    @include container;
+  }
+
+  // ── Section heading ────────────────────────────────────────────────────────
+  .section-service-hubs__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+    font-weight: 700;
+    color: $color-brand-blue-dark;
+    text-align: center;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-12;
+    text-wrap: balance;
+  }
+
+  &--has-description .section-service-hubs__heading {
+    margin-bottom: $spacing-4;
+  }
+
+  // ── Section description ────────────────────────────────────────────────────
+  .section-service-hubs__description {
+    max-width: 680px;
+    margin: 0 auto $spacing-12;
+    text-align: center;
+    font-size: $font-size-lg;
+    color: $color-iron-dark;
+    line-height: $line-height-normal;
+
+    p { margin: 0 0 $spacing-3; &:last-child { margin-bottom: 0; } }
+  }
+
+  &.has-bg-blue .section-service-hubs__description {
+    color: rgba($color-white, 0.82);
+  }
+
+  // ── Card grid — column count driven by --hub-cols custom property ──────────
+  .section-service-hubs__grid {
+    display: grid;
+    gap: $spacing-8;
+    grid-template-columns: 1fr;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(var(--hub-cols, 3), 1fr);
+    }
+    @media (min-width: 1024px) {
+      padding-inline: $spacing-12;
+    }
+  }
+
+  // ── Individual card ────────────────────────────────────────────────────────
+  .section-service-hubs__card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-service-hubs__figure {
+    margin: 0 0 $spacing-6;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+  }
+
+  .section-service-hubs__card:hover .section-service-hubs__figure img {
+    transform: scale(1.03);
+  }
+
+  .section-service-hubs__card-title {
+    font-family: $font-sans;
+    font-size: $font-size-base;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $color-brand-blue;
+    margin: 0 0 $spacing-3;
+  }
+
+  .section-service-hubs__card-content {
+    font-size: $font-size-base;
+    color: $color-iron-dark;
+    line-height: $line-height-normal;
+    flex: 1;
+
+    p { margin: 0 0 $spacing-3; }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      margin: 0 0 $spacing-3;
+      padding-left: $spacing-6;
+      list-style-type: disc;
+    }
+
+    ol {
+      margin: 0 0 $spacing-3;
+      padding-left: $spacing-6;
+      list-style-type: decimal;
+    }
+
+    li {
+      margin-bottom: $spacing-1;
+      display: list-item;
+    }
+  }
+
+  .section-service-hubs__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin-top: $spacing-6;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: $color-brand-blue;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-brand-blue-dark;
+      text-decoration: underline;
+    }
+
+    svg { flex-shrink: 0; }
+  }
+}
+
+// ─── Section: Process Steps ───────────────────────────────────────────────────
+.wp-block-globeiron-section-process {
+  @extend %full-bleed;
+  background: $color-white;
+  // Decorative world-map watermark
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3C/svg%3E");
+  position: relative;
+
+  .section-process__inner {
+    @include container;
+    @extend %section-pad;
+  }
+
+  .section-process__header {
+    text-align: center;
+    margin-bottom: $spacing-16;
+  }
+
+  .section-process__eyebrow {
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-iron-mid;
+    margin: 0 0 $spacing-3;
+  }
+
+  .section-process__heading {
+    font-size: clamp($font-size-3xl, 4vw, 2.5rem);
+    font-weight: 800;
+    color: $color-iron-dark;
+    line-height: $line-height-tight;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .section-process__steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-10;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .section-process__step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-4;
+    text-align: left;
+  }
+
+  .section-process__icon-wrap {
+    @extend %yellow-icon-sq;
+    width: 70px;
+    height: 70px;
+    border-radius: $border-radius-md;
+
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  .section-process__step-title {
+    font-size: $font-size-xl;
+    font-weight: 800;
+    color: $color-iron-dark;
+    margin: 0;
+  }
+
+  .section-process__step-desc {
+    color: $color-iron-mid;
+    font-size: $font-size-base;
+    line-height: $line-height-loose;
+    margin: 0;
+  }
+}
+
+// ─── Section: Testimonials ────────────────────────────────────────────────────
+.wp-block-globeiron-section-testimonials {
+  @extend %full-bleed;
+  background: $color-white;
+
+  .section-testimonials__inner {
+    @include container;
+    @extend %section-pad;
+  }
+
+  .section-testimonials__header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+  }
+
+  .section-testimonials__eyebrow {
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-iron-mid;
+    margin: 0 0 $spacing-3;
+  }
+
+  .section-testimonials__heading {
+    font-size: clamp($font-size-3xl, 4vw, 2.5rem);
+    font-weight: 800;
+    color: $color-iron-dark;
+    line-height: $line-height-tight;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .section-testimonials__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-8;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .section-testimonials__card {
+    background: $color-white;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow $transition-normal, transform $transition-normal;
+
+    &:hover {
+      box-shadow: $shadow-xl;
+      transform: translateY(-3px);
+    }
+  }
+
+  .section-testimonials__card-body {
+    padding: $spacing-6;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    text-align: center;
+    flex: 1;
+  }
+
+  .section-testimonials__client-name {
+    font-size: $font-size-lg;
+    font-weight: 800;
+    color: $color-iron-dark;
+    margin: 0;
+  }
+
+  .section-testimonials__client-loc {
+    font-size: $font-size-sm;
+    color: $color-iron-mid;
+    margin: 0;
+  }
+
+  // Stars + source badge on the same row
+  .section-testimonials__stars-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-3;
+    flex-wrap: wrap;
+    margin-block: $spacing-1;
+  }
+
+  .section-testimonials__stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .section-testimonials__star {
+    font-size: 1.1rem;
+    color: $color-iron-light;
+
+    &.is-filled {
+      color: $color-yellow;
+    }
+  }
+
+  .section-testimonials__source {
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $color-iron-mid;
+    background: $color-iron-light;
+    padding: 2px $spacing-2;
+    border-radius: $border-radius-sm;
+    white-space: nowrap;
+  }
+
+  .section-testimonials__review {
+    color: $color-iron-mid;
+    font-size: $font-size-base;
+    line-height: $line-height-loose;
+    margin: 0;
+    flex: 1;
+
+    // wpautop wraps content in <p> tags
+    p {
+      margin: 0 0 $spacing-2;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .section-testimonials__date {
+    font-size: $font-size-sm;
+    color: rgba($color-iron-mid, 0.75);
+    margin: $spacing-2 0 0;
+    text-align: center;
+  }
+
+  .section-testimonials__cta {
+    text-align: center;
+    margin-top: $spacing-12;
+  }
+}
+
+// ─── Section: Contact + Map — Keyframes ──────────────────────────────────────
+@keyframes map-crosshair-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes crosshair-appear {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes map-panel-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Section: Contact + Map ───────────────────────────────────────────────────
+.wp-block-globeiron-section-contact-map {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  background: $color-white;
+  color: $color-iron-dark;
+
+  // ── Background variants ──────────────────────────────────────────────────────
+  &.has-bg-grey { background-color: $color-iron-light; }
+
+  &.has-bg-blue {
+    background-color: $color-brand-blue-dark;
+    color: rgba($color-white, 0.88);
+
+    .section-contact-map__heading {
+      color: $color-white;
+    }
+
+    .section-contact-map__content,
+    .section-contact-map__region-name,
+    .section-contact-map__region-desc {
+      color: rgba($color-white, 0.88);
+    }
+
+    .section-contact-map__rail-crosshair,
+    .section-contact-map__divider-crosshair {
+      color: rgba($color-white, 0.65);
+    }
+
+    .section-contact-map__rail-line,
+    .section-contact-map__divider-line {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba($color-white, 0.35) 0px, rgba($color-white, 0.35) 4px,
+        transparent 4px, transparent 12px
+      );
+    }
+  }
+
+  // ── Outer wrapper (holds switcher + panels) ───────────────────────────────
+  .section-contact-map__inner {
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  // ── Panel ─────────────────────────────────────────────────────────────────
+  .section-contact-map__panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-block: 5rem;
+    animation: map-panel-in 0.35s ease both;
+
+    @include respond-to('lg') {
+      grid-template-columns: 1.2fr 1fr;
+      column-gap: $spacing-4;
+      min-height: 520px;
+    }
+  }
+
+  // ── Text panel ───────────────────────────────────────────────────────────
+  .section-contact-map__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: $spacing-12 $spacing-8;
+
+    @include respond-to('md') {
+      padding: $spacing-16 $spacing-12;
+    }
+
+    @include respond-to('lg') {
+      padding: $spacing-20 $spacing-16;
+    }
+  }
+
+  .section-contact-map__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 4vw, 3rem);
+    color: $color-brand-blue;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-6;
+    text-wrap: balance;
+  }
+
+  .section-contact-map__content {
+    font-size: $font-size-base;
+    color: $color-iron-dark;
+    line-height: $line-height-normal;
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  // ── Regions rail + list (v1) ─────────────────────────────────────────────
+  // Flex row: [28px rail column] + [region text list]
+  .section-contact-map__regions-wrapper {
+    display: flex;
+    gap: $spacing-4;
+    margin-top: $spacing-6;
+  }
+
+  // Left rail: top crosshair → dotted line → bottom crosshair
+  .section-contact-map__rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 28px;
+  }
+
+  // Shared initial state for both crosshairs (hidden until animated in)
+  .section-contact-map__rail-crosshair {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: $color-brand-blue;
+    opacity: 0;
+    transform: scale(0.5);
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .section-contact-map__rail-line {
+    flex: 1;
+    min-height: 20px;
+    width: 2px;
+    background-image: repeating-linear-gradient(to bottom, rgba($color-brand-blue, 0.55) 0px, rgba($color-brand-blue, 0.55) 4px, transparent 4px, transparent 12px);
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .section-contact-map__regions {
+    flex: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .section-contact-map__region {
+    padding-bottom: $spacing-8;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  .section-contact-map__region-body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+
+  .section-contact-map__region-name {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-brand-blue;
+  }
+
+  .section-contact-map__region-desc {
+    font-size: $font-size-base;
+    color: $color-iron-dark;
+    margin: 0;
+    line-height: $line-height-normal;
+  }
+
+  // ── No-regions variant: crosshair + dotted-line divider between text and map ─
+  .section-contact-map__panel.has-no-regions {
+    @include respond-to('lg') {
+      grid-template-columns: 1.2fr auto 1fr;
+    }
+  }
+
+  .section-contact-map__divider {
+    display: none;
+
+    @include respond-to('lg') {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 28px;
+      padding-block: $spacing-12;
+    }
+  }
+
+  .section-contact-map__divider-crosshair {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: $color-brand-blue;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .section-contact-map__divider-line {
+    flex: 1;
+    width: 2px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba($color-brand-blue, 0.55) 0px,
+      rgba($color-brand-blue, 0.55) 4px,
+      transparent 4px,
+      transparent 12px
+    );
+  }
+
+  // ── Map panel ────────────────────────────────────────────────────────────
+  .section-contact-map__map {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
+
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SECTION — OUR WORK (PROJECTS SLIDER)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.section-work {
+  background: $color-iron-light;
+
+  &__inner {
+    @include container;
+    padding-block: $spacing-20;
+  }
+
+  // ── Header ──────────────────────────────────────────────────────────────────
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+  }
+
+  &__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+    color: $color-brand-blue;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-4;
+  }
+
+  &__subheading {
+    font-size: $font-size-lg;
+    color: $color-iron-mid;
+    margin: 0;
+  }
+
+  // ── Tab nav ─────────────────────────────────────────────────────────────────
+  &__tabs {
+    display: grid;
+    gap:1.25rem;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    margin-bottom: $spacing-10;
+  }
+
+  &__tab {
+    background: none;
+    border: none;
+    border-bottom: 3px solid rgba($color-iron-mid, 0.75);
+    margin-bottom: -1px;
+    padding: $spacing-3 $spacing-2 $spacing-4;
+    font-family: $font-serif;
+    font-size: clamp($font-size-base, 2vw, $font-size-xl);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: $color-iron-mid;
+    cursor: pointer;
+    transition: color $transition-fast, border-color $transition-fast;
+    text-align: center;
+
+    &:hover {
+      color: $color-pine-tree;
+    }
+
+    &.is-active {
+      color: $color-pine-tree;
+      border-bottom-color: $color-brand-primary;
+    }
+
+    &:focus-visible {
+      outline: 3px solid $color-brand-blue;
+      outline-offset: 2px;
+    }
+  }
+
+  // ── Slides ───────────────────────────────────────────────────────────────────
+  &__slide {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-10;
+
+    @include respond-to('lg') {
+      grid-template-columns: 3fr 2fr;
+      align-items: flex-start;
+      gap: $spacing-16;
+    }
+  }
+
+  &__slide-image {
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+  }
+
+  &__slide-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: color.adjust($color-iron-light, $lightness: -6%);
+    border-radius: $border-radius-md;
+  }
+
+  // ── Slide info ───────────────────────────────────────────────────────────────
+  &__slide-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-6;
+
+    @include respond-to('lg') {
+      padding-block: $spacing-8;
+    }
+  }
+
+  &__project-title {
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 3.5vw, $font-size-5xl);
+    color: $color-pine-tree;
+    line-height: $line-height-tight;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  &__project-description {
+    font-size: $font-size-base;
+    color: $color-iron-dark;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  &__project-type {
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-pine-tree;
+    margin: 0;
+  }
+
+  &__meta {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  &__meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-1;
+
+    dt {
+      font-weight: 700;
+      color: $color-iron-dark;
+
+      &::after {
+        content: '';
+      }
+    }
+
+    dd {
+      color: $color-iron-dark;
+      margin: 0;
+    }
+  }
+
+  &__cta {
+    margin-top: $spacing-2;
+  }
+}
+
+// ─── Section: CTA ────────────────────────────────────────────────────────────
+.wp-block-globeiron-section-cta {
+  @extend %full-bleed;
+  position: relative;
+  background-color: $color-brand-blue-dark;
+  background-size: cover;
+  background-position: center;
+  isolation: isolate;
+
+  // Inner — constrained + centred, matching header/footer rhythm
+  .section-cta__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 2.5rem;
+    padding-block: $spacing-24;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 280px;
+    justify-content: center;
+
+    @include respond-to('lg') {
+      padding-block: $spacing-24;
+    }
+  }
+
+  .section-cta__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 4vw, 3rem);
+    font-weight: 700;
+    color: $color-white;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-6;
+    text-wrap: balance;
+    max-width: 900px;
+  }
+
+  .section-cta__body {
+    font-size: clamp($font-size-base, 2vw, $font-size-lg);
+    color: $color-white;
+    line-height: $line-height-normal;
+    margin: 0 0 $spacing-10;
+    max-width: 640px;
+
+    p,
+    ul,
+    ol {
+      margin-top: 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .section-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+    justify-content: center;
+  }
+
+  // Editor placeholder shown when heading field is empty
+  .section-cta__placeholder {
+    color: rgba($color-white, 0.55);
+    font-size: $font-size-lg;
+    text-align: center;
+    margin: 0;
+    small { font-size: $font-size-sm; opacity: 0.7; }
+  }
+}
+
+// ─── Block: section-border-columns ───────────────────────────────────────────
+.wp-block-globeiron-section-border-columns {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 7rem 2rem;
+  background-color: $color-brand-blue; // default
+  color: $color-white;
+  isolation: isolate;
+  @media (min-width:1024px) {
+    padding: 7rem 0;
+  }
+
+  // ── Background variants ──────────────────────────────────────────────────
+  &.has-bg-white {
+    background-color: $color-white;
+    color: $color-iron-dark;
+  }
+
+  &.has-bg-grey {
+    background-color: $color-iron-light;
+    color: $color-iron-dark;
+  }
+
+  // ── Animated dotted-border box with corner crosshairs ────────────────────
+  .section-border-columns__border-box {
+    position: absolute;
+    top: clamp(3rem, 3vw, 4rem);
+    bottom: clamp(3rem, 3vw, 4rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2 * clamp(2rem, 3vw, 2rem));
+    max-width: 1280px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Crosshairs sit at each of the 4 corners
+  .section-border-columns__corner {
+    position: absolute;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--tl { top: -14px;    left: -14px;  }
+    &--tr { top: -14px;    right: -14px; }
+    &--bl { bottom: -14px; left: -14px;  }
+    &--br { bottom: -14px; right: -14px; }
+  }
+
+  .section-border-columns__crosshair {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    color: rgba($color-white, 0.65);
+
+    circle,
+    line {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+  }
+
+  // Dotted edge lines — each starts clipped/hidden, direction matches clockwise draw
+  .section-border-columns__edge {
+    position: absolute;
+
+    &--top,
+    &--bottom {
+      height: 2px;
+      left: 0;
+      right: 0;
+      background-image: repeating-linear-gradient(to right, rgba($color-white, 0.5) 0px, rgba($color-white, 0.5) 4px, transparent 4px, transparent 12px);
+    }
+
+    &--top {
+      top: 0;
+      clip-path: inset(0 100% 0 0); // draws left → right
+    }
+
+    &--bottom {
+      bottom: 0;
+      clip-path: inset(0 0 0 100%); // draws right → left
+    }
+
+    &--left,
+    &--right {
+      width: 2px;
+      top: 0;
+      bottom: 0;
+      background-image: repeating-linear-gradient(to bottom, rgba($color-white, 0.5) 0px, rgba($color-white, 0.5) 4px, transparent 4px, transparent 12px);
+    }
+
+    &--right {
+      right: 0;
+      clip-path: inset(0 0 100% 0); // draws top → bottom
+    }
+
+    &--left {
+      left: 0;
+      clip-path: inset(100% 0 0 0); // draws bottom → top
+    }
+  }
+
+  // Non-blue backgrounds: swap border/crosshair colours to brand blue
+  &.has-bg-white,
+  &.has-bg-grey {
+    .section-border-columns__crosshair {
+      color: rgba($color-brand-blue, 0.65);
+    }
+
+    .section-border-columns__edge--top,
+    .section-border-columns__edge--bottom {
+      background-image: repeating-linear-gradient(to right, rgba($color-brand-blue, 0.4) 0px, rgba($color-brand-blue, 0.4) 4px, transparent 4px, transparent 12px);
+    }
+
+    .section-border-columns__edge--left,
+    .section-border-columns__edge--right {
+      background-image: repeating-linear-gradient(to bottom, rgba($color-brand-blue, 0.4) 0px, rgba($color-brand-blue, 0.4) 4px, transparent 4px, transparent 12px);
+    }
+  }
+
+  // ── Inner container ──────────────────────────────────────────────────────
+  .section-border-columns__inner {
+    position: relative;
+    z-index: 1;
+    max-width:1200px;
+    margin:0 auto;
+    text-align: center;
+  }
+
+  // ── Section heading ──────────────────────────────────────────────────────
+  .section-border-columns__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+    font-weight: 700;
+    color: $color-white;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-6;
+    text-wrap: balance;
+  }
+
+  &.has-bg-white,
+  &.has-bg-grey {
+    .section-border-columns__heading {
+      color: $color-brand-blue-dark;
+    }
+  }
+
+  // ── Optional intro text ──────────────────────────────────────────────────
+  .section-border-columns__intro {
+    font-size: clamp($font-size-base, 2vw, $font-size-lg);
+    color: rgba($color-white, 0.85);
+    line-height: $line-height-loose;
+    max-width: 720px;
+    margin: 0 auto $spacing-12;
+
+    p { margin-top: 0; &:last-child { margin-bottom: 0; } }
+  }
+
+  &.has-bg-white,
+  &.has-bg-grey {
+    .section-border-columns__intro {
+      color: $color-iron-dark;
+    }
+  }
+
+  // If no intro, push heading further from the grid
+  .section-border-columns__heading:last-of-type {
+    margin-bottom: $spacing-12;
+  }
+
+  // ── Column grid ──────────────────────────────────────────────────────────
+  .section-border-columns__grid {
+    display: grid;
+    gap: $spacing-10 $spacing-8;
+    grid-template-columns: 1fr;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(var(--col-count, 3), 1fr);
+    }
+  }
+
+  // Fewer than 3 columns: constrain track width and center the group
+  &--centered .section-border-columns__grid {
+    @include respond-to('sm') {
+      grid-template-columns: repeat(var(--col-count), 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(var(--col-count), minmax(0, 320px));
+      justify-content: center;
+    }
+  }
+
+  // ── Individual column ────────────────────────────────────────────────────
+  .section-border-columns__col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-4;
+    max-width: 300px;
+    margin-inline: auto;
+  }
+
+  // ── Icon ─────────────────────────────────────────────────────────────────
+  .section-border-columns__icon {
+    margin: 0;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  // ── Column title ─────────────────────────────────────────────────────────
+  .section-border-columns__col-title {
+    font-family: $font-sans;
+    font-size: $font-size-base;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $color-white;
+    margin: 0;
+    line-height: $line-height-tight;
+  }
+
+  &.has-bg-white,
+  &.has-bg-grey {
+    .section-border-columns__col-title {
+      color: $color-brand-blue-dark;
+    }
+  }
+
+  // ── Column body copy ─────────────────────────────────────────────────────
+  .section-border-columns__col-content {
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
+    color: rgba($color-white, 0.85);
+    margin: 0;
+
+    p,
+    ul,
+    ol {
+      margin-top: 0;
+      &:last-child { margin-bottom: 0; }
+    }
+
+    ul { list-style-type: disc; padding-left: 1.25em; }
+    ol { list-style-type: decimal; padding-left: 1.25em; }
+    li { display: list-item; }
+  }
+
+  &.has-bg-white,
+  &.has-bg-grey {
+    .section-border-columns__col-content {
+      color: $color-iron-dark;
+    }
+  }
+
+  // ── Column CTA link ──────────────────────────────────────────────────────
+  .section-border-columns__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $color-white;
+    text-decoration: none;
+    margin-top: auto;
+    transition: opacity 0.15s ease;
+
+    &:hover { opacity: 0.75; }
+
+    svg { flex-shrink: 0; }
+  }
+
+  &.has-bg-white,
+  &.has-bg-grey {
+    .section-border-columns__cta {
+      color: $color-brand-blue;
+    }
+  }
+}
+
+// ─── Block editor overrides ──────────────────────────────────────────────────
+.editor-styles-wrapper {
+  font-family: $font-sans;
+  font-size: $font-size-base;
+  color: $color-iron-dark;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $font-sans;
+    color: $color-iron-dark;
+  }
+
+  p {
+    line-height: $line-height-normal;
+  }
+}
+
+// ─── Blog page featured post hero (template-parts/blog/blog-hero.php) ──────────
+.blog-hero {
+
+  &__hero {
+    background: $color-iron-light;
+    overflow: hidden; // clip image on mobile
+    position: relative;
+    z-index: 1;
+
+    @include respond-to('lg') {
+      overflow: visible; // allow image to overhang on desktop
+    }
+  }
+
+  &__inner {
+    @include container;
+    display: flex;
+    flex-direction: column; // mobile: content above, image below
+    gap: 0;
+    position: relative;
+
+    @include respond-to('lg') {
+      flex-direction: row;
+      align-items: center;
+      min-height: 360px;
+    }
+  }
+
+  &__content {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    padding: $spacing-10 0 $spacing-6;
+    position: relative;
+    z-index: 2;
+
+    @include respond-to('lg') {
+      flex: 0 0 54%;
+      max-width: 54%;
+      padding: $spacing-12 $spacing-12 $spacing-12 0;
+    }
+  }
+
+  &__category-badge {
+    display: inline-block;
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-brand-primary;
+    text-decoration: none;
+    margin-bottom: $spacing-3;
+
+    &:hover { color: $color-brand-secondary; }
+  }
+
+  &__eyebrow {
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-iron-dark;
+    margin: $spacing-2 0 $spacing-4;
+  }
+
+  &__meta {
+    margin: 0 0 $spacing-6;
+    padding: 0;
+  }
+
+  &__meta-row {
+    display: flex;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    color: $color-iron-dark;
+    line-height: $line-height-normal;
+    margin-bottom: $spacing-1;
+
+    dt {
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    dd { margin: 0; }
+  }
+
+  &__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-2xl, 3.2vw, $font-size-4xl);
+    font-weight: 700;
+    line-height: $line-height-tight;
+    color: $color-brand-blue;
+    margin: 0 0 $spacing-2;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        color: $color-brand-blue-dark;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__body {
+    font-size: $font-size-base;
+    color: $color-iron-dark;
+    line-height: $line-height-normal;
+    margin: 0 0 $spacing-6;
+    max-width: 460px;
+  }
+
+  &__actions {
+    margin-bottom: $spacing-6;
+  }
+
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2 $spacing-6;
+    padding-top: $spacing-4;
+    border-top: 1px solid rgba($color-iron-mid, 0.3);
+  }
+
+  &__filter {
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $color-iron-dark;
+    text-decoration: none;
+    padding-bottom: $spacing-1;
+    border-bottom: 2px solid transparent;
+    transition: color $transition-normal, border-color $transition-normal;
+    letter-spacing: 0.01em;
+
+    &.is-active {
+      color: $color-brand-blue;
+      border-bottom-color: $color-brand-primary;
+    }
+
+    &:hover:not(.is-active) {
+      color: $color-brand-blue;
+      border-bottom-color: rgba($color-brand-primary, 0.4);
+    }
+  }
+
+  &__media {
+    // Mobile: relative block, full-width, fixed height
+    position: relative;
+    width: calc(100% + #{$spacing-8}); // bleed past container padding
+    margin-left: -$spacing-4;
+    height: 240px;
+    overflow: hidden;
+    z-index: 1;
+
+    @include respond-to('md') {
+      width: calc(100% + #{$spacing-16});
+      margin-left: -$spacing-8;
+      height: 320px;
+    }
+
+    @include respond-to('lg') {
+      // Desktop: absolute overhang on the right side
+      position: absolute;
+      width: auto;
+      margin-left: 0;
+      left: 54%;
+      right: calc(-1 * clamp($spacing-4, 4vw, $spacing-12));
+      top: 0;
+      bottom: -$spacing-34;
+      height: auto;
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  // Extra top padding on the grid section to clear the overhanging image —
+  // only applies at lg where the image actually overhangs below the hero
+  & + .section {
+    @include respond-to('lg') {
+      padding-top: calc(#{$spacing-section} + #{$spacing-20});
+    }
+  }
+}
+
+// ─── Projects page hero variant ──────────────────────────────────────────────
+.blog-hero--project {
+
+  .blog-hero__heading {
+    font-size: clamp($font-size-2xl, 4vw, $font-size-5xl);
+    text-wrap: balance;
+  }
+}
+
+// ─── Section: Customer Reviews ────────────────────────────────────────────────
+.wp-block-globeiron-section-reviews {
+  background: $color-white;
+}
+
+.section-reviews__inner {
+  @include container;
+  padding-block: $spacing-section;
+}
+
+// ── Header row ───────────────────────────────────────────────────────────────
+.section-reviews__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-8;
+  flex-wrap: wrap;
+  margin-bottom: $spacing-10;
+
+  @include respond-to('md') {
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+}
+
+.section-reviews__heading {
+  font-family: $font-serif;
+  font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+  font-weight: 700;
+  color: $color-brand-blue;
+  margin: 0;
+  line-height: $line-height-tight;
+}
+
+.section-reviews__rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-2;
+  flex-shrink: 0;
+}
+
+.section-reviews__stars {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.section-reviews__star {
+  width: 40px;
+  height: 40px;
+  fill: $color-iron-light;
+  stroke: none;
+  transform-box: fill-box;
+  transform-origin: center;
+
+  &.is-filled {
+    fill: $color-brand-primary;
+  }
+
+  @include respond-to('lg') {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.section-reviews__rating-label {
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $color-iron-mid;
+  margin: 0;
+}
+
+// ── Splide slider overrides ───────────────────────────────────────────────────
+.section-reviews__splide {
+  position: relative;
+
+  .splide__slide {
+    height: auto;
+    display: flex;
+    align-items: stretch;
+  }
+}
+
+// ── Static grid when Splide hasn't initialized (editor preview + FOUC) ────────
+.section-reviews__splide:not(.is-initialized) {
+  .splide__track {
+    overflow: visible;
+  }
+
+  .splide__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .splide__slide {
+    width: 100% !important; // override Splide's inline width
+    height: auto;
+  }
+
+  // Hide navigation arrows until Splide mounts
+  .section-reviews__arrows {
+    display: none;
+  }
+}
+
+// ── Review card ───────────────────────────────────────────────────────────────
+.review-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: $color-iron-light;
+  padding: $spacing-8;
+}
+
+.review-card__title {
+  font-family: $font-serif;
+  font-size: $font-size-xl;
+  font-weight: 700;
+  color: $color-brand-blue;
+  margin: 0 0 $spacing-4;
+  line-height: $line-height-tight;
+}
+
+.review-card__body {
+  font-size: $font-size-sm;
+  color: $color-iron-dark;
+  line-height: $line-height-loose;
+  margin: 0;
+  flex: 1;
+}
+
+.review-card__divider {
+  border: none;
+  border-top: 1px solid color.adjust($color-iron-light, $lightness: -8%);
+  margin: $spacing-6 0;
+}
+
+.review-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-4;
+}
+
+.review-card__author {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  min-width: 0;
+}
+
+.review-card__avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: $color-pine-tree;
+  color: $color-white;
+  font-family: $font-sans;
+  font-size: $font-size-lg;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--photo {
+    background: none;
+    object-fit: cover;
+  }
+}
+
+.review-card__author-info {
+  min-width: 0;
+}
+
+.review-card__name {
+  font-family: $font-sans;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  color: $color-iron-dark;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.review-card__date {
+  font-size: 0.75rem;
+  color: $color-iron-mid;
+  margin: 0;
+}
+
+.review-card__source-svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: block;
+}
+
+// ── Custom arrows — positioned bottom-right below the track ──────────────────
+.section-reviews__arrows {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-3;
+  margin-top: $spacing-6;
+
+  // Override Splide's absolute positioning
+  position: static !important;
+}
+
+.section-reviews__arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid $color-brand-primary;
+  background: transparent;
+  color: $color-brand-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background $transition-fast, color $transition-fast;
+  padding: 0;
+
+  // Reset Splide defaults
+  position: static !important;
+  transform: none !important;
+  opacity: 1 !important;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover:not(:disabled) {
+    background: $color-brand-primary;
+    color: $color-white;
+  }
+
+  &:disabled {
+    border-color: $color-iron-light;
+    color: $color-iron-mid;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Utility classes for core wp:group blocks ─────────────────────────────────
+// Apply via Block Editor → "Additional CSS class(es)" field.
+
+// Full-width navy header band — content indented to match site container.
+// Usage: alignfull Group block + class "page-header-band"
+.wp-block-group.page-header-band {
+  background-color: $color-pine-tree !important;
+  padding-top: $spacing-20;
+  padding-bottom: $spacing-20;
+  // Intrinsic padding keeps content within the container width at wide viewports
+  padding-left: max(#{$spacing-4}, calc((100% - #{$container-max-width}) / 2 + #{$spacing-6}));
+  padding-right: max(#{$spacing-4}, calc((100% - #{$container-max-width}) / 2 + #{$spacing-6}));
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $color-white;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+  }
+}
+
+// Full-width white content band — prose constrained to a readable 860px column.
+// Usage: alignfull Group block + class "page-content-band"
+.wp-block-group.page-content-band {
+  background-color: $color-white !important;
+  padding-top: $spacing-20;
+  padding-bottom: $spacing-20;
+  // Intrinsic padding constrains readable content to 860px centred column
+  padding-left: max(#{$spacing-4}, calc((100% - 860px) / 2 + #{$spacing-6}));
+  padding-right: max(#{$spacing-4}, calc((100% - 860px) / 2 + #{$spacing-6}));
+
+  @include respond-to('lg') {
+    padding-top: $spacing-24;
+    padding-bottom: $spacing-24;
+  }
+}
+
+// ─── Contact page: sticky left column on desktop ──────────────────────────────
+.wp-block-columns.contact-section {
+  @include respond-to('lg') {
+    align-items: start;
+
+    > .wp-block-column:first-child {
+      position: sticky;
+      top: 116px;
+    }
+  }
+}
+
+// ─── Project Details ──────────────────────────────────────────────────────────
+.project-details {
+  background: $color-white;
+  padding-block: $spacing-20;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-12;
+    align-items: start;
+
+    @include respond-to('lg') {
+      grid-template-columns: 1fr 1fr;
+      gap: $spacing-16;
+    }
+  }
+
+  // ── Media column ─────────────────────────────────────────────────────────────
+  &__media {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+  }
+
+  // Stacked image composite — contains one __pair per before/after entry
+  // Extra height accommodates labels sitting below each image in normal flow
+  &__images {
+    position: relative;
+    aspect-ratio: 1 / 1.075;
+    overflow: visible;
+  }
+
+  // One pair = one before/after comparison; only .is-active pair is visible.
+  // Opacity transitions are driven by GSAP; CSS values are a no-JS fallback.
+  &__pair {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+
+    &.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  // __img-wrap is the absolute positioning shell; no overflow clip here so
+  // __img-label can sit below the image in normal flow.
+  &__img-wrap {
+    position: absolute;
+
+    // Both images are the same width; stagger creates the visual depth
+    &--before {
+      width: 60%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    &--after {
+      width: 60%;
+      top: 22%;
+      right: 0;
+      z-index: 2;
+    }
+  }
+
+  // __img-inner provides the overflow clip and aspect-ratio for the photo.
+  &__img-inner {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  // Label sits below the image in normal flow — no absolute positioning needed.
+  &__img-label {
+    display: block;
+    margin-top: $spacing-2;
+    font-family: $font-sans;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-iron-mid;
+    line-height: 1;
+  }
+
+  // Single-image pair: expand to fill the full container.
+  &__pair--single {
+    .project-details__img-wrap {
+      width: 100%;
+      top: 0;
+      left: 0;
+      right: auto;
+    }
+
+    .project-details__img-inner {
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  // When the active pair is single-image, match the container to the portrait ratio.
+  &__images:has(.project-details__pair--single.is-active) {
+    aspect-ratio: 3 / 4;
+  }
+
+  // L-shaped ornament: ch1 ─────── corner
+  //                                    |
+  //                                   ch2
+  // Absolutely positioned children ensure hline, vline, and ch2 all share
+  // the same x-axis at the right side (corner at right end of hline).
+  &__ornament {
+    position: absolute;
+    top: 3%;
+    left: 62%;
+    z-index: 5;
+    color: $color-brand-blue;
+    pointer-events: none;
+    width: 96px;  // 28px ch1 + 54px hline + 14px (ch2 half-width)
+    height: 90px; // 28px ch1 row + 48px vline + 14px (ch2 half-height)
+  }
+
+  &__ornament-ch {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg { width: 100%; height: 100%; }
+
+    &:first-child { top: 0; left: 0; }
+    &:last-child  { bottom: 0; right: 0; }
+  }
+
+  &__ornament-hline {
+    position: absolute;
+    top: 14px;    // ch1 center y
+    left: 28px;   // right edge of ch1
+    right: 14px;  // stop at ch2 center x (14px from right edge)
+    height: 1.5px;
+    background-image: repeating-linear-gradient(
+      to right,
+      currentColor 0, currentColor 4px,
+      transparent 4px, transparent 12px
+    );
+  }
+
+  &__ornament-vline {
+    position: absolute;
+    top: 14px;    // ch1 center y = corner y
+    right: 14px;  // ch2 center x
+    bottom: 28px; // top of ch2
+    width: 2px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      currentColor 0, currentColor 4px,
+      transparent 4px, transparent 12px
+    );
+  }
+
+  // ── Controls (prev/next arrows) — absolutely positioned within __images ───────
+  // Overflow: visible on __images lets controls sit below the composite.
+  &__controls {
+    position: absolute;
+    bottom: -8%;
+    right: 2%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid $color-brand-primary;
+    border-radius: 50%;
+    background: none;
+    color: $color-brand-primary;
+    cursor: pointer;
+    transition: background $transition-fast, color $transition-fast;
+    flex-shrink: 0;
+
+    svg { display: block; width: 16px; height: 16px; }
+
+    &:hover {
+      background: $color-brand-primary;
+      color: $color-pine-tree;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-brand-blue;
+      outline-offset: 3px;
+    }
+  }
+
+  // ── Content column ────────────────────────────────────────────────────────────
+  &__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+    font-weight: 700;
+    color: $color-brand-blue;
+    line-height: $line-height-tight;
+    margin: 0 0 $spacing-10;
+  }
+
+  &__highlights {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-8;
+  }
+
+  &__highlight-heading {
+    font-family: $font-sans;
+    font-size: $font-size-base;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-brand-blue;
+    margin: 0 0 $spacing-3;
+  }
+
+  &__highlight-body {
+    font-size: $font-size-base;
+    color: $color-iron-dark;
+    line-height: $line-height-loose;
+    margin: 0;
+
+    p { margin: 0 0 $spacing-3; &:last-child { margin: 0; } }
+    strong { font-weight: 700; }
+  }
+}
+
+// ─── Project Outcome ─────────────────────────────────────────────────────────
+.project-outcome {
+  position: relative;
+  overflow: hidden;
+  padding: $spacing-32 0;
+  background-color: $color-iron-light;
+
+  &.has-bg-white { background-color: $color-white; }
+  &.has-bg-grey  { background-color: $color-iron-light; }
+  &.has-bg-blue  {
+    background-color: $color-brand-blue;
+
+    .project-outcome__heading { color: $color-white; }
+    .project-outcome__body    { color: $color-white; }
+  }
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    opacity: 0.25;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 860px;
+    margin-inline: auto;
+  }
+
+  &__heading {
+    font-family: $font-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    line-height: $line-height-tight;
+    color: $color-brand-blue;
+    margin: 0 0 $spacing-6;
+  }
+
+  &__body {
+    font-size: $font-size-lg;
+    line-height: $line-height-loose;
+    color: $color-iron-dark;
+    margin: 0;
+
+    p { margin: 0 0 $spacing-4; &:last-child { margin: 0; } }
+    strong { font-weight: 700; }
+  }
+
+  &__placeholder {
+    color: $color-iron-mid;
+    text-align: center;
+    padding: $spacing-10;
+  }
+}
+
+// ─── Section: Content / Image Split ──────────────────────────────────────────
+.wp-block-globeiron-section-content-image-split {
+  @extend %full-bleed;
+  background-color: $color-white;
+
+  // ── Background variants ──────────────────────────────────────────────────────
+  &.has-bg-grey { background-color: $color-iron-light; }
+
+  &.has-bg-blue {
+    background-color: $color-brand-blue-dark;
+
+    .section-content-image-split__heading {
+      color: $color-white;
+    }
+
+    .section-content-image-split__body {
+      color: rgba($color-white, 0.88);
+
+      a { color: $color-brand-primary; }
+    }
+
+    .section-content-image-split__divider-crosshair {
+      color: rgba($color-white, 0.55);
+    }
+
+    .section-content-image-split__divider-line {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba($color-white, 0.35) 0px,
+        rgba($color-white, 0.35) 4px,
+        transparent 4px,
+        transparent 12px
+      );
+    }
+  }
+
+  // ── Layout ───────────────────────────────────────────────────────────────────
+  // Grid named areas let us visually reorder content vs image without touching
+  // DOM order. Mobile always puts the image on top regardless of desktop setting.
+  .section-content-image-split__inner {
+    @include container;
+    @extend %section-pad;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "media"
+      "content";
+    gap: $spacing-10;
+
+    @include respond-to('lg') {
+      // Default: content left, image right
+      grid-template-columns: 1fr auto 1fr;
+      grid-template-areas: "content divider media";
+      gap: 0;
+      align-items: stretch;
+    }
+  }
+
+  // Named area assignments — same for both variants
+  .section-content-image-split__content { grid-area: content; }
+  .section-content-image-split__divider { grid-area: divider; }
+  .section-content-image-split__media   { grid-area: media; }
+
+  // ── Image-left variant ───────────────────────────────────────────────────────
+  &.image-left {
+    .section-content-image-split__inner {
+      @include respond-to('lg') {
+        grid-template-areas: "media divider content";
+      }
+    }
+
+    .section-content-image-split__content {
+      @include respond-to('lg') {
+        padding-right: 0;
+        padding-left: $spacing-12;
+      }
+    }
+
+    .section-content-image-split__media {
+      @include respond-to('lg') {
+        padding-left: 0;
+        padding-right: $spacing-12;
+      }
+    }
+  }
+
+  // ── Content column ───────────────────────────────────────────────────────────
+  .section-content-image-split__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: $spacing-6;
+
+    @include respond-to('lg') {
+      padding-right: $spacing-12;
+    }
+  }
+
+  .section-content-image-split__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-2xl, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: $line-height-tight;
+    color: $color-brand-blue;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .section-content-image-split__body {
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+    color: $color-iron-dark;
+
+    p  { margin: 0 0 $spacing-4; &:last-child { margin-bottom: 0; } }
+    ul, ol { padding-left: $spacing-6; margin-bottom: $spacing-4; }
+    strong { font-weight: 700; }
+  }
+
+  // ── Divider — crosshair · dotted line · crosshair (desktop only) ────────────
+  .section-content-image-split__divider {
+    display: none;
+
+    @include respond-to('lg') {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 28px;
+      padding-block: $spacing-4;
+    }
+  }
+
+  .section-content-image-split__divider-crosshair {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: $color-brand-blue;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .section-content-image-split__divider-line {
+    flex: 1;
+    width: 2px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba($color-brand-blue, 0.55) 0px,
+      rgba($color-brand-blue, 0.55) 4px,
+      transparent 4px,
+      transparent 12px
+    );
+  }
+
+  // ── Image column ─────────────────────────────────────────────────────────────
+  .section-content-image-split__media {
+    display: flex;
+
+    @include respond-to('lg') {
+      padding-left: $spacing-12;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 280px;
+
+      @include respond-to('lg') {
+        min-height: 360px;
+      }
+    }
+  }
+}
+
+// ─── Section: Team Grid ───────────────────────────────────────────────────────
+.wp-block-globeiron-section-team-grid {
+  @extend %full-bleed;
+  background-color: $color-white;
+
+  // ── Background variants ──────────────────────────────────────────────────────
+  &.has-bg-grey { background-color: $color-iron-light; }
+
+  &.has-bg-blue {
+    background-color: $color-brand-blue-dark;
+
+    .section-team-grid__heading         { color: $color-white; }
+    .section-team-grid__body            { color: rgba($color-white, 0.88); }
+    .section-team-grid__header-crosshair { color: rgba($color-white, 0.65); }
+    .section-team-grid__header-line {
+      background-image: repeating-linear-gradient(
+        to right,
+        rgba($color-white, 0.3) 0px, rgba($color-white, 0.3) 4px,
+        transparent 4px, transparent 12px
+      );
+    }
+
+    .team-card__crosshair { color: rgba($color-white, 0.65); }
+    .team-card__ornament-hline {
+      background-image: repeating-linear-gradient(
+        to right,
+        rgba($color-white, 0.3) 0px, rgba($color-white, 0.3) 4px,
+        transparent 4px, transparent 12px
+      );
+    }
+    .team-card__ornament-vline {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba($color-white, 0.3) 0px, rgba($color-white, 0.3) 4px,
+        transparent 4px, transparent 12px
+      );
+    }
+    .team-card__photo-wrap  { border-color: rgba($color-white, 0.15); }
+    .team-card__name        { color: $color-white; }
+    .team-card__role        { color: $color-brand-primary; }
+  }
+
+  // ── Layout ───────────────────────────────────────────────────────────────────
+  .section-team-grid__inner {
+    @include container;
+    @extend %section-pad;
+  }
+
+  // ── Header ───────────────────────────────────────────────────────────────────
+  .section-team-grid__header {
+    max-width: 680px;
+    margin-bottom: $spacing-12;
+  }
+
+  .section-team-grid__heading {
+    font-family: $font-serif;
+    font-size: clamp($font-size-2xl, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: $line-height-tight;
+    color: $color-brand-blue;
+    margin: 0 0 $spacing-6;
+  }
+
+  // Crosshair + horizontal dotted line spanning the header width
+  .section-team-grid__header-ornament {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-6;
+  }
+
+  .section-team-grid__header-crosshair {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: $color-brand-blue;
+
+    svg { display: block; width: 100%; height: 100%; }
+  }
+
+  .section-team-grid__header-line {
+    flex: 1;
+    height: 2px;
+    margin-left: $spacing-3;
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba($color-brand-blue, 0.45) 0px, rgba($color-brand-blue, 0.45) 4px,
+      transparent 4px, transparent 12px
+    );
+    transform-origin: left center;
+    transform: scaleX(0); // animated in by JS
+  }
+
+  .section-team-grid__body {
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+    color: $color-iron-dark;
+
+    p { margin: 0 0 $spacing-3; &:last-child { margin-bottom: 0; } }
+  }
+
+  // ── Card grid ────────────────────────────────────────────────────────────────
+  .section-team-grid__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-6;
+
+    @include respond-to('md') { grid-template-columns: repeat(3, 1fr); }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $spacing-8;
+    }
+  }
+
+  // ── Individual card ──────────────────────────────────────────────────────────
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover,
+    &:focus-visible {
+      .team-card__photo { transform: scale(1.04); }
+      .team-card__cta   { transform: translateY(0); }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-brand-blue;
+      outline-offset: 3px;
+    }
+  }
+
+  .team-card__photo-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background-color: $color-brand-blue-dark;
+    margin-bottom: $spacing-3;
+    border: 1px solid rgba($color-brand-blue, 0.12);
+  }
+
+  .team-card__photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease;
+  }
+
+  .team-card__photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, $color-brand-blue 0%, $color-brand-blue-dark 100%);
+  }
+
+  // ── Card ornament — crosshair + L-shaped dotted lines (top-left corner) ──────
+  .team-card__ornament {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .team-card__crosshair {
+    position: absolute;
+    top: $spacing-3;
+    left: $spacing-3;
+    width: 28px;
+    height: 28px;
+    color: $color-brand-blue;
+
+    svg { display: block; width: 100%; height: 100%; }
+  }
+
+  // Horizontal arm: from right edge of crosshair across the card
+  .team-card__ornament-hline {
+    position: absolute;
+    top: calc(#{$spacing-3} + 14px); // vertically centre on crosshair mid-point
+    left: calc(#{$spacing-3} + 28px);
+    right: 0;
+    height: 2px;
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba($color-brand-blue, 0.45) 0px, rgba($color-brand-blue, 0.45) 4px,
+      transparent 4px, transparent 12px
+    );
+    transform-origin: left center;
+    transform: scaleX(0); // animated in by JS
+  }
+
+  // Vertical arm: from bottom of crosshair down the card
+  .team-card__ornament-vline {
+    position: absolute;
+    top: calc(#{$spacing-3} + 28px);
+    left: calc(#{$spacing-3} + 14px); // horizontally centre on crosshair mid-point
+    bottom: 0;
+    width: 2px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba($color-brand-blue, 0.45) 0px, rgba($color-brand-blue, 0.45) 4px,
+      transparent 4px, transparent 12px
+    );
+    transform-origin: top center;
+    transform: scaleY(0); // animated in by JS
+  }
+
+  // ── READ BIO bar — slides up from the bottom of the photo on hover ───────────
+  .team-card__cta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    background: $color-pine-tree;
+    padding: $spacing-3 $spacing-6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    transform: translateY(100%);
+    transition: transform 0.28s ease;
+
+    span {
+      font-family: $font-sans;
+      font-size: $font-size-sm;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: $color-white;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: $color-white;
+      flex-shrink: 0;
+    }
+  }
+
+  // ── Meta (name + role below the photo) ───────────────────────────────────────
+  .team-card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    padding-top: $spacing-1;
+  }
+
+  .team-card__name {
+    font-family: $font-sans;
+    font-size: $font-size-base;
+    font-weight: 700;
+    color: $color-iron-dark;
+    line-height: $line-height-tight;
+  }
+
+  .team-card__role {
+    font-size: $font-size-sm;
+    color: $color-brand-blue;
+    line-height: $line-height-normal;
+  }
+}
+
+// ─── Team Bio Modal ───────────────────────────────────────────────────────────
+.team-modal {
+  border: none;
+  padding: 0;
+  margin: auto;
+  max-width: min(900px, 96vw);
+  width: 100%;
+  background: $color-white;
+  box-shadow: 0 24px 80px rgba($color-brand-blue-dark, 0.3);
+  overflow: hidden; // square — no border-radius
+
+  &::backdrop {
+    background: rgba($color-pine-tree, 0.72);
+    backdrop-filter: blur(3px);
+  }
+
+  // ── Close button ─────────────────────────────────────────────────────────────
+  .team-modal__panel {
+    position: relative;
+  }
+
+  .team-modal__close {
+    position: absolute;
+    top: $spacing-4;
+    right: $spacing-4;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba($color-iron-dark, 0.08);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: $color-iron-dark;
+    transition: background 0.2s;
+
+    &:hover { background: rgba($color-iron-dark, 0.16); }
+    &:focus-visible { outline: 2px solid $color-brand-blue; outline-offset: 2px; }
+
+    svg { width: 18px; height: 18px; }
+  }
+
+  // ── Two-column layout ─────────────────────────────────────────────────────────
+  .team-modal__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include respond-to('md') {
+      grid-template-columns: 280px 1fr;
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: 340px 1fr;
+    }
+  }
+
+  .team-modal__media {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background-color: $color-brand-blue-dark;
+    max-height: 40vh;
+
+    @include respond-to('md') {
+      max-height: none;
+      aspect-ratio: auto;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+  }
+
+  .team-modal__content {
+    padding: $spacing-8 $spacing-6 $spacing-6;
+    overflow-y: auto;
+    max-height: 80vh;
+
+    @include respond-to('md') {
+      padding: $spacing-10 $spacing-8;
+    }
+  }
+
+  .team-modal__role {
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $color-brand-blue;
+    margin: 0 0 $spacing-2;
+  }
+
+  .team-modal__name {
+    font-family: $font-serif;
+    font-size: clamp($font-size-xl, 2.5vw, $font-size-3xl);
+    font-weight: 700;
+    line-height: $line-height-tight;
+    color: $color-iron-dark;
+    margin: 0 0 $spacing-6;
+  }
+
+  .team-modal__bio {
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+    color: $color-iron-dark;
+
+    p  { margin: 0 0 $spacing-4; &:last-child { margin-bottom: 0; } }
+    ul, ol { padding-left: $spacing-6; margin-bottom: $spacing-4; }
+    strong { font-weight: 700; color: $color-iron-dark; }
+  }
+}

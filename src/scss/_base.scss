@@ -1,0 +1,58 @@
+@use 'variables' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: $font-sans;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-iron-dark;
+  background-color: $color-white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; // propagates to viewport (not body), so doesn't break position:sticky
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: $color-pine-tree;
+  text-decoration: underline;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-iron-dark; }
+}
+
+ul,
+ol {
+  padding-left: $spacing-6;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid $border-color;
+  margin-block: $spacing-8;
+}
+
+// WordPress alignment classes
+.alignleft   { float: left; margin-right: $spacing-4; margin-bottom: $spacing-4; }
+.alignright  { float: right; margin-left: $spacing-4; margin-bottom: $spacing-4; }
+.aligncenter { display: block; margin-inline: auto; }
+.alignwide   { max-width: 100%; }
+.alignfull   { width: 100vw; max-width: 100vw; margin-inline: calc(50% - 50vw); }

@@ -1,0 +1,495 @@
+// Editor-specific styles — @use must precede all other rules
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'typography';
+@use 'layout';
+@use 'blocks';
+
+// ─── Block editor canvas overrides ───────────────────────────────────────────
+// Only loaded inside the Gutenberg editor. Corrects three categories of issues:
+//   1. Full-bleed breakout (width:100vw + negative margins) causes a horizontal
+//      scrollbar and clips content outside the visible canvas area.
+//   2. Excessive section padding makes blocks very tall and scroll-heavy to edit.
+//   3. Animated / overflow decorations (scroll indicators, globe ornaments) look
+//      broken or partially clipped in the editor's single-block context.
+
+.editor-styles-wrapper {
+
+  // ── 1. Cancel full-width breakout on every block that uses it ───────────────
+  .wp-block-globeiron-hero,
+  .wp-block-globeiron-hero-home,
+  .wp-block-globeiron-hero-interior,
+  .wp-block-globeiron-section-partnership,
+  .wp-block-globeiron-section-features,
+  .wp-block-globeiron-section-team-grid,
+  .wp-block-globeiron-service-hubs,
+  .wp-block-globeiron-section-process,
+  .wp-block-globeiron-section-testimonials,
+  .wp-block-globeiron-section-contact-map,
+  .wp-block-globeiron-section-cta,
+  .wp-block-globeiron-section-border-columns,
+  .wp-block-globeiron-section-content-image-split {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  // ── 2a. Hero ────────────────────────────────────────────────────────────────
+  // Frontend padding-block: $spacing-24 (6rem). Halve it in the editor so the
+  // block doesn't require excessive scrolling to get past.
+  .wp-block-globeiron-hero .hero__inner {
+    padding-block: 2.5rem;
+  }
+
+  // ── 2b. Hero Home ───────────────────────────────────────────────────────────
+  // The 7–8rem bottom padding was reserved solely for the scroll-indicator
+  // overhang. Hide the indicator and match top padding.
+  .wp-block-globeiron-hero-home {
+    .hero-home__content {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    // Decorative — no functional value in the editor.
+    .hero-home__globe-left,
+    .hero-home__globe-right,
+    .hero-home__scroll-indicator {
+      display: none;
+    }
+  }
+
+  // ── 2c. Hero Interior ───────────────────────────────────────────────────────
+  // Default: clamp(5rem, 16vw, 10rem) top padding is very tall at editor widths.
+  .wp-block-globeiron-hero-interior {
+    padding-top: 2.5rem;
+    min-height: auto;
+    align-items: stretch;
+
+    .hero-interior__content {
+      padding-bottom: 2rem;
+    }
+
+    // Collage variant uses absolute-positioned photos that overflow and stack
+    // chaotically at editor canvas widths. Show only the text content.
+    &.hero-interior--collage {
+      padding: 2rem;
+      flex-direction: column;
+      min-height: auto;
+
+      // The lg ::after draws a white bar at the bottom to create the image
+      // overhang effect — in the editor it covers the CTA and looks broken.
+      &::after {
+        display: none !important;
+      }
+
+      .hero-interior__collage-top,
+      .hero-interior__collage-worker,
+      .hero-interior__collage-ornament,
+      .hero-interior__collage-line {
+        display: none;
+      }
+
+      .hero-interior--collage-wrap {
+        display: block;
+        padding: 0;
+        min-height: auto;
+      }
+
+      .hero-interior__content {
+        padding-top: 0;
+        min-height: auto;
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  // ── 2d. Card Grid ───────────────────────────────────────────────────────────
+  // $spacing-section = 5rem each side. Cut to 2rem so cards are immediately
+  // visible without scrolling past empty space.
+  .wp-block-globeiron-card-grid {
+    padding-block: 2rem;
+  }
+
+  // ── 2e. Section: CTA ────────────────────────────────────────────────────────
+  .wp-block-globeiron-section-cta .section-cta__inner {
+    padding-block: $spacing-12;
+    min-height: auto;
+  }
+
+  // ── 2f. Section: Border Columns ─────────────────────────────────────────────
+  // Frontend uses 7rem padding; reduce for the editor.
+  .wp-block-globeiron-section-border-columns {
+    padding-block: 3rem;
+  }
+
+  // ── 2g. Section: Features ───────────────────────────────────────────────────
+  // Pull the block away from the canvas edges so it doesn't appear to bleed.
+  // overflow-clip's hidden value clips the heading area in the editor canvas,
+  // so release it here where the globe ornaments are already hidden.
+  .wp-block-globeiron-section-features {
+    margin-inline: 1rem;
+    border-radius: 6px;
+
+    .section-features__overflow-clip {
+      overflow: visible;
+    }
+
+    .section-features__inner {
+      padding-block: $spacing-12;
+    }
+  }
+
+  // ── 2h. Section: Services ───────────────────────────────────────────────────
+  .wp-block-globeiron-section-services .section-services__header {
+    padding-block: $spacing-12;
+  }
+
+  // ── 2i. Shared section padding ──────────────────────────────────────────────
+  // Sections that use %section-pad ($spacing-20 / $spacing-24 = 5–6rem).
+  // Reduce to 3rem so editors don't have to scroll past as much whitespace.
+  .wp-block-globeiron-section-partnership .partners__inner,
+  .wp-block-globeiron-section-process .section-process__inner,
+  .wp-block-globeiron-section-testimonials .section-testimonials__inner,
+  .section-reviews__inner {
+    padding-block: $spacing-12;
+  }
+
+  // ── 2j. Contact + Map ───────────────────────────────────────────────────────
+  .wp-block-globeiron-section-contact-map .section-contact-map__panel {
+    padding-block: $spacing-12;
+  }
+
+  // ── 2k. Section: Team Grid ──────────────────────────────────────────────────
+  // Reduce vertical padding and hide modals (dialogs don't render in the canvas).
+  .wp-block-globeiron-section-team-grid {
+    .section-team-grid__inner {
+      padding-block: $spacing-12;
+    }
+
+    // Hover overlays are distracting in the editor — show name/role inline instead.
+    .team-card__overlay { display: none; }
+
+    // Dialogs don't open in the editor canvas, so hide them to avoid dead DOM.
+    .team-modal { display: none; }
+  }
+
+  // ── 2l. Section: Content / Image Split ─────────────────────────────────────
+  .wp-block-globeiron-section-content-image-split {
+    .section-content-image-split__inner {
+      padding-block: $spacing-12;
+    }
+
+    // Show the divider in the editor so the layout is clear.
+    .section-content-image-split__divider {
+      display: flex;
+    }
+  }
+
+  // ── Buttons ──────────────────────────────────────────────────────────────────
+  // _components.scss is not imported here (it carries nav/blog/modal rules that
+  // would bleed into the editor UI). Mirror only the button rules so CTAs render
+  // the same way in the editor as on the front-end.
+  .btn {
+    @include btn-base;
+    background: $color-brand-primary;
+    color: $color-pine-tree;
+    text-transform: uppercase;
+  }
+
+  .btn--primary {
+    background: $color-brand-primary;
+    color: $color-pine-tree;
+  }
+
+  .btn--secondary {
+    background: transparent;
+    color: $color-pine-tree;
+    border: 2px solid $color-pine-tree;
+  }
+
+  .btn--brand {
+    background: $color-yellow;
+    color: $color-pine-tree;
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: $color-iron-dark;
+    border: 2px solid $border-color;
+  }
+
+  .btn--outline-gold {
+    background: transparent;
+    color: $color-brand-primary;
+    border: 2px solid $color-brand-primary;
+  }
+
+  .btn--sm { padding: $spacing-2 $spacing-4; font-size: $font-size-sm; }
+  .btn--lg { padding: $spacing-4 $spacing-8; font-size: $font-size-lg; }
+
+  // ── 2m. Project Header + Body ───────────────────────────────────────────────
+  // _components.scss is not imported in editor.scss (it carries nav/blog/modal
+  // rules that bleed into the editor UI). Replicate only the project-header and
+  // project-body rules here, then apply editor-specific overrides below.
+
+  .project-header {
+    position: relative;
+    background: linear-gradient(135deg, $color-dark-deep-1 0%, $color-dark-deep-2 60%, $color-dark-deep-3 100%);
+
+    &__ornament { display: none; } // JS-positioned — meaningless without measurements
+
+    &__hero {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 240px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(
+          to top,
+          rgba($color-dark-deep-1, 0.72) 0%,
+          rgba($color-dark-deep-1, 0.18) 55%,
+          rgba($color-dark-deep-1, 0.10) 100%
+        );
+      }
+    }
+
+    &__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      opacity: 0.82;
+      z-index: 0;
+    }
+
+    &__hero-inner {
+      flex: 1;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: $spacing-8;
+    }
+
+    &__topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: $spacing-4;
+      padding-block: $spacing-3;
+    }
+
+    &__back {
+      display: inline-flex;
+      align-items: center;
+      gap: $spacing-2;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: $color-brand-primary;
+      text-decoration: none;
+      flex-shrink: 0;
+      svg { flex-shrink: 0; }
+    }
+
+    &__cat-label {
+      display: block;
+      font-size: $font-size-sm;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba($color-white, 0.7);
+      strong { font-weight: 700; color: $color-white; }
+    }
+
+    &__cat-mobile { display: none; }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      padding-top: $spacing-6;
+      padding-bottom: $spacing-8;
+    }
+
+    &__eyebrow {
+      display: block;
+      font-family: $font-sans;
+      font-size: $font-size-sm;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: $color-white;
+      margin-bottom: $spacing-2;
+    }
+
+    &__headline {
+      font-family: $font-serif;
+      font-size: clamp($font-size-2xl, 4vw, 3rem);
+      font-weight: 800;
+      color: $color-white;
+      line-height: $line-height-tight;
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    // Snapshot: in-flow card (absolute positioning is editor-only overridden below)
+    &__snapshot {
+      background: $color-brand-blue;
+      padding: $spacing-6 $spacing-4;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__snapshot-title {
+      font-family: $font-serif;
+      font-size: $font-size-xl;
+      font-weight: 700;
+      color: $color-white;
+      margin: 0 0 $spacing-2;
+    }
+
+    &__snapshot-intro {
+      font-size: $font-size-sm;
+      color: rgba($color-white, 0.7);
+      line-height: $line-height-normal;
+      margin: 0 0 $spacing-6;
+    }
+
+    &__specs {
+      list-style: none;
+      margin: 0;
+      padding: $spacing-4 0 0;
+      border-top: 1px solid rgba($color-white, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__spec {
+      font-size: $font-size-sm;
+      color: rgba($color-white, 0.85);
+      line-height: $line-height-normal;
+      padding: $spacing-3 0 $spacing-3 $spacing-4;
+      position: relative;
+
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        top: $spacing-3;
+        color: $color-brand-primary;
+        font-weight: 700;
+      }
+
+      strong { font-weight: 700; color: $color-white; }
+    }
+  }
+
+  .project-body {
+    background: $color-white;
+    padding-block: $spacing-12;
+
+    &__description {
+      font-size: $font-size-lg;
+      color: $color-iron-dark;
+      line-height: $line-height-loose;
+
+      p { margin: 0 0 $spacing-6; &:last-child { margin-bottom: 0; } }
+
+      h2, h3 {
+        font-family: $font-serif;
+        color: $color-brand-blue;
+        margin: $spacing-8 0 $spacing-3;
+      }
+    }
+  }
+
+  // Editor-specific layout overrides for project-header.
+  // The snapshot is a sibling of __hero (direct child of the block wrapper), so
+  // the 2-column grid goes on the wrapper — mirroring the front-end where the
+  // blue panel straddles the hero and body sections.
+  .wp-block-globeiron-project-header {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-areas:
+      "hero snapshot"
+      "body snapshot";
+    grid-template-rows: auto 1fr;
+
+    .project-header__ornament { display: none; }
+
+    .project-header__hero {
+      grid-area: hero;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    // Remove the ~450 px right-padding reserved for the absolute snapshot.
+    .project-header__hero-inner {
+      padding-right: $spacing-6 !important;
+    }
+
+    // Snapshot: static, fills both hero + body rows like the front-end.
+    .project-header__snapshot {
+      grid-area: snapshot;
+      position: static !important;
+      right: auto !important;
+      top: auto !important;
+      width: auto !important;
+      margin-top: 0;
+      align-self: stretch;
+      padding: $spacing-8 $spacing-6;
+    }
+
+    .project-body {
+      grid-area: body;
+    }
+  }
+
+  // ── 3. Hide overflow / animated decorative elements ─────────────────────────
+  // Scroll indicators extend 106px below their parent block — they overlap the
+  // next block and are clipped, looking like a rendering error.
+  .section-features__scroll-indicator {
+    display: none;
+  }
+
+  // Side ornament lines run from a JS-calculated top to the bottom of the
+  // section; they look like stray dashes in the editor.
+  .section-features__ornament,
+  .section-services__ornament,
+  .section-service-hubs__ornament {
+    display: none;
+  }
+
+  // Globe images position absolutely and overflow their containers at editor widths.
+  .section-features__globe-left,
+  .section-features__globe-right {
+    display: none;
+  }
+
+  // Animated dotted-border box around the border-columns block — requires JS
+  // intersection observer to draw; shows as invisible or partially drawn.
+  .section-border-columns__border-box {
+    display: none;
+  }
+
+  // Contact map: rail crosshairs and the vertical dotted line are driven by a
+  // JS animation; they render as invisible elements in the editor.
+  .section-contact-map__rail-crosshair,
+  .section-contact-map__rail-line,
+  .section-contact-map__divider {
+    display: none;
+  }
+}

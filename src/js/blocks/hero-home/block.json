@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "globeiron/hero-home",
+  "version": "1.0.0",
+  "title": "Homepage Hero",
+  "category": "globeiron",
+  "icon": "cover-image",
+  "description": "Full-viewport homepage hero with background image, overlay, and dual CTAs.",
+  "keywords": ["hero", "home", "banner", "cover"],
+  "textdomain": "globeiron",
+  "attributes": {
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "backgroundImageId":  { "type": "number", "default": 0 },
+    "heading":            { "type": "string", "default": "Expert Roofing You Can Count On" },
+    "subheading":         { "type": "string", "default": "Residential & commercial roofing services delivered with craftsmanship and integrity." },
+    "primaryLabel":       { "type": "string", "default": "Get a Free Estimate" },
+    "primaryUrl":         { "type": "string", "default": "#" },
+    "secondaryLabel":     { "type": "string", "default": "Our Services" },
+    "secondaryUrl":       { "type": "string", "default": "#" }
+  },
+  "supports": {
+    "html":  false,
+    "align": ["full"]
+  }
+}

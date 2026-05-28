@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "globeiron/section-partnership",
+  "version": "1.0.0",
+  "title": "Section — Partnership",
+  "category": "globeiron",
+  "icon": "groups",
+  "description": "Bold partner logo grid — pulls from the Partner post type automatically.",
+  "keywords": ["partners", "logos", "clients", "brands", "sponsors"],
+  "textdomain": "globeiron",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "align":      { "type": "string", "default": "full" },
+    "eyebrow":    { "type": "string", "default": "Our Partners" },
+    "heading":    { "type": "string", "default": "Trusted by Industry Leaders" },
+    "subheading": { "type": "string", "default": "We work alongside the best suppliers and brands in the business." },
+    "bgStyle":    { "type": "string", "default": "dark" }
+  },
+  "supports": {
+    "html":            false,
+    "align":           ["full"],
+    "anchor":          true,
+    "customClassName": true
+  }
+}

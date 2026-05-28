@@ -1,0 +1,71 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "color": {
+      "palette": [
+        { "slug": "brand-primary",   "color": "#4457f8", "name": "Brand Primary" },
+        { "slug": "brand-secondary", "color": "#2428d1", "name": "Brand Secondary" },
+        { "slug": "iron-dark",       "color": "#21262f", "name": "Iron Dark" },
+        { "slug": "iron-mid",        "color": "#657693", "name": "Iron Mid" },
+        { "slug": "iron-light",      "color": "#eceef2", "name": "Iron Light" },
+        { "slug": "white",           "color": "#ffffff", "name": "White" },
+        { "slug": "black",           "color": "#000000", "name": "Black" }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "sans",
+          "name": "Inter (Sans)",
+          "fontFamily": "Inter, ui-sans-serif, system-ui, sans-serif"
+        },
+        {
+          "slug": "serif",
+          "name": "Merriweather (Serif)",
+          "fontFamily": "Merriweather, ui-serif, Georgia, serif"
+        },
+        {
+          "slug": "mono",
+          "name": "JetBrains Mono",
+          "fontFamily": "'JetBrains Mono', ui-monospace, monospace"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "sm",  "size": "0.875rem", "name": "Small" },
+        { "slug": "md",  "size": "1rem",     "name": "Medium" },
+        { "slug": "lg",  "size": "1.125rem", "name": "Large" },
+        { "slug": "xl",  "size": "1.25rem",  "name": "XL" },
+        { "slug": "2xl", "size": "1.5rem",   "name": "2XL" },
+        { "slug": "3xl", "size": "1.875rem", "name": "3XL" },
+        { "slug": "4xl", "size": "2.25rem",  "name": "4XL" },
+        { "slug": "5xl", "size": "3rem",     "name": "5XL" }
+      ]
+    },
+    "spacing": {
+      "spacingScale": {
+        "operator": "*",
+        "increment": 1.5,
+        "steps": 7,
+        "mediumStep": 1,
+        "unit": "rem"
+      }
+    },
+    "layout": {
+      "contentSize": "720px",
+      "wideSize": "1280px"
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#ffffff",
+      "text": "#21262f"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--sans)",
+      "fontSize": "var(--wp--preset--font-size--md)",
+      "lineHeight": "1.5"
+    }
+  }
+}

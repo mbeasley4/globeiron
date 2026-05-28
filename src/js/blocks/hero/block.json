@@ -1,0 +1,70 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "globeiron/hero",
+  "version": "1.0.0",
+  "title": "Hero",
+  "category": "globeiron",
+  "icon": "cover-image",
+  "description": "Full-width hero section with heading, body content, and call-to-action buttons.",
+  "keywords": ["hero", "banner", "header"],
+  "textdomain": "globeiron",
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Build something globeiron."
+    },
+    "content": {
+      "type": "string",
+      "default": "Your compelling description goes here."
+    },
+    "primaryLabel": {
+      "type": "string",
+      "default": "Get Started"
+    },
+    "primaryUrl": {
+      "type": "string",
+      "default": "#"
+    },
+    "primaryNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "secondaryLabel": {
+      "type": "string",
+      "default": "Learn More"
+    },
+    "secondaryUrl": {
+      "type": "string",
+      "default": "#"
+    },
+    "secondaryNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "backgroundType": {
+      "type": "string",
+      "default": "solid"
+    },
+    "backgroundImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundImageId": {
+      "type": "number",
+      "default": 0
+    },
+    "overlayOpacity": {
+      "type": "number",
+      "default": 65
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["full", "wide"]
+  }
+}

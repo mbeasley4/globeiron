@@ -1,0 +1,25 @@
+# Dependencies — never commit (956 MB)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Env
+.env
+.env.local
+
+# Build cache
+.cache/
+
+# dist/ is intentionally tracked so the theme deploys without a build step

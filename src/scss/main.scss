@@ -1,0 +1,13 @@
+// Globeiron Sass partials — @use must precede all other rules
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'base';
+@use 'typography';
+@use 'layout';
+@use 'components';
+@use 'blocks';
+
+// Tailwind base layers (processed by PostCSS after Sass)
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

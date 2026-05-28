@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "globeiron/card-grid",
+  "version": "1.0.0",
+  "title": "Card Grid",
+  "category": "globeiron",
+  "icon": "grid-view",
+  "description": "Responsive grid of cards.",
+  "keywords": ["cards", "grid", "features"],
+  "textdomain": "globeiron",
+  "attributes": {
+    "columns": { "type": "number", "default": 3 },
+    "cards": {
+      "type": "array",
+      "default": [
+        { "title": "Feature One",   "body": "Describe this feature." },
+        { "title": "Feature Two",   "body": "Describe this feature." },
+        { "title": "Feature Three", "body": "Describe this feature." }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"]
+  }
+}

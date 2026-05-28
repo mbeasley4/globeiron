@@ -1,0 +1,440 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ─── Site layout ─────────────────────────────────────────────────────────────
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// ─── Sticky header group (announcement + nav) ─────────────────────────────────
+.site-header-group {
+  position: sticky;
+  top: 0;
+  z-index: $z-overlay;
+}
+
+// ─── Announcement bar ─────────────────────────────────────────────────────────
+.announcement-bar {
+  width: 100%;
+  background: $color-brand-blue-dark;
+  color: $color-white;
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+}
+
+.announcement-bar__inner {
+  @include container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-4;
+  padding-block: $spacing-2;
+}
+
+// ── Contact cluster (phone + email) ──────────────────────────────────────────
+.announcement-bar__contact {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  flex-wrap: wrap;
+}
+
+.announcement-bar__contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  color: rgba($color-white, 0.92);
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color $transition-fast;
+
+  svg { flex-shrink: 0; opacity: 0.80; }
+
+  &:hover { color: $color-white; text-decoration: none; svg { opacity: 1; } }
+}
+
+// ── Optional announcement message ────────────────────────────────────────────
+.announcement-bar__message {
+  margin: 0;
+  text-align: right;
+  color: rgba($color-white, 0.92);
+  white-space: nowrap;
+
+  // On small screens, hide announcement text to keep the bar clean
+  display: none;
+  @include respond-to('lg') { display: block; }
+}
+
+.announcement-bar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  margin-left: $spacing-3;
+  color: $color-white;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity $transition-fast;
+
+  &:hover { opacity: 0.80; text-decoration: underline; }
+}
+
+.site-header {
+  position: relative; // anchor for the mobile nav dropdown
+  background: $color-brand-blue;
+  border-bottom: 1px solid rgba($color-brand-blue-dark, 0.6);
+}
+
+.site-header__inner {
+  @include container;
+  @include flex-between;
+  padding-block: $spacing-4;
+}
+
+
+.site-content {
+  flex: 1;
+}
+
+// ─── Footer shell ─────────────────────────────────────────────────────────────
+.site-footer {
+  background: $color-pine-tree;
+  color: rgba($color-white, 0.72);
+}
+
+// Footer headings use Franklin Gothic (not global Clarendon), all white
+#colophon h3,
+#colophon h4 {
+  font-family: $font-sans;
+  color: $color-white;
+}
+
+// ─── Serving banner ───────────────────────────────────────────────────────────
+.footer-banner {
+  padding-block: $spacing-8;
+  text-align: center;
+}
+
+.footer-banner__text {
+  margin: 0;
+  font-family: $font-serif;
+  font-size: clamp($font-size-lg, 2vw, $font-size-2xl);
+  font-weight: 700;
+  color: $color-white;
+  letter-spacing: 0.01em;
+}
+
+// ─── Footer main grid ─────────────────────────────────────────────────────────
+.footer-main {
+  padding-block: $spacing-16 $spacing-12;
+}
+
+.footer-main__inner {
+  @include container;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-10;
+
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('lg') {
+    grid-template-columns: 2fr 1fr 1fr 1.2fr 1.4fr;
+    gap: $spacing-8;
+    align-items: start;
+  }
+}
+
+// ─── Shared column heading ────────────────────────────────────────────────────
+.footer-col__heading {
+  font-family: $font-sans;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color-white;
+  margin: 0 0 $spacing-6;
+
+  a {
+    color: $color-white;
+    text-decoration: none;
+    transition: color $transition-fast;
+    &:hover { color: $color-brand-primary; text-decoration: none; }
+  }
+}
+
+// ─── Col 1: Contact ──────────────────────────────────────────────────────────
+.footer-contact-info {
+  font-style: normal;
+  font-size: $font-size-sm;
+  line-height: $line-height-loose;
+  color: rgba($color-white, 0.72);
+
+  p { margin: 0; }
+  p + p { margin-top: $spacing-4; }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color $transition-fast;
+    &:hover { color: $color-brand-primary; text-decoration: none; }
+  }
+}
+
+// ─── Nav columns ─────────────────────────────────────────────────────────────
+.footer-col--nav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+
+  .footer-col__heading { margin: 0; }
+}
+
+// ─── Social + Certs column ────────────────────────────────────────────────────
+.footer-col--social {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.footer-social {
+  display: flex;
+  gap: $spacing-3;
+}
+
+.footer-social__link {
+  display: block;
+  flex-shrink: 0;
+  opacity: 0.9;
+  transition: opacity $transition-fast;
+  text-decoration: none;
+
+  &:hover { opacity: 1; text-decoration: none; }
+
+  img {
+    width: 39px;
+    height: 39px;
+    display: block;
+  }
+}
+
+.footer-certs {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  flex-wrap: wrap;
+
+  img { object-fit: contain; display: block; }
+}
+
+// ─── Footer bottom bar ────────────────────────────────────────────────────────
+.footer-bottom {
+  padding-block: $spacing-6;
+}
+
+.footer-bottom__inner {
+  @include container;
+  @include flex-between;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+}
+
+.footer-copyright {
+  font-size: $font-size-sm;
+  color: rgba($color-white, 0.45);
+  margin: 0;
+}
+
+.footer-legal-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-8;
+
+  li { display: block; margin: 0; padding: 0; }
+
+  li a {
+    font-size: $font-size-sm;
+    color: rgba($color-white, 0.45);
+    text-decoration: none;
+    transition: color $transition-fast;
+    &:hover { color: $color-white; text-decoration: none; }
+  }
+}
+
+// ─── Archive hero (PHP-rendered, full-width, reuses hero-interior styles) ────
+// The block version uses a 50vw breakout trick to escape a container.
+// Here the hero sits directly in <main> at full width, so we reset the offsets.
+.archive-hero.wp-block-globeiron-hero-interior {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+// ─── Container ───────────────────────────────────────────────────────────────
+.container {
+  @include container;
+}
+
+// ─── Standard page template ───────────────────────────────────────────────────
+// body.page-template-default: pages that use the default page template (page.php)
+// and have no full-width hero — full content area gets the site's light grey bg.
+body.page-template-default .site-content {
+  background: $color-iron-light;
+}
+
+// Constrain direct block children to the container max-width with padding.
+// alignfull blocks (heroes etc.) break out via their own negative-margin rule.
+.entry.page > .wp-block-columns,
+.entry.page > .wp-block-group:not(.alignfull) {
+  max-width: $container-max-width;
+  margin-inline: auto;
+  padding-inline: $spacing-4;
+  padding-block: $spacing-section;
+
+  @include respond-to('md') { padding-inline: $spacing-8; }
+  @include respond-to('lg') { padding-inline: $spacing-12; }
+}
+
+.entry.page > .wp-block-columns {
+  gap: $spacing-16;
+
+  @include respond-to('lg') { gap: $spacing-24; }
+}
+
+// ─── Page sections ───────────────────────────────────────────────────────────
+.section {
+  padding-block: $spacing-section;
+}
+
+.section--alt {
+  background: $color-iron-light;
+}
+
+// ─── 404 page ─────────────────────────────────────────────────────────────────
+@keyframes err-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-404 {
+  min-height: calc(100svh - 100px);
+  background: linear-gradient(160deg, $color-dark-deep-1 0%, $color-dark-deep-2 55%, $color-dark-deep-3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-16 $spacing-6;
+}
+
+.page-404__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-6;
+  max-width: 640px;
+}
+
+.page-404__indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $color-brand-primary;
+}
+
+.page-404__crosshair {
+  position: relative;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+
+  circle, line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+}
+
+.page-404__line {
+  position: relative;
+  z-index: 0;
+  width: 2px;
+  height: 80px;
+  clip-path: inset(0 0 var(--gi-track-clip, 100%) 0);
+  background-image: repeating-linear-gradient(to bottom, $color-brand-primary 0px, $color-brand-primary 4px, transparent 4px, transparent 12px);
+}
+
+.page-404__number {
+  font-family: $font-sans;
+  font-size: clamp(5rem, 20vw, 10rem);
+  font-weight: 800;
+  color: rgba($color-brand-primary, 0.12);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 0;
+  animation: err-fade-up 0.8s ease-out 0.3s both;
+}
+
+.page-404__heading {
+  font-family: $font-serif;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  font-weight: 700;
+  color: $color-white;
+  line-height: $line-height-tight;
+  margin: 0;
+  animation: err-fade-up 0.8s ease-out 0.5s both;
+}
+
+.page-404__sub {
+  font-family: $font-sans;
+  font-size: $font-size-base;
+  color: rgba($color-white, 0.50);
+  letter-spacing: 0.02em;
+  margin: 0;
+  animation: err-fade-up 0.8s ease-out 0.65s both;
+}
+
+.page-404__cta {
+  animation: err-fade-up 0.8s ease-out 0.8s both;
+}
+
+.page-404__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-2 $spacing-6;
+  padding-top: $spacing-6;
+  border-top: 1px solid rgba($color-white, 0.10);
+  width: 100%;
+  animation: err-fade-up 0.8s ease-out 0.95s both;
+}
+
+.page-404__nav-link {
+  font-family: $font-sans;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: rgba($color-white, 0.45);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color $transition-fast;
+
+  &:hover { color: $color-brand-primary; }
+}
+
+// ─── Post layout ─────────────────────────────────────────────────────────────
+.entry-content {
+  max-width: $content-max-width;
+  margin-inline: auto;
+}
+
+// ─── WordPress block wrapper ──────────────────────────────────────────────────
+.wp-block-group.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+  max-width: $content-max-width;
+  margin-inline: auto;
+}
