@@ -2059,7 +2059,7 @@
   .section-contact-map__panel {
     display: grid;
     grid-template-columns: 1fr;
-    padding-block: 5rem;
+    padding-block: clamp(2rem, 5vw, 5rem);
     animation: map-panel-in 0.35s ease both;
 
     @include respond-to('lg') {
@@ -2074,10 +2074,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: $spacing-12 $spacing-8;
+    padding: $spacing-8 $spacing-6;
 
     @include respond-to('md') {
-      padding: $spacing-16 $spacing-12;
+      padding: $spacing-12 $spacing-8;
     }
 
     @include respond-to('lg') {
@@ -2495,12 +2495,12 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  padding: 7rem 2rem;
+  padding: clamp(3rem, 8vw, 7rem) 2rem;
   background-color: $color-brand-blue; // default
   color: $color-white;
   isolation: isolate;
   @media (min-width:1024px) {
-    padding: 7rem 0;
+    padding: clamp(3rem, 8vw, 7rem) 0;
   }
 
   // ── Background variants ──────────────────────────────────────────────────
@@ -3338,46 +3338,65 @@
     gap: $spacing-6;
   }
 
-  // Stacked image composite — contains one __pair per before/after entry
-  // Extra height accommodates labels sitting below each image in normal flow
+  // Image composite container. Mobile: natural flow height. Desktop: fixed
+  // aspect-ratio contains the staggered absolute-positioned pair layout.
   &__images {
     position: relative;
-    aspect-ratio: 1 / 1.075;
     overflow: visible;
+
+    @include respond-to('lg') {
+      aspect-ratio: 1 / 1.075;
+    }
   }
 
-  // One pair = one before/after comparison; only .is-active pair is visible.
-  // Opacity transitions are driven by GSAP; CSS values are a no-JS fallback.
+  // One pair = one image comparison. Mobile: show/hide with display so inactive
+  // pairs don't collapse the container. Desktop: absolute overlay, opacity-toggled.
   &__pair {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
+    display: none;
 
     &.is-active {
-      opacity: 1;
-      pointer-events: auto;
+      display: block;
+    }
+
+    @include respond-to('lg') {
+      display: block;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+
+      &.is-active {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
   }
 
-  // __img-wrap is the absolute positioning shell; no overflow clip here so
-  // __img-label can sit below the image in normal flow.
+  // Mobile: full-width stacked blocks with gap between them.
+  // Desktop: absolutely positioned with stagger to create depth.
   &__img-wrap {
-    position: absolute;
+    display: block;
+    width: 100%;
 
-    // Both images are the same width; stagger creates the visual depth
-    &--before {
-      width: 60%;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
+    & + & { margin-top: $spacing-4; }
 
-    &--after {
-      width: 60%;
-      top: 22%;
-      right: 0;
-      z-index: 2;
+    @include respond-to('lg') {
+      position: absolute;
+      margin-top: 0;
+
+      &--before {
+        width: 60%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+
+      &--after {
+        width: 60%;
+        top: 22%;
+        right: 0;
+        z-index: 2;
+      }
     }
   }
 
@@ -3411,39 +3430,47 @@
     line-height: 1;
   }
 
-  // Single-image pair: expand to fill the full container.
+  // Single-image pair: desktop only — on mobile images are already full-width.
   &__pair--single {
-    .project-details__img-wrap {
-      width: 100%;
-      top: 0;
-      left: 0;
-      right: auto;
-    }
+    @include respond-to('lg') {
+      .project-details__img-wrap {
+        width: 100%;
+        top: 0;
+        left: 0;
+        right: auto;
+      }
 
-    .project-details__img-inner {
+      .project-details__img-inner {
+        aspect-ratio: 3 / 4;
+      }
+    }
+  }
+
+  // When the active pair is single-image, collapse to portrait ratio on desktop.
+  &__images:has(.project-details__pair--single.is-active) {
+    @include respond-to('lg') {
       aspect-ratio: 3 / 4;
     }
   }
 
-  // When the active pair is single-image, match the container to the portrait ratio.
-  &__images:has(.project-details__pair--single.is-active) {
-    aspect-ratio: 3 / 4;
-  }
-
-  // L-shaped ornament: ch1 ─────── corner
-  //                                    |
-  //                                   ch2
-  // Absolutely positioned children ensure hline, vline, and ch2 all share
-  // the same x-axis at the right side (corner at right end of hline).
+  // L-shaped ornament — desktop only; hidden on mobile where layout is stacked.
+  // ch1 ─────── corner
+  //                 |
+  //                ch2
   &__ornament {
-    position: absolute;
-    top: 3%;
-    left: 62%;
-    z-index: 5;
-    color: $color-brand-blue;
-    pointer-events: none;
-    width: 96px;  // 28px ch1 + 54px hline + 14px (ch2 half-width)
-    height: 90px; // 28px ch1 row + 48px vline + 14px (ch2 half-height)
+    display: none;
+
+    @include respond-to('lg') {
+      display: block;
+      position: absolute;
+      top: 3%;
+      left: 62%;
+      z-index: 5;
+      color: $color-brand-blue;
+      pointer-events: none;
+      width: 96px;
+      height: 90px;
+    }
   }
 
   &__ornament-ch {
@@ -3462,9 +3489,9 @@
 
   &__ornament-hline {
     position: absolute;
-    top: 14px;    // ch1 center y
-    left: 28px;   // right edge of ch1
-    right: 14px;  // stop at ch2 center x (14px from right edge)
+    top: 14px;
+    left: 28px;
+    right: 14px;
     height: 1.5px;
     background-image: repeating-linear-gradient(
       to right,
@@ -3475,9 +3502,9 @@
 
   &__ornament-vline {
     position: absolute;
-    top: 14px;    // ch1 center y = corner y
-    right: 14px;  // ch2 center x
-    bottom: 28px; // top of ch2
+    top: 14px;
+    right: 14px;
+    bottom: 28px;
     width: 2px;
     background-image: repeating-linear-gradient(
       to bottom,
@@ -3486,16 +3513,22 @@
     );
   }
 
-  // ── Controls (prev/next arrows) — absolutely positioned within __images ───────
-  // Overflow: visible on __images lets controls sit below the composite.
+  // ── Controls (prev/next arrows) ──────────────────────────────────────────────
+  // Mobile: static row below the active pair. Desktop: absolute below composite.
   &__controls {
-    position: absolute;
-    bottom: -8%;
-    right: 2%;
-    z-index: 10;
     display: flex;
     align-items: center;
     gap: $spacing-3;
+    justify-content: flex-end;
+    margin-top: $spacing-4;
+
+    @include respond-to('lg') {
+      position: absolute;
+      bottom: -8%;
+      right: 2%;
+      z-index: 10;
+      margin-top: 0;
+    }
   }
 
   &__arrow {
