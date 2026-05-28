@@ -35,7 +35,7 @@
             "append": ""
         },
         {
-            "key": "field_scm_map_content",
+            "key": "field_69fc8584d43f0",
             "label": "Body Copy",
             "name": "map_section_content",
             "aria-label": "",
@@ -52,7 +52,7 @@
             "delay": 0
         },
         {
-            "key": "field_scm_regions",
+            "key": "field_69fc85cad43f1",
             "label": "Regions",
             "name": "regions",
             "aria-label": "",
@@ -70,7 +70,7 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_scm_region_name",
+                    "key": "field_69fc85e0d43f2",
                     "label": "Region Name",
                     "name": "region_name",
                     "aria-label": "",
@@ -84,10 +84,10 @@
                     "placeholder": "e.g. Greater Nashville",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_scm_regions"
+                    "parent_repeater": "field_69fc85cad43f1"
                 },
                 {
-                    "key": "field_scm_region_desc",
+                    "key": "field_69fc85f1d43f3",
                     "label": "Description",
                     "name": "region_desc",
                     "aria-label": "",
@@ -101,7 +101,7 @@
                     "placeholder": "e.g. Davidson, Williamson & Rutherford counties",
                     "prepend": "",
                     "append": "",
-                    "parent_repeater": "field_scm_regions"
+                    "parent_repeater": "field_69fc85cad43f1"
                 }
             ]
         },
@@ -111,7 +111,7 @@
             "name": "map_embed",
             "aria-label": "",
             "type": "textarea",
-            "instructions": "Paste the full iframe embed code from Google Maps (Share → Embed a map). Only the iframe tag is rendered.",
+            "instructions": "Paste the full iframe embed code from Google Maps (Share - Embed a map). Only the iframe tag is rendered.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": { "width": "", "class": "", "id": "" },
@@ -163,5 +163,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1780200000
+    "modified": 1780210000
 }
