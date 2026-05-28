@@ -1,0 +1,214 @@
+{
+    "key": "group_globeiron_reviews",
+    "title": "Review Fields",
+    "fields": [
+        {
+            "key": "field_rating",
+            "label": "Rating",
+            "name": "rating",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "1": "1 Star",
+                "2": "2 Stars",
+                "3": "3 Stars",
+                "4": "4 Stars",
+                "5": "5 Stars"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "allow_null": 1,
+            "ui": 1,
+            "multiple": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_company",
+            "label": "Company",
+            "name": "company",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_position",
+            "label": "Position / Title",
+            "name": "position",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_client_name",
+            "label": "Client Name (Override)",
+            "name": "client_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional if different from post title",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_testimonial_image",
+            "label": "Client Image",
+            "name": "client_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_rev_headline",
+            "label": "Card Headline",
+            "name": "review_headline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Short title displayed on the review card, e.g. \"Excellent Service\".",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "e.g. Excellent Service",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_rev_source",
+            "label": "Review Source",
+            "name": "review_source",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Platform where the review was originally posted.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "google": "Google",
+                "facebook": "Facebook",
+                "yelp": "Yelp",
+                "word_of_mouth": "Word of Mouth",
+                "other": "Other"
+            },
+            "default_value": "google",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_rev_date",
+            "label": "Review Date",
+            "name": "review_date",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "Date the review was originally written.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "m/d/Y",
+            "return_format": "Y-m-d",
+            "first_day": 0,
+            "default_to_current_date": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "globeiron_review"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1780030002
+}

@@ -1,0 +1,95 @@
+{
+    "key": "group_block_section_post_listing",
+    "title": "Post Listing",
+    "fields": [
+        {
+            "key": "field_spl_post_type",
+            "label": "Post Type",
+            "name": "listing_post_type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "post": "Blog Posts",
+                "project": "Projects"
+            },
+            "default_value": "post",
+            "ui": 1,
+            "multiple": 0,
+            "allow_null": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_spl_grid_title",
+            "label": "Section Heading",
+            "name": "grid_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. Displayed above the grid.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_spl_grid_content",
+            "label": "Section Description",
+            "name": "grid_content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Optional. Displayed below the heading.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "media_upload": 0,
+            "toolbar": "basic",
+            "tabs": "visual",
+            "default_value": "",
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/section-post-listing"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": ""
+}

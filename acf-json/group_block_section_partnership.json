@@ -1,0 +1,92 @@
+{
+    "key": "group_block_section_partnership",
+    "title": "Block: Section \u2014 Partnership",
+    "fields": [
+        {
+            "key": "field_sp_heading",
+            "label": "Heading",
+            "name": "heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. Main headline displayed above the logo grid.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Our Trusted Partners",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_sp_intro",
+            "label": "Intro Text",
+            "name": "intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Optional. Short paragraph shown beneath the heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "We partner with the best suppliers and brands in the industry.",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_sp_bg_style",
+            "label": "Background",
+            "name": "bg_style",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "dark": "Dark",
+                "light": "Light",
+                "brand": "Brand"
+            },
+            "default_value": "dark",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/section-partnership"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1780056000
+}

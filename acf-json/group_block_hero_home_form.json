@@ -1,0 +1,108 @@
+{
+    "key": "group_block_hero_home_form",
+    "title": "Block: Homepage Hero",
+    "fields": [
+        {
+            "key": "field_hero_home_style",
+            "label": "Hero Style",
+            "name": "hero_style",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "standard": "Standard (centred headline + CTA buttons)",
+                "with_form": "With Form Card (left headline \u00b7 right inspection form)"
+            },
+            "default_value": "standard",
+            "layout": "vertical",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_hero_home_form_title",
+            "label": "Form Card Title",
+            "name": "form_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_hero_home_style",
+                        "operator": "==",
+                        "value": "with_form"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Get a Free Inspection",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hero_home_form_shortcode",
+            "label": "Form Shortcode",
+            "name": "form_shortcode",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Paste a CF7 shortcode, e.g. [contact-form-7 id=\"123\"]. Leave blank to use the built-in fallback form.",
+            "required": false,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_hero_home_style",
+                        "operator": "==",
+                        "value": "with_form"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/hero-home"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": ""
+}
