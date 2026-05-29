@@ -105,7 +105,7 @@ $wrapper_attrs = get_block_wrapper_attributes([
                 <p class="section-testimonials__client-loc"><?php echo esc_html($client_loc); ?></p>
               <?php endif; ?>
               <div class="section-testimonials__stars-row">
-                <div class="section-testimonials__stars" aria-label="<?php printf(esc_attr__('%d out of 5 stars', 'globeiron'), $rating); ?>">
+                <div class="section-testimonials__stars" role="img" aria-label="<?php printf(esc_attr__('%d out of 5 stars', 'globeiron'), $rating); ?>">
                   <?php for ($s = 1; $s <= 5; $s++) : ?>
                     <span class="section-testimonials__star <?php echo $s <= $rating ? 'is-filled' : ''; ?>" aria-hidden="true">★</span>
                   <?php endfor; ?>

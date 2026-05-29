@@ -78,7 +78,7 @@ if (!function_exists('globeiron_review_time_ago')) {
     <div class="section-reviews__header">
       <h2 class="section-reviews__heading"><?php echo esc_html($heading); ?></h2>
       <div class="section-reviews__rating">
-        <div class="section-reviews__stars" aria-label="<?php printf(esc_attr__('%d out of 5 stars', 'globeiron'), $overall_rating); ?>">
+        <div class="section-reviews__stars" role="img" aria-label="<?php printf(esc_attr__('%d out of 5 stars', 'globeiron'), $overall_rating); ?>">
           <?php for ($i = 1; $i <= 5; $i++) : ?>
             <svg class="section-reviews__star<?php echo $i <= $overall_rating ? ' is-filled' : ''; ?>"
                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">

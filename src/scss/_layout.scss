@@ -245,7 +245,7 @@
 
 .footer-copyright {
   font-size: $font-size-sm;
-  color: rgba($color-white, 0.45);
+  color: rgba($color-white, 0.72);
   margin: 0;
 }
 
@@ -261,7 +261,7 @@
 
   li a {
     font-size: $font-size-sm;
-    color: rgba($color-white, 0.45);
+    color: rgba($color-white, 0.72);
     text-decoration: none;
     transition: color $transition-fast;
     &:hover { color: $color-white; text-decoration: none; }

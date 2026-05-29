@@ -57,9 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlay  = document.querySelector('[data-nav-overlay]');
   const closeBtn = document.querySelector('[data-nav-close]');
 
+  const isMobileNav = () => window.innerWidth < 1024;
+
   function openNav() {
     panel.classList.add('is-open');
     panel.setAttribute('aria-hidden', 'false');
+    panel.removeAttribute('inert');
     overlay.classList.add('is-active');
     overlay.setAttribute('aria-hidden', 'false');
     toggle.setAttribute('aria-expanded', 'true');
@@ -69,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeNav() {
     panel.classList.remove('is-open');
     panel.setAttribute('aria-hidden', 'true');
+    if (isMobileNav()) panel.setAttribute('inert', '');
     overlay.classList.remove('is-active');
     overlay.setAttribute('aria-hidden', 'true');
     toggle.setAttribute('aria-expanded', 'false');
@@ -76,6 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (toggle && panel) {
+    // On mobile, start with inert so hidden panel isn't reachable via keyboard
+    if (isMobileNav()) panel.setAttribute('inert', '');
+
     toggle.addEventListener('click', () => {
       panel.classList.contains('is-open') ? closeNav() : openNav();
     });
@@ -91,10 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Close on resize to desktop (cleans up body scroll lock too)
+    // Close on resize to desktop; also ensure inert is removed for desktop nav
     window.addEventListener('resize', () => {
-      if (window.innerWidth >= 1024 && panel.classList.contains('is-open')) {
-        closeNav();
+      if (window.innerWidth >= 1024) {
+        if (panel.classList.contains('is-open')) closeNav();
+        panel.removeAttribute('inert');
       }
     });
   }
