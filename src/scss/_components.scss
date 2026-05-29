@@ -136,9 +136,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
+  gap: 6px;
+  width: 48px;
+  height: 48px;
   padding: $spacing-2;
   background: transparent;
   border: none;
@@ -148,7 +148,7 @@
 
   span {
     display: block;
-    width: 22px;
+    width: 26px;
     height: 2px;
     background: $color-iron-dark;
     border-radius: 2px;
@@ -157,9 +157,9 @@
   }
 
   &[aria-expanded="true"] {
-    span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     span:nth-child(2) { opacity: 0; width: 0; }
-    span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
   }
 
   &:hover { background: $color-iron-light; }
@@ -284,10 +284,10 @@
 
   .custom-logo,
   .site-logo {
-    height: 46px;
+    height: 58px;
     width: auto;
 
-    @include respond-to('sm')  { height: 58px; }
+    @include respond-to('sm')  { height: 66px; }
     @include respond-to('lg')  { height: 73px; }
   }
 }
@@ -327,7 +327,7 @@
 // ─── Top-level menu items ─────────────────────────────────────────────────────
 .nav > .menu-item {
   position: relative;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid rgba($color-white, 0.12); // dark panel — light divider
 
   &:last-child { border-bottom: none; }
 
@@ -349,18 +349,18 @@
     align-items: center;
     padding: $spacing-4 $spacing-6;
     font-family: $font-serif;
-    font-size: $font-size-lg; // slightly larger than base for easier reading
+    font-size: $font-size-lg;
     font-weight: 600;
-    color: $color-iron-dark;
+    color: $color-white; // panel background is dark navy — needs white text
     text-decoration: none;
     transition: color $transition-fast, background $transition-fast;
 
-    &:hover { color: $color-pine-tree; background: $color-iron-light; }
+    &:hover { color: $color-brand-primary; background: rgba($color-white, 0.08); }
   }
 
   &.current-menu-item > a,
   &.current-menu-ancestor > a {
-    color: $color-pine-tree;
+    color: $color-brand-primary;
   }
 
   // Desktop
@@ -427,6 +427,7 @@
 }
 
 // ─── Mobile dropdown toggle button (injected by JS) ───────────────────────────
+// Sits beside the <a> inside the dark navy panel — must use white for visibility.
 .nav__dropdown-toggle {
   display: flex;
   align-items: center;
@@ -435,16 +436,16 @@
   flex-shrink: 0;
   background: none;
   border: none;
-  border-left: 1px solid $border-color;
-  color: $color-iron-dark;
+  border-left: 1px solid rgba($color-white, 0.15);
+  color: $color-white;
   cursor: pointer;
-  transition: background $transition-fast, color $transition-fast;
+  transition: background $transition-fast;
 
-  &:hover { background: $color-iron-light; color: $color-pine-tree; }
+  &:hover { background: rgba($color-white, 0.10); }
 
   svg {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     transition: transform $transition-fast;
   }
 
