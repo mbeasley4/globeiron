@@ -84,6 +84,7 @@
   cursor: pointer;
   transition: all $transition-fast;
   text-decoration: none;
+  text-align: center;
   text-wrap: balance;
 
   &:focus-visible { @include focus-ring; }
