@@ -80,10 +80,11 @@
   font-family: $font-sans;
   font-size: $font-size-base;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.3;
   cursor: pointer;
   transition: all $transition-fast;
   text-decoration: none;
+  text-wrap: balance;
 
   &:focus-visible { @include focus-ring; }
 }
