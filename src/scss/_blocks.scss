@@ -33,6 +33,434 @@
   }
 }
 
+// ─── Core block: video ───────────────────────────────────────────────────────
+.wp-block-video {
+  position: relative;
+  max-width: $content-max-width;
+  margin-block: $spacing-10;
+  margin-inline: auto;
+  padding: $spacing-3;
+  background:
+    linear-gradient(135deg, rgba($color-brand-blue, 0.14), transparent 42%),
+    $color-white;
+  border: 1px solid rgba($color-brand-blue, 0.18);
+  box-shadow: 0 18px 48px rgba($color-brand-blue-dark, 0.12);
+
+  @include respond-to('md') {
+    padding: $spacing-4;
+  }
+
+  &__ornament {
+    position: absolute;
+    top: $spacing-3;
+    bottom: $spacing-3;
+    left: $spacing-3;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+
+    @include respond-to('md') {
+      top: $spacing-4;
+      bottom: $spacing-4;
+      left: -$spacing-12;
+    }
+  }
+
+  &__crosshair {
+    @extend %crosshair-animated;
+    display: block;
+    color: rgba($color-brand-blue, 0.95);
+    opacity: 0;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__line {
+    flex: 1;
+    width: 2px;
+    min-height: $spacing-12;
+    margin-block: 6px;
+    transform: scaleY(0);
+    transform-origin: top center;
+    @include dotted-line(rgba($color-brand-blue, 0.78));
+  }
+
+  video {
+    width: 100%;
+    margin: 0;
+    background: $color-brand-navy;
+    border: 1px solid rgba($color-brand-blue, 0.22);
+    box-shadow: inset 0 0 0 1px rgba($color-white, 0.08);
+  }
+
+  figcaption {
+    margin: $spacing-3 0 0;
+    padding-top: $spacing-3;
+    border-top: 1px solid rgba($color-brand-blue, 0.14);
+    color: $color-iron-mid;
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
+    text-align: left;
+  }
+
+  &.alignwide {
+    max-width: min(100%, $container-max-width);
+    margin-inline: auto;
+  }
+
+  &.alignfull {
+    padding-inline: max($spacing-4, calc((100vw - #{$container-max-width}) / 2));
+    border-inline: 0;
+  }
+}
+
+// ─── Core block: heading ─────────────────────────────────────────────────────
+.wp-block-heading {
+  width: 100%;
+  max-width: 100%;
+  margin: $spacing-10 0 $spacing-4;
+  color: $color-brand-blue;
+  font-family: $font-serif;
+  font-weight: 700;
+  line-height: $line-height-tight;
+  letter-spacing: 0;
+  text-align: left;
+  text-wrap: balance;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &.alignwide {
+    max-width: $container-max-width;
+  }
+
+  &.alignfull {
+    max-width: none;
+    padding-inline: max($spacing-4, calc((100vw - #{$container-max-width}) / 2));
+  }
+}
+
+.entry > .wp-block-heading:not(.alignwide):not(.alignfull),
+.entry-content > .wp-block-heading:not(.alignwide):not(.alignfull),
+.single-post-body .entry > .wp-block-heading:not(.alignwide):not(.alignfull) {
+  max-width: $content-max-width;
+  margin-inline: auto;
+}
+
+h2.wp-block-heading {
+  font-size: clamp($font-size-2xl, 3.4vw, $font-size-4xl);
+}
+
+h3.wp-block-heading {
+  font-size: clamp($font-size-xl, 2.4vw, $font-size-3xl);
+  color: $color-brand-blue-dark;
+}
+
+h4.wp-block-heading {
+  font-size: clamp($font-size-lg, 1.8vw, $font-size-2xl);
+  color: $color-brand-navy;
+}
+
+h5.wp-block-heading,
+h6.wp-block-heading {
+  font-family: $font-sans;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $color-brand-blue;
+}
+
+h5.wp-block-heading {
+  font-size: $font-size-base;
+  letter-spacing: 0.08em;
+}
+
+h6.wp-block-heading {
+  font-size: $font-size-sm;
+  letter-spacing: 0.1em;
+}
+
+// ─── Core block: buttons ─────────────────────────────────────────────────────
+.wp-block-buttons {
+  max-width: $content-max-width;
+  margin: $spacing-8 auto;
+  gap: $spacing-4;
+
+  &.alignwide {
+    max-width: $container-max-width;
+  }
+
+  &.alignfull {
+    max-width: none;
+    padding-inline: max($spacing-4, calc((100vw - #{$container-max-width}) / 2));
+  }
+}
+
+.wp-block-button {
+  .wp-block-button__link {
+    @include btn-base;
+    background: $color-brand-primary;
+    color: $color-brand-navy;
+    border: 2px solid $color-brand-primary;
+    border-radius: 0;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:hover {
+      background: $color-brand-secondary;
+      border-color: $color-brand-secondary;
+      color: $color-brand-navy;
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-brand-navy;
+      outline-offset: 3px;
+    }
+  }
+
+  &.is-style-outline .wp-block-button__link {
+    background: transparent;
+    color: $color-brand-blue;
+    border-color: $color-brand-blue;
+
+    &:hover {
+      background: $color-brand-blue;
+      color: $color-white;
+      border-color: $color-brand-blue;
+    }
+  }
+}
+
+// ─── Core blocks: image + gallery ────────────────────────────────────────────
+.wp-block-image,
+.wp-block-gallery {
+  max-width: $content-max-width;
+  margin: $spacing-10 auto;
+
+  &.alignwide {
+    max-width: $container-max-width;
+  }
+
+  &.alignfull {
+    max-width: none;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  figcaption {
+    margin-top: $spacing-3;
+    color: $color-iron-mid;
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
+    text-align: left;
+  }
+}
+
+.wp-block-image {
+  img {
+    border: 1px solid rgba($color-brand-blue, 0.14);
+    box-shadow: 0 16px 42px rgba($color-brand-blue-dark, 0.10);
+  }
+}
+
+.wp-block-gallery {
+  gap: $spacing-4;
+
+  .wp-block-image {
+    max-width: none;
+    margin: 0;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+// ─── Core blocks: quote + pullquote ──────────────────────────────────────────
+.wp-block-quote,
+.wp-block-pullquote {
+  max-width: $content-max-width;
+  margin: $spacing-10 auto;
+}
+
+.wp-block-quote {
+  position: relative;
+  padding: $spacing-6 $spacing-6 $spacing-6 $spacing-8;
+  background: $color-white;
+  border-left: 4px solid $color-brand-primary;
+  box-shadow: inset 0 0 0 1px rgba($color-brand-blue, 0.12);
+  color: $color-iron-dark;
+
+  p {
+    margin: 0 0 $spacing-3;
+    font-family: $font-serif;
+    font-size: clamp($font-size-lg, 2vw, $font-size-2xl);
+    line-height: $line-height-normal;
+    color: $color-brand-navy;
+  }
+
+  cite {
+    display: block;
+    margin-top: $spacing-3;
+    color: $color-iron-mid;
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+}
+
+.wp-block-pullquote {
+  padding: $spacing-8;
+  border-top: 2px solid $color-brand-primary;
+  border-bottom: 2px solid $color-brand-primary;
+  color: $color-brand-blue;
+  text-align: center;
+
+  blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  p {
+    margin: 0;
+    font-family: $font-serif;
+    font-size: clamp($font-size-xl, 3vw, $font-size-3xl);
+    line-height: $line-height-tight;
+  }
+
+  cite {
+    display: block;
+    margin-top: $spacing-4;
+    color: $color-iron-mid;
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+}
+
+// ─── Core block: separator ───────────────────────────────────────────────────
+.wp-block-separator {
+  max-width: $content-max-width;
+  height: 2px;
+  margin: $spacing-10 auto;
+  border: 0;
+  background-color: transparent;
+  @include dotted-line(rgba($color-brand-blue, 0.45), right);
+
+  &.is-style-wide {
+    max-width: $container-max-width;
+  }
+}
+
+// ─── Core block: table ───────────────────────────────────────────────────────
+.wp-block-table {
+  max-width: $content-max-width;
+  margin: $spacing-10 auto;
+  overflow-x: auto;
+
+  &.alignwide {
+    max-width: $container-max-width;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: $color-white;
+    border: 1px solid rgba($color-brand-blue, 0.18);
+    box-shadow: 0 16px 42px rgba($color-brand-blue-dark, 0.08);
+  }
+
+  th,
+  td {
+    padding: $spacing-3 $spacing-4;
+    border: 1px solid rgba($color-brand-blue, 0.14);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: $color-brand-blue;
+    color: $color-white;
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  td {
+    color: $color-iron-dark;
+    line-height: $line-height-normal;
+  }
+
+  figcaption {
+    margin-top: $spacing-3;
+    color: $color-iron-mid;
+    font-size: $font-size-sm;
+    text-align: left;
+  }
+}
+
+// ─── Core layout blocks: group + columns ─────────────────────────────────────
+.wp-block-group:not(.alignfull),
+.wp-block-columns:not(.alignfull) {
+  max-width: $container-max-width;
+  margin-inline: auto;
+}
+
+.wp-block-group {
+  margin-block: $spacing-10;
+
+  &.has-background {
+    padding: $spacing-8 $spacing-4;
+
+    @include respond-to('md') {
+      padding-inline: $spacing-8;
+    }
+  }
+}
+
+.wp-block-columns {
+  margin-block: $spacing-10;
+  gap: $spacing-6;
+
+  @include respond-to('md') {
+    gap: $spacing-8;
+  }
+
+  @include respond-to('lg') {
+    gap: $spacing-12;
+  }
+}
+
+.wp-block-column > :first-child {
+  margin-top: 0;
+}
+
+.wp-block-column > :last-child {
+  margin-bottom: 0;
+}
+
 // ─── Custom block: globeiron/hero ─────────────────────────────────────────────
 // Outer element spans full viewport width; inner content aligns with the nav.
 .wp-block-globeiron-hero {
@@ -378,6 +806,17 @@
     z-index: 1;
   }
 
+  .hero-interior__eyebrow {
+    margin: 0 0 $spacing-3;
+    color: $color-brand-primary;
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    line-height: $line-height-normal;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
   // Standard layout heading — slightly compact to accommodate longer page titles
   .hero-interior__heading {
     color: $color-white;
@@ -394,6 +833,23 @@
     margin-bottom: 0;
     font-size: $font-size-lg;
     max-width: 600px;
+
+    p {
+      margin: 0 0 $spacing-2;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    a {
+      color: $color-brand-primary;
+      text-underline-offset: 2px;
+
+      &:hover {
+        color: $color-white;
+      }
+    }
   }
 
   // Text alignment variants

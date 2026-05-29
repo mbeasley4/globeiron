@@ -380,7 +380,7 @@ add_action('enqueue_block_editor_assets', function (): void {
     wp_enqueue_script(
         'globeiron-editor',
         GLOBEIRON_URI . '/dist/js/editor.js',
-        ['wp-blocks', 'wp-block-editor', 'wp-components', 'wp-element', 'wp-i18n'],
+        ['wp-blocks', 'wp-block-editor', 'wp-components', 'wp-element', 'wp-hooks', 'wp-i18n'],
         GLOBEIRON_VERSION,
         true
     );
@@ -392,6 +392,17 @@ add_action('enqueue_block_editor_assets', function (): void {
         GLOBEIRON_VERSION
     );
 });
+
+// ─── Core Heading guard: keep page-level H1s reserved for templates/heroes ───
+add_filter('render_block_core/heading', function (string $block_content, array $block): string {
+    $level = (int) ($block['attrs']['level'] ?? 2);
+
+    if ($level !== 1) {
+        return $block_content;
+    }
+
+    return str_replace(['<h1', '</h1>'], ['<h2', '</h2>'], $block_content);
+}, 10, 2);
 
 // ─── Custom block category ────────────────────────────────────────────────────
 add_filter('block_categories_all', function (array $categories): array {

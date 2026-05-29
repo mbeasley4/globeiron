@@ -48,43 +48,17 @@
             "append": ""
         },
         {
-            "key": "field_gi_hi_bg_image",
-            "label": "Background Image",
-            "name": "background_image",
+            "key": "field_gi_hi_eyebrow",
+            "label": "Eyebrow",
+            "name": "eyebrow",
             "aria-label": "",
-            "type": "image",
+            "type": "text",
             "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "array",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "allow_in_bindings": 0,
-            "preview_size": "medium"
-        },
-        {
-            "key": "field_gi_hi_overlay_opacity",
-            "label": "Overlay Opacity (%)",
-            "name": "overlay_opacity",
-            "aria-label": "",
-            "type": "range",
-            "instructions": "",
-            "required": 0,
+            "required": false,
             "conditional_logic": [
                 [
                     {
-                        "field": "field_hi_layout",
+                        "field": "field_gi_hi_layout",
                         "operator": "==",
                         "value": "standard"
                     }
@@ -95,19 +69,18 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": 65,
-            "min": 0,
-            "max": 100,
-            "step": 5,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
             "prepend": "",
-            "append": "%"
+            "append": ""
         },
         {
             "key": "field_gi_hi_subheading",
             "label": "Subheading",
             "name": "subheading",
             "aria-label": "",
-            "type": "textarea",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": [
@@ -125,10 +98,10 @@
                 "id": ""
             },
             "default_value": "",
-            "new_lines": "",
-            "maxlength": "",
-            "placeholder": "",
-            "rows": 2
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
         },
         {
             "key": "field_gi_hi_text_align",
@@ -266,6 +239,32 @@
                     }
                 ]
             ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_gi_hi_bg_image",
+            "label": "Background Image",
+            "name": "background_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
             "wrapper": {
                 "width": "",
                 "class": "",

@@ -101,13 +101,12 @@ if ($layout === 'split_collage') {
 
 // ── Standard layout (existing) ─────────────────────────────────────────────────
 $background_image = get_field('background_image');
-$overlay_opacity  = (int) (get_field('overlay_opacity') ?? 65);
+$eyebrow          = get_field('eyebrow');
 $subheading       = get_field('subheading');
 $text_align       = get_field('text_align') ?: 'left';
 
 $bg_url        = $background_image['url'] ?? '';
 $style         = $bg_url ? "--hero-bg: url('" . esc_url($bg_url) . "');" : '';
-$overlay_style = "opacity: " . ($overlay_opacity / 100) . ";";
 $align_class   = "is-align-{$text_align}";
 
 $wrapper_attributes = get_block_wrapper_attributes([
@@ -117,19 +116,20 @@ $wrapper_attributes = get_block_wrapper_attributes([
 
 <section <?php echo $wrapper_attributes; ?> style="<?php echo esc_attr($style); ?>">
 
-    <?php if ($bg_url) : ?>
-        <div class="hero-interior__overlay" style="<?php echo esc_attr($overlay_style); ?>"></div>
-    <?php endif; ?>
-
     <div class="hero-interior__inner">
         <div class="hero-interior__content">
+            <?php if ($eyebrow) : ?>
+                <p class="hero-interior__eyebrow">
+                    <?php echo esc_html($eyebrow); ?>
+                </p>
+            <?php endif; ?>
             <h1 class="hero-interior__heading">
                 <?php echo esc_html($heading); ?>
             </h1>
             <?php if ($subheading) : ?>
-                <p class="hero-interior__subheading">
+                <div class="hero-interior__subheading">
                     <?php echo wp_kses_post($subheading); ?>
-                </p>
+                </div>
             <?php endif; ?>
         </div>
     </div>

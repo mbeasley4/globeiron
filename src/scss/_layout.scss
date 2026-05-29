@@ -435,6 +435,5 @@ body.page-template-default .site-content {
 
 // ─── WordPress block wrapper ──────────────────────────────────────────────────
 .wp-block-group.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
-  max-width: $content-max-width;
   margin-inline: auto;
 }

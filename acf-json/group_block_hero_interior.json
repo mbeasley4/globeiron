@@ -48,11 +48,11 @@
             "append": ""
         },
         {
-            "key": "field_hi_bg_image",
-            "label": "Background Image",
-            "name": "background_image",
+            "key": "field_hi_eyebrow",
+            "label": "Eyebrow",
+            "name": "eyebrow",
             "aria-label": "",
-            "type": "image",
+            "type": "text",
             "instructions": "",
             "required": false,
             "conditional_logic": [
@@ -69,43 +69,9 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "array",
-            "preview_size": "medium",
-            "library": "all",
-            "min_width": 0,
-            "min_height": 0,
-            "min_size": 0,
-            "max_width": 0,
-            "max_height": 0,
-            "max_size": 0,
-            "mime_types": ""
-        },
-        {
-            "key": "field_hi_overlay_opacity",
-            "label": "Overlay Opacity (%)",
-            "name": "overlay_opacity",
-            "aria-label": "",
-            "type": "range",
-            "instructions": "",
-            "required": false,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_hi_layout",
-                        "operator": "==",
-                        "value": "standard"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "min": 0,
-            "max": 100,
-            "step": 5,
-            "default_value": 65,
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
             "prepend": "",
             "append": ""
         },
@@ -114,7 +80,7 @@
             "label": "Subheading",
             "name": "subheading",
             "aria-label": "",
-            "type": "textarea",
+            "type": "wysiwyg",
             "instructions": "",
             "required": false,
             "conditional_logic": [
@@ -131,11 +97,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2,
             "default_value": "",
-            "new_lines": "",
-            "maxlength": "",
-            "placeholder": ""
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
         },
         {
             "key": "field_hi_text_align",
@@ -355,6 +321,31 @@
                     }
                 ]
             ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_hi_bg_image",
+            "label": "Background Image",
+            "name": "background_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
             "wrapper": {
                 "width": "",
                 "class": "",

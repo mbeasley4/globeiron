@@ -413,25 +413,10 @@ add_action('acf/init', function (): void {
             ],
             // ── Standard layout fields ────────────────────────────────────────
             [
-                'key'               => 'field_hi_bg_image',
-                'label'             => 'Background Image',
-                'name'              => 'background_image',
-                'type'              => 'image',
-                'return_format'     => 'array',
-                'preview_size'      => 'medium',
-                'conditional_logic' => [[
-                    ['field' => 'field_hi_layout', 'operator' => '==', 'value' => 'standard'],
-                ]],
-            ],
-            [
-                'key'               => 'field_hi_overlay_opacity',
-                'label'             => 'Overlay Opacity (%)',
-                'name'              => 'overlay_opacity',
-                'type'              => 'range',
-                'min'               => 0,
-                'max'               => 100,
-                'step'              => 5,
-                'default_value'     => 65,
+                'key'               => 'field_hi_eyebrow',
+                'label'             => 'Eyebrow',
+                'name'              => 'eyebrow',
+                'type'              => 'text',
                 'conditional_logic' => [[
                     ['field' => 'field_hi_layout', 'operator' => '==', 'value' => 'standard'],
                 ]],
@@ -440,8 +425,11 @@ add_action('acf/init', function (): void {
                 'key'               => 'field_hi_subheading',
                 'label'             => 'Subheading',
                 'name'              => 'subheading',
-                'type'              => 'textarea',
-                'rows'              => 2,
+                'type'              => 'wysiwyg',
+                'tabs'              => 'visual',
+                'toolbar'           => 'basic',
+                'media_upload'      => 0,
+                'delay'             => 0,
                 'conditional_logic' => [[
                     ['field' => 'field_hi_layout', 'operator' => '==', 'value' => 'standard'],
                 ]],
@@ -530,6 +518,14 @@ add_action('acf/init', function (): void {
                 'conditional_logic' => [[
                     ['field' => 'field_hi_layout', 'operator' => '==', 'value' => 'split_collage'],
                 ]],
+            ],
+            [
+                'key'           => 'field_hi_bg_image',
+                'label'         => 'Background Image',
+                'name'          => 'background_image',
+                'type'          => 'image',
+                'return_format' => 'array',
+                'preview_size'  => 'medium',
             ],
         ],
         'location' => [[['param' => 'block', 'operator' => '==', 'value' => 'globeiron/hero-interior']]],

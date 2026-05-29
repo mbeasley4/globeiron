@@ -207,6 +207,57 @@ document.addEventListener('DOMContentLoaded', () => {
     runWhenInView(trigger, () => timeline.play(0), options);
   }
 
+  // ── Core video block ornament: crosshair + animated vertical rail ──────────
+  document.querySelectorAll('.wp-block-video').forEach((block) => {
+    if (!block.querySelector('.wp-block-video__ornament')) {
+      const ornament = document.createElement('div');
+      ornament.className = 'wp-block-video__ornament';
+      ornament.setAttribute('aria-hidden', 'true');
+      ornament.innerHTML = `
+        <svg class="wp-block-video__crosshair wp-block-video__crosshair--start" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" focusable="false">
+          <circle cx="14" cy="14" r="12" pathLength="1"></circle>
+          <line x1="14" y1="7" x2="14" y2="21" pathLength="1"></line>
+          <line x1="7" y1="14" x2="21" y2="14" pathLength="1"></line>
+        </svg>
+        <span class="wp-block-video__line"></span>
+        <svg class="wp-block-video__crosshair wp-block-video__crosshair--end" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" focusable="false">
+          <circle cx="14" cy="14" r="12" pathLength="1"></circle>
+          <line x1="14" y1="7" x2="14" y2="21" pathLength="1"></line>
+          <line x1="7" y1="14" x2="21" y2="14" pathLength="1"></line>
+        </svg>
+      `;
+      block.prepend(ornament);
+    }
+
+    const start = block.querySelector('.wp-block-video__crosshair--start');
+    const end = block.querySelector('.wp-block-video__crosshair--end');
+    const line = block.querySelector('.wp-block-video__line');
+
+    if (!start || !end || !line) return;
+
+    const revealStatic = () => {
+      revealCrosshairStatic(start);
+      revealCrosshairStatic(end);
+      line.style.transform = 'scaleY(1)';
+    };
+
+    if (!gsap || prefersReducedMotion) {
+      runWhenInView(block, revealStatic, { threshold: 0.35 });
+      return;
+    }
+
+    setCrosshairInitial(start);
+    setCrosshairInitial(end);
+    gsap.set(line, { scaleY: 0, transformOrigin: 'top center' });
+
+    const timeline = gsap.timeline({ paused: true });
+    addCrosshairReveal(timeline, start, 0);
+    timeline.to(line, { scaleY: 1, duration: 0.78, ease: 'power2.out' }, 0.58);
+    addCrosshairReveal(timeline, end, 1.28);
+
+    runWhenInView(block, () => timeline.play(0), { threshold: 0.35, start: 'top 78%' });
+  });
+
   // ── Reviews header stars animation ─────────────────────────────────────────
   document.querySelectorAll('.section-reviews__stars').forEach((starsEl) => {
     const stars = Array.from(starsEl.querySelectorAll('.section-reviews__star'));
