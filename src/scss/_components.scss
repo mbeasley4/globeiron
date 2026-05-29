@@ -733,7 +733,7 @@
   color: $color-iron-dark;
   background: none;
   border: none;
-  border-bottom: 3px solid #d0d4db;
+  border-bottom: 3px solid $color-iron-border;
   padding: $spacing-2 $spacing-4 $spacing-2 0;
   margin-right: $spacing-6;
   cursor: pointer;
@@ -757,7 +757,7 @@
 .blog-search {
   display: flex;
   align-items: center;
-  border-bottom: 3px solid #d0d4db;
+  border-bottom: 3px solid $color-iron-border;
   background: transparent;
   overflow: visible;
   flex-shrink: 0;
@@ -913,7 +913,7 @@
   letter-spacing: 0.03em;
   color: $color-brand-blue;
   border: none;
-  border-bottom: 2px solid #d0d4db;
+  border-bottom: 2px solid $color-iron-border;
   padding: 2px $spacing-1 2px 0;
   text-decoration: none;
   transition: color $transition-fast, border-color $transition-fast;
@@ -1070,7 +1070,7 @@
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 2px solid #c4c9d4;
+    border-bottom: 2px solid $color-iron-border;
     border-radius: 0;
     padding: $spacing-3 0;
     font-family: $font-serif;
