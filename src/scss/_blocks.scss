@@ -236,16 +236,21 @@
   }
 
   // ── Scroll indicator ──────────────────────────────────────────────────────
+  // Hidden on mobile — the -106px overhang overlaps section-features heading.
   .hero-home__scroll-indicator {
+    display: none;
+
+    @include respond-to('lg') {
+      display: flex;
     position: absolute;
     bottom: -106px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
-    display: flex;
     flex-direction: column;
     align-items: center;
     pointer-events: none;
+    }
 
     // Initial state: all strokes hidden via dashoffset
     .hero-home__scroll-crosshair {
@@ -1071,15 +1076,20 @@
   }
 
   // ── Scroll indicator (overflows into next section) ────────────────────────
+  // Hidden on mobile — the -106px overhang overlaps the services heading.
   .section-features__scroll-indicator {
-    position: absolute;
-    bottom: -106px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: none;
+
+    @include respond-to('lg') {
+      display: flex;
+      position: absolute;
+      bottom: -106px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      flex-direction: column;
+      align-items: center;
+    }
 
     .section-features__scroll-crosshair {
       display: block;
@@ -1201,17 +1211,23 @@
   }
 
   // ── Side crosshair ornaments ────────────────────────────────────────────────
-  // top is set via --features-ornament-top (JS-measured grid offset, centred on crosshair)
+  // Hidden on mobile — container padding (1rem) is narrower than the 28px
+  // crosshair, causing it to overlap the text. Only shown at lg+ where there
+  // is enough gutter space.
   .section-features__ornament {
+    display: none;
+
+    @include respond-to('lg') {
+      display: flex;
     position: absolute;
     top: var(--features-ornament-top, 0px);
     bottom: 0;
-    display: flex;
     flex-direction: column;
     align-items: center;
     color: rgba($color-brand-blue, 0.45);
     z-index: 0;
     pointer-events: none;
+    }
 
     &::after {
       content: '';
@@ -1251,11 +1267,12 @@
   }
 }
 
-// When section-features sits directly below the hero, pull it up tight —
-// the scroll indicator (z-index 2) floats above so no clearance needed
+// When section-features sits directly below the hero, pull it up tight.
+// Mobile: scroll indicator is hidden so normal padding applies.
+// Desktop: scroll indicator floats above with z-index 2, so no extra clearance needed.
 .wp-block-globeiron-hero-home + .wp-block-globeiron-section-features {
   .section-features__inner {
-    padding-block-start: $spacing-16;
+    padding-block-start: $spacing-12; // mobile: comfortable but not excessive
 
     @include respond-to('lg') {
       padding-block-start: $spacing-20;
