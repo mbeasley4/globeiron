@@ -220,8 +220,14 @@
   @include respond-to('lg') { display: none; }
 }
 
+.nav-panel__logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .nav-panel__logo {
-  height: 44px;
+  height: 64px;
   width: auto;
 }
 

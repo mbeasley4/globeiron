@@ -39,9 +39,11 @@
 
                         <!-- Panel header: logo + close (mobile only) -->
                         <div class="nav-panel__header">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/img/globe-iron-roofing-logo.svg' ); ?>"
-                                 alt="<?php bloginfo('name'); ?>"
-                                 class="nav-panel__logo">
+                            <a href="<?php echo esc_url( home_url('/') ); ?>" rel="home" class="nav-panel__logo-link">
+                                <img src="<?php echo esc_url( get_template_directory_uri() . '/img/globe-iron-roofing-logo.svg' ); ?>"
+                                     alt="<?php bloginfo('name'); ?>"
+                                     class="nav-panel__logo">
+                            </a>
                             <button class="nav-panel__close" data-nav-close
                                     aria-label="<?php esc_attr_e('Close menu', 'globeiron'); ?>">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
