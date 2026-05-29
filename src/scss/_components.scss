@@ -1489,13 +1489,7 @@
       left: 0;
       right: 0;
       height: var(--line-white-height, 50%);
-      background-image: repeating-linear-gradient(
-        to bottom,
-        rgba($color-white, 0.8) 0px,
-        rgba($color-white, 0.8) 4px,
-        transparent 4px,
-        transparent 12px
-      );
+      @include dotted-line(rgba($color-white, 0.8));
     }
 
     // Blue dashes in the project-body (white bg) section
@@ -1506,13 +1500,7 @@
       left: 0;
       right: 0;
       height: var(--line-blue-height, 50%);
-      background-image: repeating-linear-gradient(
-        to bottom,
-        $color-brand-blue 0px,
-        $color-brand-blue 4px,
-        transparent 4px,
-        transparent 12px
-      );
+      @include dotted-line($color-brand-blue);
     }
   }
 
