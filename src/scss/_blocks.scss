@@ -2619,9 +2619,17 @@
   .section-border-columns__inner {
     position: relative;
     z-index: 1;
-    max-width:1200px;
-    margin:0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
+    // On mobile the block padding equals the border-box inset (both ~3rem),
+    // so the corner crosshairs (±14px from the corner) overlap the content.
+    // Extra inner padding pushes text clear of the crosshairs.
+    padding-block: $spacing-8;
+
+    @include respond-to('lg') {
+      padding-block: 0;
+    }
   }
 
   // ── Section heading ──────────────────────────────────────────────────────
