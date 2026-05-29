@@ -2743,14 +2743,14 @@ h6.wp-block-heading {
   &__tab {
     background: none;
     border: none;
-    border-bottom: 3px solid rgba($color-iron-mid, 0.75);
+    border-bottom: 3px solid rgba($color-iron-mid-accessible, 0.55);
     margin-bottom: -1px;
     padding: $spacing-3 $spacing-2 $spacing-4;
     font-family: $font-serif;
     font-size: clamp($font-size-base, 2vw, $font-size-xl);
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: $color-iron-mid;
+    color: $color-iron-mid-accessible;
     cursor: pointer;
     transition: color $transition-fast, border-color $transition-fast;
     text-align: center;

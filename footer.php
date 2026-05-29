@@ -88,12 +88,16 @@
                     </div>
 
                     <div class="footer-certs">
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/img/footer/nrca-logo.png'); ?>"
-                             alt="<?php esc_attr_e('National Roofing Contractors Association Member', 'globeiron'); ?>"
-                             width="80" height="80">
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/img/footer/bbb-logo.png'); ?>"
-                             alt="<?php esc_attr_e('BBB Accredited Business A+ Rating', 'globeiron'); ?>"
-                             width="100" height="60">
+                        <a href="https://nrca.net/" target="_blank" rel="noopener noreferrer">
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/img/footer/nrca-logo.png'); ?>"
+                                 alt="<?php esc_attr_e('National Roofing Contractors Association Member', 'globeiron'); ?>"
+                                 width="80" height="80">
+                        </a>
+                        <a href="https://www.bbb.org/" target="_blank" rel="noopener noreferrer">
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/img/footer/bbb-logo.png'); ?>"
+                                 alt="<?php esc_attr_e('BBB Accredited Business A+ Rating', 'globeiron'); ?>"
+                                 width="100" height="60">
+                        </a>
                     </div>
                 </div>
 
