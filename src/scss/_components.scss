@@ -1591,7 +1591,7 @@
     text-transform: uppercase;
     color: $color-brand-primary;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color $transition-fast;
     flex-shrink: 0;
 
     svg { flex-shrink: 0; }
