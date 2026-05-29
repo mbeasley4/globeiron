@@ -2,6 +2,37 @@
 @use 'variables' as *;
 @use 'mixins' as *;
 
+// ─── Shared crosshair placeholders ───────────────────────────────────────────
+// Crosshair SVGs are 28×28 px throughout the theme. Three variants:
+//   %crosshair-base     — sizing only (project-header ornament etc.)
+//   %crosshair-animated — stroke hidden via dashoffset, revealed by JS/GSAP
+//   %crosshair-static   — svg fills the box, no animation
+
+%crosshair-base {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+%crosshair-animated {
+  @extend %crosshair-base;
+
+  circle, line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+}
+
+%crosshair-static {
+  @extend %crosshair-base;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 // ─── Custom block: globeiron/hero ─────────────────────────────────────────────
 // Outer element spans full viewport width; inner content aligns with the nav.
 .wp-block-globeiron-hero {
@@ -252,15 +283,7 @@
       display: block;
       position: relative;
       z-index: 1;
-      width: 28px;
-      height: 28px;
-      flex-shrink: 0;
-
-      circle,
-      line {
-        stroke-dasharray: 1;
-        stroke-dashoffset: 1;
-      }
+      @extend %crosshair-animated;
     }
 
     .hero-home__scroll-crosshair--top {
@@ -608,15 +631,10 @@
         z-index: 4;
         width: 28px;
         height: 28px;
+        flex-shrink: 0;
         color: rgba($color-white, 0.82);
         opacity: 0;
         pointer-events: none;
-
-        circle,
-        line {
-          stroke-dasharray: 1;
-          stroke-dashoffset: 1;
-        }
       }
 
       .hero-interior__collage-ornament--top {
@@ -1089,8 +1107,7 @@
       height: 28px;
       flex-shrink: 0;
 
-      circle,
-      line {
+      circle, line {
         stroke-dasharray: 1;
         stroke-dashoffset: 1;
       }
@@ -1230,15 +1247,7 @@
     }
 
     .section-features__ornament-crosshair {
-      width: 28px;
-      height: 28px;
-      flex-shrink: 0;
-
-      circle,
-      line {
-        stroke-dasharray: 1;
-        stroke-dashoffset: 1;
-      }
+      @extend %crosshair-animated;
     }
   }
   @media (min-width: 1024px) {
@@ -1321,15 +1330,7 @@
   }
 
   .section-services__crosshair {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-
-    circle,
-    line {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-    }
+    @extend %crosshair-animated;
   }
 
   // ── Headline + subtitle ────────────────────────────────────────────────────
@@ -1601,15 +1602,7 @@
   }
 
   .section-service-hubs__ornament-crosshair {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-
-    circle,
-    line {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-    }
+    @extend %crosshair-animated;
   }
 
   // Blue background: swap to white (identical to section-services)
@@ -2204,11 +2197,7 @@
     height: 28px;
     color: $color-brand-blue;
 
-    svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+    svg { display: block; width: 100%; height: 100%; }
   }
 
   .section-contact-map__divider-line {
@@ -2542,16 +2531,8 @@
   }
 
   .section-border-columns__crosshair {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
+    @extend %crosshair-animated;
     color: rgba($color-white, 0.65);
-
-    circle,
-    line {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-    }
   }
 
   // Dotted edge lines — each starts clipped/hidden, direction matches clockwise draw
@@ -3792,11 +3773,7 @@
     height: 28px;
     color: $color-brand-blue;
 
-    svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+    svg { display: block; width: 100%; height: 100%; }
   }
 
   .section-content-image-split__divider-line {
@@ -3887,11 +3864,8 @@
 
   .section-team-grid__header-crosshair {
     flex-shrink: 0;
-    width: 28px;
-    height: 28px;
+    @extend %crosshair-static;
     color: $color-brand-blue;
-
-    svg { display: block; width: 100%; height: 100%; }
   }
 
   .section-team-grid__header-line {
@@ -3983,11 +3957,8 @@
     position: absolute;
     top: $spacing-3;
     left: $spacing-3;
-    width: 28px;
-    height: 28px;
+    @extend %crosshair-static;
     color: $color-brand-blue;
-
-    svg { display: block; width: 100%; height: 100%; }
   }
 
   // Horizontal arm: from right edge of crosshair across the card
