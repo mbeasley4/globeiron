@@ -35,7 +35,7 @@
 
                     <!-- ─── Slideout nav panel ─────────────────────────────────── -->
                     <div class="site-header__nav" id="primary-nav-panel"
-                         data-nav-panel aria-hidden="true">
+                         data-nav-panel aria-hidden="true" inert>
 
                         <!-- Panel header: logo + close (mobile only) -->
                         <div class="nav-panel__header">

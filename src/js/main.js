@@ -80,8 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (toggle && panel) {
-    // On mobile, start with inert so hidden panel isn't reachable via keyboard
-    if (isMobileNav()) panel.setAttribute('inert', '');
+    // HTML ships with inert for mobile-first default.
+    // On desktop the panel is always visible inline, so remove both guards immediately.
+    if (!isMobileNav()) {
+      panel.removeAttribute('inert');
+      panel.setAttribute('aria-hidden', 'false');
+    }
 
     toggle.addEventListener('click', () => {
       panel.classList.contains('is-open') ? closeNav() : openNav();
@@ -90,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeBtn)  closeBtn.addEventListener('click', closeNav);
     if (overlay)   overlay.addEventListener('click', closeNav);
 
-    // Escape key closes the panel
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && panel.classList.contains('is-open')) {
         closeNav();
@@ -98,11 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Close on resize to desktop; also ensure inert is removed for desktop nav
     window.addEventListener('resize', () => {
       if (window.innerWidth >= 1024) {
+        // Switching to desktop: panel is always visible, remove mobile guards
         if (panel.classList.contains('is-open')) closeNav();
         panel.removeAttribute('inert');
+        panel.setAttribute('aria-hidden', 'false');
+      } else if (!panel.classList.contains('is-open')) {
+        // Switching to mobile with panel closed: re-apply guards
+        panel.setAttribute('inert', '');
+        panel.setAttribute('aria-hidden', 'true');
       }
     });
   }

@@ -13,21 +13,21 @@ $hero_content     = get_field('hero_content'); // wysiwyg — already filtered H
 $cta_button_1     = get_field('cta_button_1'); // array: url, title, target
 $cta_button_2     = get_field('cta_button_2');
 $background_image = get_field('background_image'); // array
-$bg_url = $background_image['url'] ?? '';
+$bg_url  = $background_image['url'] ?? '';
+$bg_attr = $bg_url ? ' style="background-image:url(\'' . esc_url($bg_url) . '\')"' : '';
 
 $wrapper_attrs = get_block_wrapper_attributes([
     'class' => 'wp-block-globeiron-hero-home hero-home',
 ]);
 ?>
 
-<section <?php echo $wrapper_attrs; ?>>
-  <?php if ($bg_url) : ?>
-  <img class="hero-home__bg"
-       src="<?php echo esc_url($bg_url); ?>"
-       alt="" aria-hidden="true"
-       fetchpriority="high" loading="eager"
-       decoding="sync">
-  <?php endif; ?>
+<?php if ($bg_url) : ?>
+<script>
+(function(){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='<?php echo esc_js($bg_url); ?>';l.setAttribute('fetchpriority','high');document.head.appendChild(l);})();
+</script>
+<?php endif; ?>
+
+<section <?php echo $wrapper_attrs . $bg_attr; ?>>
   <img class="hero-home__globe-left"
        src="<?php echo esc_url(get_template_directory_uri()); ?>/img/hero/hero-bot-left.png"
        alt="" aria-hidden="true" loading="eager">
