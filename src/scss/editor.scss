@@ -192,24 +192,24 @@
   .btn {
     @include btn-base;
     background: $color-brand-primary;
-    color: $color-pine-tree;
+    color: $color-brand-navy;
     text-transform: uppercase;
   }
 
   .btn--primary {
     background: $color-brand-primary;
-    color: $color-pine-tree;
+    color: $color-brand-navy;
   }
 
   .btn--secondary {
     background: transparent;
-    color: $color-pine-tree;
-    border: 2px solid $color-pine-tree;
+    color: $color-brand-navy;
+    border: 2px solid $color-brand-navy;
   }
 
   .btn--brand {
     background: $color-yellow;
-    color: $color-pine-tree;
+    color: $color-brand-navy;
   }
 
   .btn--ghost {

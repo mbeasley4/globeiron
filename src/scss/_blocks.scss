@@ -690,9 +690,9 @@
       }
 
       .hero-interior__collage-line--horizontal {
-        left: calc(var(--collage-horizontal-left) + 14px);
+        left: calc(var(--collage-horizontal-left) + 34px);
         bottom: calc(var(--collage-horizontal-y) + 14px);
-        width: calc(var(--collage-horizontal-width) - 28px);
+        width: calc(var(--collage-horizontal-width) - 68px);
         height: 2px;
         transform-origin: left center;
         @include dotted-line(rgba($color-brand-blue, 0.95), right);
@@ -724,10 +724,10 @@
 
   // DARK (default) — brand navy blue
   &.is-style-dark {
-    background-color: $color-pine-tree;
+    background-color: $color-brand-navy;
     background-image:
       radial-gradient(ellipse 120% 80% at 50% 0%, rgba($color-brand-primary, 0.10) 0%, transparent 60%),
-      linear-gradient(160deg, $color-dark-deep-2 0%, $color-pine-tree 55%, $color-dark-deep-3 100%);
+      linear-gradient(160deg, $color-dark-deep-2 0%, $color-brand-navy 55%, $color-dark-deep-3 100%);
 
     .partners__eyebrow {
       color: $color-partnership-eyebrow;
@@ -1031,7 +1031,7 @@
   background: $color-yellow;
   border-radius: $border-radius-md;
   flex-shrink: 0;
-  color: $color-pine-tree;
+  color: $color-brand-navy;
 
   svg,
   img {
@@ -2282,11 +2282,11 @@
     text-align: center;
 
     &:hover {
-      color: $color-pine-tree;
+      color: $color-brand-navy;
     }
 
     &.is-active {
-      color: $color-pine-tree;
+      color: $color-brand-navy;
       border-bottom-color: $color-brand-primary;
     }
 
@@ -2341,7 +2341,7 @@
   &__project-title {
     font-family: $font-serif;
     font-size: clamp($font-size-3xl, 3.5vw, $font-size-5xl);
-    color: $color-pine-tree;
+    color: $color-brand-navy;
     line-height: $line-height-tight;
     margin: 0;
     text-wrap: balance;
@@ -2359,7 +2359,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: $color-pine-tree;
+    color: $color-brand-navy;
     margin: 0;
   }
 
@@ -3167,7 +3167,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: $color-pine-tree;
+  background: $color-brand-navy;
   color: $color-white;
   font-family: $font-sans;
   font-size: $font-size-lg;
@@ -3263,7 +3263,7 @@
 // Full-width navy header band — content indented to match site container.
 // Usage: alignfull Group block + class "page-header-band"
 .wp-block-group.page-header-band {
-  background-color: $color-pine-tree !important;
+  background-color: $color-brand-navy !important;
   padding-top: $spacing-20;
   padding-bottom: $spacing-20;
   // Intrinsic padding keeps content within the container width at wide viewports
@@ -3539,7 +3539,7 @@
 
     &:hover {
       background: $color-brand-primary;
-      color: $color-pine-tree;
+      color: $color-brand-navy;
     }
 
     &:focus-visible {
@@ -3996,7 +3996,7 @@
     left: 0;
     right: 0;
     z-index: 3;
-    background: $color-pine-tree;
+    background: $color-brand-navy;
     padding: $spacing-3 $spacing-6;
     display: flex;
     align-items: center;
@@ -4057,7 +4057,7 @@
   overflow: hidden; // square — no border-radius
 
   &::backdrop {
-    background: rgba($color-pine-tree, 0.72);
+    background: rgba($color-brand-navy, 0.72);
     backdrop-filter: blur(3px);
   }
 

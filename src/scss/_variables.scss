@@ -5,9 +5,7 @@ $color-brand-secondary: #B8943D;   // Gold (dark) — hover state for primary
 $color-brand-blue:      #114CA0;   // Royal Blue — headings, eyebrows, accents
 $color-brand-blue-dark: #154891;   // Royal Blue (dark) — hover state for blue elements
 
-$color-pine-tree:       #102060;   // Dark Navy — footer bg, dark sections
-$color-pine-mid:        #1A3080;   // Navy mid  — hover on dark backgrounds
-$color-old-burgundy:    #6B1F2A;   // Old Burgundy — accent / error tones
+$color-brand-navy:      #102060;   // Dark Navy — footer bg, dark sections
 
 $color-iron-dark:       #171717;   // Near-black — body text, headings
 $color-iron-mid:        #657693;   // Mid grey  — secondary text, placeholders
@@ -76,9 +74,7 @@ $spacing-12: 3rem;
 $spacing-16: 4rem;
 $spacing-20: 5rem;
 $spacing-24: 6rem;
-$spacing-26: 7rem;
 $spacing-28: 8rem;
-$spacing-30: 9rem;
 $spacing-32: 10rem;
 $spacing-34: 11rem;
 $spacing-section: 5rem;
@@ -93,13 +89,11 @@ $bp-2xl: 1536px;
 // ─── Layout ──────────────────────────────────────────────────────────────────
 $container-max-width: 1280px;
 $content-max-width:   720px;
-$sidebar-width:       300px;
 
 // ─── Borders / Radius ────────────────────────────────────────────────────────
 $border-radius-sm:  0.25rem;
 $border-radius-md:  0.5rem;
 $border-radius-lg:  1rem;
-$border-radius-xl:  1.5rem;
 $border-color:      $color-iron-light;
 
 // ─── Shadows ─────────────────────────────────────────────────────────────────
@@ -114,8 +108,5 @@ $transition-normal: 250ms ease-in-out;
 $transition-slow:   400ms ease-in-out;
 
 // ─── Z-index ─────────────────────────────────────────────────────────────────
-$z-base:    0;
-$z-raised:  10;
 $z-overlay: 100;
 $z-modal:   200;
-$z-toast:   300;

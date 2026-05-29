@@ -40,7 +40,7 @@
     clip-path: none;
     white-space: nowrap;
 
-    background: $color-pine-tree;
+    background: $color-brand-navy;
     color: $color-white;
     font-size: $font-size-base;
     font-weight: 700;
@@ -55,35 +55,35 @@
 .btn {
   @include btn-base;
   background: $color-brand-primary;
-  color: $color-pine-tree;
+  color: $color-brand-navy;
   text-transform: uppercase;
-  &:hover { background: $color-brand-secondary; color: $color-pine-tree; text-decoration: none; }
-  &:focus-visible { outline-color: $color-pine-tree; }
+  &:hover { background: $color-brand-secondary; color: $color-brand-navy; text-decoration: none; }
+  &:focus-visible { outline-color: $color-brand-navy; }
 }
 
 .btn--primary {
   background: $color-brand-primary;
-  color: $color-pine-tree;
+  color: $color-brand-navy;
 
-  &:hover { background: $color-brand-secondary; color: $color-pine-tree; text-decoration: none; }
+  &:hover { background: $color-brand-secondary; color: $color-brand-navy; text-decoration: none; }
 }
 
 .btn--secondary {
   background: transparent;
-  color: $color-pine-tree;
-  border: 2px solid $color-pine-tree;
+  color: $color-brand-navy;
+  border: 2px solid $color-brand-navy;
 
-  &:hover { background: $color-pine-tree; color: $color-white; text-decoration: none; }
+  &:hover { background: $color-brand-navy; color: $color-white; text-decoration: none; }
 }
 
 // Yellow / roofing-brand CTA button (alias of default)
 .btn--brand {
   background: $color-yellow;
-  color: $color-pine-tree;
+  color: $color-brand-navy;
 
-  &:hover { background: $color-yellow-hover; color: $color-pine-tree; text-decoration: none; }
+  &:hover { background: $color-yellow-hover; color: $color-brand-navy; text-decoration: none; }
 
-  &:focus-visible { outline-color: $color-pine-tree; }
+  &:focus-visible { outline-color: $color-brand-navy; }
 }
 
 .btn--ghost {
@@ -99,7 +99,7 @@
   color: $color-brand-primary;
   border: 2px solid $color-brand-primary;
 
-  &:hover { background: $color-brand-primary; color: $color-pine-tree; text-decoration: none; }
+  &:hover { background: $color-brand-primary; color: $color-brand-navy; text-decoration: none; }
   &:focus-visible { outline-color: $color-brand-primary; }
 }
 
@@ -178,7 +178,7 @@
   right: 0;
   bottom: 0;
   width: min(320px, 88vw);
-  background: $color-pine-tree;
+  background: $color-brand-navy;
   z-index: 200; // above overlay (z 99); inside sticky context (z 100), so effective z > 100
   transform: translateX(100%);
   transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -484,7 +484,7 @@
     text-decoration: none;
     transition: color $transition-fast, background $transition-fast;
 
-    &:hover { color: $color-pine-tree; }
+    &:hover { color: $color-brand-navy; }
   }
 
   // Mobile open state (toggled via JS)
@@ -572,7 +572,7 @@
         border-color $transition-fast;
 
       &:hover {
-        color: $color-pine-tree;
+        color: $color-brand-navy;
         background: rgba($color-brand-primary, 0.09);
         border-left-color: $color-brand-primary;
       }
@@ -581,7 +581,7 @@
     // ── Current page highlight inside the dropdown ─────────────────────────────
     .menu-item.current-menu-item > a,
     .menu-item.current-menu-ancestor > a {
-      color: $color-pine-tree;
+      color: $color-brand-navy;
       background: rgba($color-brand-primary, 0.09);
       border-left-color: $color-brand-primary;
     }
@@ -621,7 +621,7 @@
     > a {
       padding: $spacing-2 $spacing-5;
       background: $color-brand-primary;
-      color: $color-pine-tree !important;
+      color: $color-brand-navy !important;
       border-radius: 0;
       font-family: $font-sans;
       font-size: $font-size-base;
@@ -631,14 +631,14 @@
 
       &:hover {
         background: $color-brand-secondary;
-        color: $color-pine-tree !important;
+        color: $color-brand-navy !important;
       }
     }
 
     &.current-menu-item > a,
     &.current-menu-ancestor > a {
       background: $color-brand-secondary;
-      color: $color-pine-tree !important;
+      color: $color-brand-navy !important;
     }
   }
 }
@@ -970,7 +970,7 @@
 
     &.current {
       background: $color-brand-primary;
-      color: $color-pine-tree;
+      color: $color-brand-navy;
       border-color: $color-brand-primary;
     }
 
@@ -1001,7 +1001,7 @@
 
 .badge--primary {
   background: rgba($color-brand-primary, 0.18);
-  color: $color-pine-tree;
+  color: $color-brand-navy;
 }
 
 .badge--iron {
@@ -1096,7 +1096,7 @@
   // Submit button — gold, uppercase Franklin Gothic
   input[type="submit"] {
     background: $color-brand-primary;
-    color: $color-pine-tree;
+    color: $color-brand-navy;
     border: none;
     padding: $spacing-4 $spacing-10;
     font-family: $font-sans;
