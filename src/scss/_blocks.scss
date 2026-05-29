@@ -523,7 +523,7 @@
         padding: $spacing-4 0 $spacing-6;
 
         @include respond-to('lg') {
-          max-width: 640px;
+          max-width: 680px;
           min-height: inherit;
           justify-content: flex-start;
           padding: clamp(6rem, 6.8vw, 7.5rem) 0 0;
@@ -538,7 +538,6 @@
         line-height: $line-height-tight;
         letter-spacing: 0;
         margin: 0 0 $spacing-4;
-        max-width: 620px;
         text-wrap: balance;
 
         @include respond-to('lg') {
@@ -550,7 +549,7 @@
         color: rgba($color-white, 0.94);
         font-size: clamp($font-size-base, 1.32vw, $font-size-lg);
         line-height: 1.42;
-        max-width: 560px;
+        max-width: 620px;
         margin: 0 0 $spacing-6;
 
         p, ul, ol { margin: 0 0 $spacing-3; &:last-child { margin-bottom: 0; } }
@@ -1250,7 +1249,7 @@
       @extend %crosshair-animated;
     }
   }
-  @media (min-width: 1024px) {
+  @include respond-to('lg') {
     &.desktop-no-padding-top {
       .section-features__inner {
         padding-top:0!important;
@@ -1665,7 +1664,7 @@
     @include respond-to('lg') {
       grid-template-columns: repeat(var(--hub-cols, 3), 1fr);
     }
-    @media (min-width: 1024px) {
+    @include respond-to('lg') {
       padding-inline: $spacing-12;
     }
   }
@@ -2478,7 +2477,7 @@
   background-color: $color-brand-blue; // default
   color: $color-white;
   isolation: isolate;
-  @media (min-width:1024px) {
+  @include respond-to('lg') {
     padding: clamp(3rem, 8vw, 7rem) 0;
   }
 
