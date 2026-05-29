@@ -41,6 +41,9 @@ add_action('after_setup_theme', function (): void {
 
     add_editor_style('dist/css/editor.css');
 
+    // Generate WebP versions of uploaded images (WP 5.8+)
+    add_theme_support('webp-upload');
+
     // Navigation menus
     register_nav_menus([
         'primary'         => __('Primary Navigation', 'globeiron'),
@@ -259,8 +262,26 @@ function globeiron_ajax_get_projects(): void {
 add_action('wp_ajax_globeiron_get_projects',        'globeiron_ajax_get_projects');
 add_action('wp_ajax_nopriv_globeiron_get_projects', 'globeiron_ajax_get_projects');
 
+// ─── Preconnect hints ────────────────────────────────────────────────────────
+add_action('wp_head', function (): void {
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+    echo '<link rel="preconnect" href="https://cdnjs.cloudflare.com">' . "\n";
+}, 1);
+
+// Make Google Fonts load non-render-blocking
+add_filter('style_loader_tag', function (string $html, string $handle): string {
+    if ($handle !== 'globeiron-fonts') {
+        return $html;
+    }
+    $href = 'https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap';
+    return '<link rel="preload" href="' . esc_url($href) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">' . "\n"
+        . '<noscript><link rel="stylesheet" href="' . esc_url($href) . '"></noscript>' . "\n";
+}, 10, 2);
+
 // ─── Enqueue assets ──────────────────────────────────────────────────────────
 add_action('wp_enqueue_scripts', function (): void {
+    // Load Google Fonts non-render-blocking via preload swap trick
     wp_enqueue_style(
         'globeiron-fonts',
         'https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap',
