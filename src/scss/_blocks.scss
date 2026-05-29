@@ -2517,14 +2517,22 @@
   // ── Animated dotted-border box with corner crosshairs ────────────────────
   .section-border-columns__border-box {
     position: absolute;
-    top: clamp(3rem, 3vw, 4rem);
-    bottom: clamp(3rem, 3vw, 4rem);
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 2 * clamp(2rem, 3vw, 2rem));
-    max-width: 1280px;
+    top: clamp(1.5rem, 3vw, 4rem);
+    bottom: clamp(1.5rem, 3vw, 4rem);
+    // Mobile: push box to the page edges so inner content has more room.
+    left: $spacing-2;
+    right: $spacing-2;
+    width: auto;
     pointer-events: none;
     z-index: 0;
+
+    @include respond-to('lg') {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: calc(100% - 2 * clamp(2rem, 3vw, 2rem));
+      max-width: 1280px;
+    }
   }
 
   // Crosshairs sit at each of the 4 corners
@@ -2622,13 +2630,14 @@
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    // On mobile the block padding equals the border-box inset (both ~3rem),
-    // so the corner crosshairs (±14px from the corner) overlap the content.
-    // Extra inner padding pushes text clear of the crosshairs.
+    // Mobile: push text clear of both the corner crosshairs (top/bottom)
+    // and the left/right border lines.
     padding-block: $spacing-8;
+    padding-inline: $spacing-6;
 
     @include respond-to('lg') {
       padding-block: 0;
+      padding-inline: 0;
     }
   }
 
