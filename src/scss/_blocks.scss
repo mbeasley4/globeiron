@@ -585,7 +585,8 @@
         aspect-ratio: 0.84;
         z-index: 2; // sits above the aerial
         overflow: hidden;
-        margin: 0 auto;
+        margin-block: 0;
+    margin-inline: auto;
 
         @include respond-to('lg') {
           position: absolute;
@@ -1197,7 +1198,8 @@
     background-repeat: no-repeat;
     background-position: top left;
     background-size: 100% 3px;
-    margin:0 auto;
+    margin-block: 0;
+    margin-inline: auto;
   }
 
   .section-features__item-title {
@@ -1638,7 +1640,8 @@
   // ── Section description ────────────────────────────────────────────────────
   .section-service-hubs__description {
     max-width: 680px;
-    margin: 0 auto $spacing-12;
+    margin-block: 0 $spacing-12;
+    margin-inline: auto;
     text-align: center;
     font-size: $font-size-lg;
     color: $color-iron-dark;
@@ -2598,7 +2601,8 @@
     position: relative;
     z-index: 1;
     max-width: 1200px;
-    margin: 0 auto;
+    margin-block: 0;
+    margin-inline: auto;
     text-align: center;
     // Mobile: push text clear of both the corner crosshairs (top/bottom)
     // and the left/right border lines.
@@ -2635,7 +2639,8 @@
     color: rgba($color-white, 0.85);
     line-height: $line-height-loose;
     max-width: 720px;
-    margin: 0 auto $spacing-12;
+    margin-block: 0 $spacing-12;
+    margin-inline: auto;
 
     p { margin-top: 0; &:last-child { margin-bottom: 0; } }
   }
