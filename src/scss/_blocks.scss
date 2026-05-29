@@ -155,17 +155,17 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-top: $spacing-16;
+    padding-top: $spacing-20;
     padding-bottom: 7rem; // must exceed 100px to clear the scroll-indicator's top crosshair
 
     @include respond-to('md') {
-      padding-top: $spacing-20;
-      padding-bottom: 7rem;
+      padding-top: $spacing-24;
+      padding-bottom: 8rem;
     }
 
     @include respond-to('lg') {
-      padding-top: $spacing-24;
-      padding-bottom: 8rem;
+      padding-top: $spacing-28;
+      padding-bottom: 10rem;
     }
   }
 
@@ -3535,8 +3535,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 52px;
+    height: 52px;
     border: 1.5px solid $color-brand-primary;
     border-radius: 50%;
     background: none;
@@ -3545,7 +3545,13 @@
     transition: background $transition-fast, color $transition-fast;
     flex-shrink: 0;
 
-    svg { display: block; width: 16px; height: 16px; }
+    svg { display: block; width: 20px; height: 20px; }
+
+    @include respond-to('lg') {
+      width: 36px;
+      height: 36px;
+      svg { width: 16px; height: 16px; }
+    }
 
     &:hover {
       background: $color-brand-primary;

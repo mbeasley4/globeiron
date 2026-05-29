@@ -679,28 +679,44 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── Mobile submenu accordion ─────────────────────────────────────────────────
-  // On mobile, clicking a parent nav link toggles its submenu instead of navigating.
-  // On desktop, hover is handled by CSS — JS does nothing.
-  document.querySelectorAll('.nav > .menu-item-has-children > a').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      if (window.innerWidth >= 1024) return; // desktop: let CSS :hover handle it
+  // Inject a standalone toggle <button> after each parent link so the <a> can
+  // navigate to its href normally. The toggle button handles expand/collapse.
+  // On desktop, hover via CSS handles dropdowns — the button is display:none.
+  document.querySelectorAll('.nav > .menu-item-has-children').forEach((item) => {
+    const link = item.querySelector(':scope > a');
+    if (!link) return;
 
-      e.preventDefault();
-      const parent = link.closest('.menu-item-has-children');
-      const isOpen = parent.classList.toggle('is-open');
-      link.setAttribute('aria-expanded', String(isOpen));
+    const btn = document.createElement('button');
+    btn.className = 'nav__dropdown-toggle';
+    btn.type = 'button';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Toggle submenu');
+    btn.innerHTML = `<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <polyline points="2,3 5,7 8,3"/>
+    </svg>`;
 
-      // Collapse any other open siblings
-      parent.parentElement
-        .querySelectorAll(':scope > .menu-item-has-children.is-open')
-        .forEach((sibling) => {
-          if (sibling !== parent) {
-            sibling.classList.remove('is-open');
-            const siblingLink = sibling.querySelector(':scope > a');
-            if (siblingLink) siblingLink.setAttribute('aria-expanded', 'false');
-          }
-        });
-    });
+    link.after(btn);
+
+    const toggle = (forceClose = false) => {
+      if (window.innerWidth >= 1024) return;
+      const isOpen = forceClose ? false : !item.classList.contains('is-open');
+      item.classList.toggle('is-open', isOpen);
+      btn.setAttribute('aria-expanded', String(isOpen));
+
+      // Collapse siblings
+      if (isOpen) {
+        item.parentElement
+          .querySelectorAll(':scope > .menu-item-has-children.is-open')
+          .forEach((sibling) => {
+            if (sibling !== item) {
+              sibling.classList.remove('is-open');
+              sibling.querySelector('.nav__dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+            }
+          });
+      }
+    };
+
+    btn.addEventListener('click', () => toggle());
   });
 
   // ── Team grid: crosshair + dotted-line ornament animation ───────────────────

@@ -331,13 +331,25 @@
 
   &:last-child { border-bottom: none; }
 
+  // Mobile: link takes most of the row; toggle button sits on the right.
+  // Items with children use a flex row so the link and button share the row.
+  &.menu-item-has-children {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    @include respond-to('lg') {
+      display: block; // desktop: back to block so hover sub-menu works normally
+    }
+  }
+
   > a {
+    flex: 1; // grow to fill row beside the toggle button on mobile
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: $spacing-3 $spacing-6;
+    padding: $spacing-4 $spacing-6;
     font-family: $font-serif;
-    font-size: $font-size-base;
+    font-size: $font-size-lg; // slightly larger than base for easier reading
     font-weight: 600;
     color: $color-iron-dark;
     text-decoration: none;
@@ -356,6 +368,7 @@
     border-bottom: none;
 
     > a {
+      flex: unset;
       padding: $spacing-2 $spacing-3;
       border-radius: $border-radius-sm;
       font-size: clamp(0.625rem, 1.1vw, $font-size-sm);
@@ -388,26 +401,65 @@
 }
 
 // ─── Submenu chevron ──────────────────────────────────────────────────────────
+// On mobile the chevron lives on a standalone <button> injected by JS.
+// On desktop it stays as the CSS ::after on the <a>.
 .menu-item-has-children > a::after {
   content: '';
-  display: inline-block;
-  flex-shrink: 0;
-  margin-left: $spacing-2;
-  width: 7px;
-  height: 7px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg) translateY(-1px);
-  transition: transform $transition-fast;
+  display: none; // hidden on mobile — JS button handles it
 
   @include respond-to('lg') {
+    display: inline-block;
+    flex-shrink: 0;
+    margin-left: $spacing-2;
     width: 6px;
     height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform $transition-fast;
   }
 }
 
 .menu-item-has-children.is-open > a::after {
-  transform: rotate(-135deg) translateY(-2px);
+  @include respond-to('lg') {
+    transform: rotate(-135deg) translateY(-2px);
+  }
+}
+
+// ─── Mobile dropdown toggle button (injected by JS) ───────────────────────────
+.nav__dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-left: 1px solid $border-color;
+  color: $color-iron-dark;
+  cursor: pointer;
+  transition: background $transition-fast, color $transition-fast;
+
+  &:hover { background: $color-iron-light; color: $color-pine-tree; }
+
+  svg {
+    width: 10px;
+    height: 10px;
+    transition: transform $transition-fast;
+  }
+
+  // Rotate chevron when open
+  .menu-item-has-children.is-open & svg {
+    transform: rotate(-180deg);
+  }
+
+  // Hidden on desktop — CSS :hover handles dropdowns there
+  @include respond-to('lg') { display: none; }
+}
+
+// Sub-menu spans full row when open on mobile
+.menu-item-has-children > .sub-menu {
+  flex-basis: 100%;
 }
 
 // ─── Sub-menu ─────────────────────────────────────────────────────────────────
