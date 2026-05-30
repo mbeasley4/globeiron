@@ -901,11 +901,11 @@ h6.wp-block-heading {
     align-items: stretch;
     overflow: hidden;
     background-color: $color-brand-blue-dark;
-    background-image:
+    /*background-image:
       linear-gradient(90deg, rgba($color-brand-blue-dark, 0.18), rgba($color-brand-blue-dark, 0.70)),
       linear-gradient(180deg, rgba($color-brand-blue-dark, 0.25), rgba($color-brand-blue-dark, 0.90)),
       var(--hero-bg, none),
-      linear-gradient(155deg, #1b66bd 0%, $color-brand-blue-dark 52%, #0a244c 100%);
+      linear-gradient(155deg, #1b66bd 0%, $color-brand-blue-dark 52%, #0a244c 100%);*/
     background-size: cover;
     background-position: center;
 
