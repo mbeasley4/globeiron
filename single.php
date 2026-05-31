@@ -23,7 +23,7 @@ $blog_url  = $blog_page ? get_permalink($blog_page->ID) : home_url('/blog/');
 
     <div class="single-post-hero<?php echo $has_img ? '' : ' single-post-hero--text-only'; ?>">
 
-        <div class="single-post-hero__topbar container">
+        <div class="single-post-hero__topbar">
             <a href="<?php echo esc_url($blog_url); ?>" class="single-post-hero__back">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                     <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.2"/>
