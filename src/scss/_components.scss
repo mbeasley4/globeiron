@@ -1178,17 +1178,44 @@
   color: $color-white;
   overflow: hidden;
 
-  // ── Two-column grid: text left, image right ─────────────────────────────────
+  // ── Topbar: back link ───────────────────────────────────────────────────────
+  &__topbar {
+    display: flex;
+    align-items: center;
+    padding-block: $spacing-4;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-brand-primary;
+    text-decoration: none;
+    transition: color $transition-fast;
+    flex-shrink: 0;
+
+    svg { flex-shrink: 0; }
+    &:hover { color: $color-brand-secondary; text-decoration: none; }
+  }
+
+  // ── Two-column grid: text left, ornament centre, image right ────────────────
   &__inner {
     display: grid;
     grid-template-columns: 1fr;
-    min-height: 340px;
+    min-height: 300px;
     max-width: 1440px;
     margin-inline: auto;
 
     @include respond-to('lg') {
-      grid-template-columns: 1fr 1fr;
-      min-height: 420px;
+      grid-template-columns: 1fr 44px 1fr;
+      min-height: 380px;
     }
   }
 
@@ -1203,7 +1230,7 @@
 
   &--text-only &__content {
     @include container;
-    padding-block: $spacing-12 $spacing-20;
+    padding-block: $spacing-10 $spacing-20;
   }
 
   // ── Left: text column ───────────────────────────────────────────────────────
@@ -1211,16 +1238,40 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: $spacing-10 $spacing-4 $spacing-10;
+    padding: $spacing-8 $spacing-4 $spacing-8;
 
     @include respond-to('md') {
-      padding: $spacing-10 $spacing-8;
+      padding: $spacing-8 $spacing-8;
     }
 
     @include respond-to('lg') {
-      // mirror the container left-padding, add right breathing room
-      padding: $spacing-12 $spacing-10 $spacing-12 clamp($spacing-8, 6vw, $spacing-20);
+      padding: $spacing-10 $spacing-8 $spacing-10 clamp($spacing-8, 6vw, $spacing-20);
     }
+  }
+
+  // ── Centre: ornament separator (crosshair → dashed line → crosshair) ────────
+  &__ornament {
+    display: none;
+
+    @include respond-to('lg') {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: stretch;
+      color: rgba($color-white, 0.55);
+    }
+  }
+
+  &__ornament-crosshair {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  &__ornament-line {
+    flex: 1;
+    width: 2px;
+    @include dotted-line(rgba($color-white, 0.2));
   }
 
   // ── Right: image column ─────────────────────────────────────────────────────
@@ -1228,23 +1279,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $color-dark-deep-2; // navy fill behind any letterbox gaps
-
-    // Mobile: full-width band below the text
+    background: $color-dark-deep-2;
     width: 100%;
-    min-height: 220px;
+    min-height: 200px;
+    padding: $spacing-6;
 
     @include respond-to('lg') {
       min-height: 0;
+      padding: $spacing-8 $spacing-10 $spacing-8 $spacing-6;
     }
   }
 
   &__img {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain; // never crops — full image always visible
+    max-width: 100%;
+    max-height: 280px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     object-position: center;
+
+    @include respond-to('lg') {
+      max-height: 340px;
+    }
   }
 
   // ── Text elements ───────────────────────────────────────────────────────────
@@ -1437,13 +1494,6 @@
     text-align: center;
     margin-top: $spacing-2;
   }
-}
-
-// ── Back to blog ─────────────────────────────────────────────────────────────
-.single-post-back {
-  margin-top: $spacing-12;
-  padding-top: $spacing-8;
-  border-top: 1px solid $color-iron-light;
 }
 
 // ─── Single Project ───────────────────────────────────────────────────────────

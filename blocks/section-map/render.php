@@ -115,7 +115,16 @@ $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-
 
       <?php if ($map_embed) : ?>
         <div class="section-contact-map__map">
-          <?php echo wp_kses($map_embed, $allowed_iframe); ?>
+          <?php
+          // Ensure the iframe defers loading until near viewport to avoid
+          // pulling in the full Maps JS API (~193 KiB) on initial page load.
+          $lazy_embed = preg_replace(
+              '/(<iframe\b[^>]*?)(?:\s+loading=["\'][^"\']*["\'])?((?:[^>]*?)>)/i',
+              '$1 loading="lazy"$2',
+              $map_embed
+          );
+          echo wp_kses($lazy_embed, $allowed_iframe);
+          ?>
         </div>
       <?php endif; ?>
 

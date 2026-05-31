@@ -4,6 +4,10 @@ import '../scss/main.scss';
 import Splide from '@splidejs/splide';
 import '@splidejs/splide/dist/css/splide-core.min.css';
 
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
 document.addEventListener('DOMContentLoaded', () => {
   // ── Customer Reviews slider ──────────────────────────────────────────────────
   document.querySelectorAll('.section-reviews__splide').forEach((el) => {
@@ -115,13 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const gsap = window.gsap;
-  const ScrollTrigger = window.ScrollTrigger;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (gsap && ScrollTrigger) {
-    gsap.registerPlugin(ScrollTrigger);
-  }
 
   function runWhenInView(trigger, play, options = {}) {
     if (!trigger) return;
@@ -557,8 +555,10 @@ document.addEventListener('DOMContentLoaded', () => {
     section.style.setProperty('--features-ornament-top', `${offset - 14}px`);
   }
 
-  positionFeaturesOrnaments();
-  window.addEventListener('resize', positionFeaturesOrnaments);
+  requestAnimationFrame(() => {
+    positionFeaturesOrnaments();
+    window.addEventListener('resize', positionFeaturesOrnaments);
+  });
 
   // ── Section Map: variant dropdown + animation observer ───────────────────────
   document.querySelectorAll('[data-map-select]').forEach((select) => {
@@ -630,11 +630,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  positionProjectOrnaments();
   let _ornamentRaf;
-  window.addEventListener('resize', () => {
-    cancelAnimationFrame(_ornamentRaf);
-    _ornamentRaf = requestAnimationFrame(positionProjectOrnaments);
+  requestAnimationFrame(() => {
+    positionProjectOrnaments();
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(_ornamentRaf);
+      _ornamentRaf = requestAnimationFrame(positionProjectOrnaments);
+    });
   });
 
   // ── Project Details — Before/After pair navigation ───────────────────────────

@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const DependencyExtractionPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 // ─── Shared rules / externals ─────────────────────────────────────────────────
@@ -57,6 +58,9 @@ const themeConfig = {
   plugins: [
     new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
   ],
+  optimization: {
+    minimizer: ['...', new CssMinimizerPlugin()],
+  },
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: { '@': path.resolve(__dirname, 'src') },

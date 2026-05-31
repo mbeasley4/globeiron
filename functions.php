@@ -266,7 +266,6 @@ add_action('wp_ajax_nopriv_globeiron_get_projects', 'globeiron_ajax_get_projects
 add_action('wp_head', function (): void {
     echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
-    echo '<link rel="preconnect" href="https://cdnjs.cloudflare.com">' . "\n";
 }, 1);
 
 // Make Google Fonts load non-render-blocking
@@ -297,25 +296,9 @@ add_action('wp_enqueue_scripts', function (): void {
     );
 
     wp_enqueue_script(
-        'gsap',
-        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
-        [],
-        '3.12.5',
-        true
-    );
-
-    wp_enqueue_script(
-        'gsap-scrolltrigger',
-        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
-        ['gsap'],
-        '3.12.5',
-        true
-    );
-
-    wp_enqueue_script(
         'globeiron-main',
         GLOBEIRON_URI . '/dist/js/main.js',
-        ['gsap', 'gsap-scrolltrigger'],
+        [],
         GLOBEIRON_VERSION,
         true
     );
