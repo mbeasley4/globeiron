@@ -76,28 +76,27 @@ $wrapper_attrs = get_block_wrapper_attributes([
       <div class="splide__track">
         <ul class="splide__list">
           <?php foreach ($projects as $i => $project) :
-            $img_id       = get_post_thumbnail_id($project->ID);
-            $img_src      = $img_id ? wp_get_attachment_image_src($img_id, 'large') : null;
-            $img_alt      = $img_id ? (string) get_post_meta($img_id, '_wp_attachment_image_alt', true) : '';
+            $img_id      = get_post_thumbnail_id($project->ID);
+            $img_alt     = $img_id ? (string) get_post_meta($img_id, '_wp_attachment_image_alt', true) : '';
             $img_fallback = GLOBEIRON_URI . '/img/no-image.png';
-            $eyebrow      = (string) (get_field('eyebrow',       $project->ID) ?: '');
-            $location     = (string) (get_field('tech_location',  $project->ID) ?: get_post_meta($project->ID, 'location', true));
-            $description  = (string) (get_the_excerpt($project) ?: get_post_meta($project->ID, 'project_summary', true));
-            $raw_cats     = get_the_terms($project->ID, 'project_category');
-            $cat_name     = ($raw_cats && !is_wp_error($raw_cats)) ? $raw_cats[0]->name : '';
-            $permalink    = get_permalink($project->ID);
+            $eyebrow     = (string) (get_field('eyebrow',       $project->ID) ?: '');
+            $location    = (string) (get_field('tech_location',  $project->ID) ?: get_post_meta($project->ID, 'location', true));
+            $description = (string) (get_the_excerpt($project) ?: get_post_meta($project->ID, 'project_summary', true));
+            $raw_cats    = get_the_terms($project->ID, 'project_category');
+            $cat_name    = ($raw_cats && !is_wp_error($raw_cats)) ? $raw_cats[0]->name : '';
+            $permalink   = get_permalink($project->ID);
           ?>
           <li class="splide__slide section-work__slide">
             <div class="section-work__slide-image">
-              <img
-                src="<?php echo $img_src ? esc_url($img_src[0]) : esc_url($img_fallback); ?>"
-                <?php if ($img_src) : ?>
-                width="<?php echo (int) $img_src[1]; ?>"
-                height="<?php echo (int) $img_src[2]; ?>"
-                <?php endif; ?>
-                alt="<?php echo esc_attr($img_alt ?: get_the_title($project)); ?>"
-                loading="<?php echo $i === 0 ? 'eager' : 'lazy'; ?>"
-              >
+              <?php if ($img_id) : ?>
+                <?php echo wp_get_attachment_image($img_id, 'large', false, [
+                    'alt'     => esc_attr($img_alt ?: get_the_title($project)),
+                    'loading' => $i === 0 ? 'eager' : 'lazy',
+                    'sizes'   => '(max-width: 768px) calc(100vw - 2rem), (max-width: 1280px) 55vw, 820px',
+                ]); ?>
+              <?php else : ?>
+                <img src="<?php echo esc_url($img_fallback); ?>" alt="<?php echo esc_attr(get_the_title($project)); ?>" loading="<?php echo $i === 0 ? 'eager' : 'lazy'; ?>">
+              <?php endif; ?>
             </div>
 
             <div class="section-work__slide-info">

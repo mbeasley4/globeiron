@@ -23,6 +23,7 @@ $cta_label     = '';
 $eyebrow_label = '';
 $location      = '';
 $cat_name      = '';
+$image_id      = $hero_image['ID'] ?? 0;  // attachment ID for srcset generation
 $image_url     = $hero_image ? ($hero_image['sizes']['large'] ?? $hero_image['url']) : '';
 $image_alt     = $hero_image['alt'] ?? '';
 
@@ -93,6 +94,7 @@ if ($hero_type === 'basic') {
 
         // Project's own featured image, fallback to no-image.png
         $thumb_id  = get_post_thumbnail_id($post_obj->ID);
+        $image_id  = $thumb_id ?: 0;
         $image_url = $thumb_id
             ? (wp_get_attachment_image_url($thumb_id, 'large') ?: globeiron_no_image_url())
             : globeiron_no_image_url();
@@ -161,12 +163,20 @@ $wrapper_attributes = get_block_wrapper_attributes([
 
       <?php if ($image_url) : ?>
         <div class="blog-hero__media" aria-hidden="true">
-          <img
-            class="blog-hero__image"
-            src="<?php echo esc_url($image_url); ?>"
-            alt="<?php echo esc_attr($image_alt); ?>"
-            loading="eager"
-            decoding="async">
+          <?php if ($image_id) : ?>
+            <?php echo wp_get_attachment_image($image_id, 'large', false, [
+                'class'   => 'blog-hero__image',
+                'loading' => 'eager',
+                'decoding'=> 'async',
+                'sizes'   => '(max-width: 768px) calc(100vw - 2rem), (max-width: 1280px) 45vw, 730px',
+            ]); ?>
+          <?php else : ?>
+            <img class="blog-hero__image"
+                 src="<?php echo esc_url($image_url); ?>"
+                 alt="<?php echo esc_attr($image_alt); ?>"
+                 loading="eager"
+                 decoding="async">
+          <?php endif; ?>
         </div>
       <?php endif; ?>
 

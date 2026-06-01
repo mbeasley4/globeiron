@@ -41,6 +41,7 @@ $wrapper_attrs = get_block_wrapper_attributes([
 $allowed_iframe = [
     'iframe' => [
         'src'             => true,
+        'data-src'        => true, // JS-controlled facade: IntersectionObserver swaps this to src
         'width'           => true,
         'height'          => true,
         'style'           => true,
@@ -116,12 +117,14 @@ $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-
       <?php if ($map_embed) : ?>
         <div class="section-contact-map__map">
           <?php
-          // Ensure the iframe defers loading until near viewport to avoid
-          // pulling in the full Maps JS API (~193 KiB) on initial page load.
+          // Move src → data-src so the Maps JS API (~440 KiB on mobile) is
+          // never fetched until an IntersectionObserver in main.js fires.
+          // Strip any existing loading attribute — JS controls the lifecycle.
+          $lazy_embed = preg_replace('/\s+loading=["\'][^"\']*["\']/', '', $map_embed);
           $lazy_embed = preg_replace(
-              '/(<iframe\b[^>]*?)(?:\s+loading=["\'][^"\']*["\'])?((?:[^>]*?)>)/i',
-              '$1 loading="lazy"$2',
-              $map_embed
+              '/(<iframe\b[^>]*?)\s+src=(["\'][^"\']*?["\'])([^>]*?>)/i',
+              '$1 data-src=$2$3',
+              $lazy_embed
           );
           echo wp_kses($lazy_embed, $allowed_iframe);
           ?>

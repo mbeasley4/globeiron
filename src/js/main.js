@@ -559,6 +559,9 @@ document.addEventListener('DOMContentLoaded', () => {
     positionFeaturesOrnaments();
     window.addEventListener('resize', positionFeaturesOrnaments);
   });
+  // Re-run after web fonts load to correct any layout shift caused by
+  // Libre Baskerville swapping in and reflowing the features section text.
+  document.fonts.ready.then(positionFeaturesOrnaments);
 
   // ── Section Map: variant dropdown + animation observer ───────────────────────
   document.querySelectorAll('[data-map-select]').forEach((select) => {
@@ -579,6 +582,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.wp-block-globeiron-section-contact-map').forEach(animateMapRail);
   document.querySelectorAll('.wp-block-globeiron-section-border-columns').forEach(animateBorderColumns);
+
+  // ── Maps facade: swap data-src → src only when the section enters the viewport ─
+  // Prevents the Maps JS API (~440 KiB) from loading until the user scrolls near
+  // the map, regardless of the viewport size or browser lazy-load thresholds.
+  const mapFacadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const iframe = entry.target.querySelector('iframe[data-src]');
+      if (iframe) {
+        iframe.src = iframe.dataset.src;
+        iframe.removeAttribute('data-src');
+      }
+      mapFacadeObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '200px 0px' });
+
+  document.querySelectorAll('.wp-block-globeiron-section-contact-map').forEach((section) => {
+    if (section.querySelector('iframe[data-src]')) {
+      mapFacadeObserver.observe(section);
+    }
+  });
 
   // ── Project header ornament + snapshot positioning ──────────────────────────
   function positionProjectOrnaments() {
