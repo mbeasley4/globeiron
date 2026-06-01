@@ -52,9 +52,10 @@ export default function Pagination({ currentPage, totalPages, onPageChange, load
             <button
               key={item}
               className={`page-numbers${item === currentPage ? ' current' : ''}`}
-              onClick={() => item !== currentPage && onPageChange(item)}
-              disabled={loading || item === currentPage}
+              onClick={() => item !== currentPage && !loading && onPageChange(item)}
+              disabled={loading}
               aria-current={item === currentPage ? 'page' : undefined}
+              aria-disabled={item === currentPage ? 'true' : undefined}
             >
               {item}
             </button>

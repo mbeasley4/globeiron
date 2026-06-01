@@ -978,6 +978,8 @@
       background: $color-brand-primary;
       color: $color-brand-navy;
       border-color: $color-brand-primary;
+      cursor: default;
+      opacity: 1; // ensure browser disabled-state doesn't wash out the active color
     }
 
     &.dots {
