@@ -1185,7 +1185,9 @@ h6.wp-block-heading {
 }
 
 // ─── Custom block: globeiron/partners ─────────────────────────────────────────
-.wp-block-globeiron-section-partnership {
+// Certifications block shares the full partnership visual system.
+.wp-block-globeiron-section-partnership,
+.wp-block-globeiron-section-certifications {
   // Full-width breakout — same pattern as hero blocks
   position: relative;
   width: 100vw;

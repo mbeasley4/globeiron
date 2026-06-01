@@ -1,0 +1,73 @@
+{
+    "key": "group_block_section_certifications",
+    "title": "Block: Section — Certifications",
+    "fields": [
+        {
+            "key": "field_sc_heading",
+            "label": "Heading",
+            "name": "heading",
+            "type": "text",
+            "instructions": "Optional. Main headline displayed above the badge grid.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Our Certifications",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_sc_intro",
+            "label": "Intro Text",
+            "name": "intro",
+            "type": "textarea",
+            "instructions": "Optional. Short paragraph shown beneath the heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Recognised and certified by the industry's leading bodies.",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_sc_bg_style",
+            "label": "Background",
+            "name": "bg_style",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "choices": {
+                "dark": "Dark",
+                "light": "Light",
+                "brand": "Brand"
+            },
+            "default_value": "dark",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/section-certifications"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+}

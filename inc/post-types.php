@@ -78,6 +78,40 @@ add_action('init', function (): void {
     ]);
 
     // ─────────────────────────────────────────
+    // CERTIFICATION CPT
+    // ─────────────────────────────────────────
+
+    register_post_type('certification', [
+        'label'         => __('Certifications', 'globeiron'),
+        'labels'        => [
+            'name'                  => __('Certifications',          'globeiron'),
+            'singular_name'         => __('Certification',           'globeiron'),
+            'add_new'               => __('Add Certification',       'globeiron'),
+            'add_new_item'          => __('Add New Certification',   'globeiron'),
+            'edit_item'             => __('Edit Certification',      'globeiron'),
+            'new_item'              => __('New Certification',       'globeiron'),
+            'search_items'          => __('Search Certifications',   'globeiron'),
+            'not_found'             => __('No certifications found.',            'globeiron'),
+            'not_found_in_trash'    => __('No certifications found in trash.',   'globeiron'),
+            'featured_image'        => __('Certification Badge',     'globeiron'),
+            'set_featured_image'    => __('Set certification badge', 'globeiron'),
+            'remove_featured_image' => __('Remove badge',            'globeiron'),
+            'use_featured_image'    => __('Use as certification badge', 'globeiron'),
+        ],
+        'public'        => false,   // no front-end single pages
+        'show_ui'       => true,
+        'show_in_rest'  => true,
+        'menu_icon'     => 'dashicons-awards',
+        'menu_position' => 27,
+        'supports'      => [
+            'title',      // certification / organisation name
+            'thumbnail',  // badge / seal — the featured image IS the badge
+        ],
+        'has_archive'   => false,
+        'rewrite'       => false,
+    ]);
+
+    // ─────────────────────────────────────────
     // TEAM MEMBER CPT
     // ─────────────────────────────────────────
 
@@ -165,6 +199,34 @@ add_action('rest_api_init', function (): void {
 });
 
 register_post_meta('partner', '_partner_url', [
+    'type'              => 'string',
+    'single'            => true,
+    'show_in_rest'      => true,
+    'sanitize_callback' => 'esc_url_raw',
+]);
+
+// ─────────────────────────────────────────
+// CERTIFICATION META + REST FIELDS
+// ─────────────────────────────────────────
+
+add_action('rest_api_init', function (): void {
+    register_rest_field('certification', 'logo_url', [
+        'get_callback' => function (array $post_arr): string {
+            $thumb_id = get_post_thumbnail_id($post_arr['id']);
+            if ( ! $thumb_id) {
+                return '';
+            }
+            $src = wp_get_attachment_image_src($thumb_id, 'medium');
+            return $src ? (string) $src[0] : '';
+        },
+        'schema' => [
+            'type'        => 'string',
+            'description' => 'URL of the certification badge (featured image, medium size).',
+        ],
+    ]);
+});
+
+register_post_meta('certification', '_certification_url', [
     'type'              => 'string',
     'single'            => true,
     'show_in_rest'      => true,

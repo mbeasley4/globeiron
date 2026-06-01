@@ -77,6 +77,12 @@ add_action('acf/init', function (): void {
             'icon'        => 'groups',
             'mode'        => 'preview',
         ],
+        'section-certifications' => [
+            'title'       => 'Section - Certifications',
+            'description' => 'Certification badge grid — pulls from the Certifications CPT.',
+            'icon'        => 'awards',
+            'mode'        => 'preview',
+        ],
         'section-services' => [
             'title'       => 'Section - Services',
             'description' => 'Dark navy header with crosshair ornaments and a 3-column photo card grid of service/roofing types.',
