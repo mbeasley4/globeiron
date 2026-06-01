@@ -195,27 +195,29 @@
   .footer-col__heading { margin: 0; }
 }
 
-// Menu-driven nav list — flows items vertically across multiple columns,
-// matching the old footer's heading-link column style.
+// Menu-driven nav list — 4 columns spread evenly across the nav area.
+// Uses max-content column widths + space-between so each column is exactly
+// as wide as its longest item and no text wraps.
 .footer-nav-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  columns: 2;
-  column-gap: $spacing-8;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: $spacing-6 $spacing-8;
 
   @include respond-to('lg') {
-    columns: 4;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: space-between;
+    column-gap: 0; // space-between handles distribution; only row-gap needed
+    row-gap: $spacing-6;
   }
 
-  li {
-    margin: 0 0 $spacing-6;
-    padding: 0;
-    break-inside: avoid; // prevent a link from splitting across columns
-  }
+  li { margin: 0; padding: 0; }
 
   li a {
     display: block;
+    white-space: nowrap;
     font-family: $font-sans;
     font-size: $font-size-sm;
     font-weight: 700;
