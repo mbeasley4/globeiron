@@ -651,12 +651,12 @@ h6.wp-block-heading {
   .hero-home__heading {
     font-family: $font-serif;
     color: $color-white;
-    font-size: clamp($font-size-2xl, 4.5vw, 5rem);
+    font-size: clamp(2.5rem, 8vw, 8rem);
     font-weight: 800;
-    line-height: $line-height-tight;
-    max-width: 820px;
+    line-height: 1.1;
+    max-width: 1000px;
     margin-top: 0;
-    margin-bottom: $spacing-3; // tighter on mobile
+    margin-bottom: $spacing-3;
     text-wrap: balance;
 
     @include respond-to('md') { margin-bottom: $spacing-6; }
