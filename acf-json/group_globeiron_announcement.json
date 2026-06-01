@@ -3,12 +3,32 @@
     "title": "Announcement Bar",
     "fields": [
         {
+            "key": "field_ann_enabled",
+            "label": "Enable Announcement Bar",
+            "name": "ann_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Toggle to show or hide the announcement bar sitewide.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled"
+        },
+        {
             "key": "field_ann_text",
             "label": "Announcement Text",
             "name": "ann_text",
             "aria-label": "",
             "type": "text",
-            "instructions": "Leave blank to hide the announcement message.",
+            "instructions": "The message displayed across the top of every page.",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -77,8 +97,5 @@
     "hide_on_screen": [],
     "active": true,
     "description": "",
-    "show_in_rest": false,
-    "display_title": "",
-    "allow_ai_access": false,
-    "ai_description": ""
+    "show_in_rest": false
 }

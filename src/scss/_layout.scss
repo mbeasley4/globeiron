@@ -15,57 +15,31 @@
   z-index: $z-overlay;
 }
 
-// ─── Announcement bar ─────────────────────────────────────────────────────────
+// ─── Announcement eyebrow bar ─────────────────────────────────────────────────
+// Sits above the sticky nav. Shown only when ann_text is set in ACF options.
+// Gold background for visibility against the blue nav.
 .announcement-bar {
   width: 100%;
-  background: $color-brand-blue-dark;
-  color: $color-white;
-  font-size: $font-size-sm;
-  line-height: $line-height-normal;
+  background: $color-brand-primary;
+  color: $color-brand-navy;
 }
 
 .announcement-bar__inner {
   @include container;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: $spacing-4;
+  justify-content: center;
   padding-block: $spacing-2;
 }
 
-// ── Contact cluster (phone + email) ──────────────────────────────────────────
-.announcement-bar__contact {
-  display: flex;
-  align-items: center;
-  gap: $spacing-4;
-  flex-wrap: wrap;
-}
-
-.announcement-bar__contact-item {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-2;
-  color: rgba($color-white, 0.92);
-  text-decoration: none;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: color $transition-fast;
-
-  svg { flex-shrink: 0; opacity: 0.80; }
-
-  &:hover { color: $color-white; text-decoration: none; svg { opacity: 1; } }
-}
-
-// ── Optional announcement message ────────────────────────────────────────────
 .announcement-bar__message {
   margin: 0;
-  text-align: right;
-  color: rgba($color-white, 0.92);
-  white-space: nowrap;
-
-  // On small screens, hide announcement text to keep the bar clean
-  display: none;
-  @include respond-to('lg') { display: block; }
+  font-family: $font-sans;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  text-align: center;
+  color: $color-brand-navy;
+  letter-spacing: 0.02em;
 }
 
 .announcement-bar__link {
@@ -73,13 +47,15 @@
   align-items: center;
   gap: $spacing-1;
   margin-left: $spacing-3;
-  color: $color-white;
+  color: $color-brand-navy;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 2px;
+  white-space: nowrap;
   transition: opacity $transition-fast;
 
-  &:hover { opacity: 0.80; text-decoration: underline; }
+  svg { flex-shrink: 0; }
+  &:hover { opacity: 0.72; text-decoration: underline; }
 }
 
 .site-header {

@@ -95,11 +95,12 @@ add_action('acf/init', function (): void {
                 'default_value' => "6161 Wiehe Road\nCincinnati, OH 45237",
             ],
             [
-                'key'           => 'field_footer_tagline',
-                'label'         => __('Footer Tagline', 'globeiron'),
-                'name'          => 'footer_tagline',
+                'key'           => 'field_footer_serving_tagline',
+                'label'         => __('Footer Serving Tagline', 'globeiron'),
+                'name'          => 'footer_serving_tagline',
                 'type'          => 'text',
-                'placeholder'   => __('Expert roofing you can count on.', 'globeiron'),
+                'instructions'  => __('Displayed in the banner at the top of the footer.', 'globeiron'),
+                'placeholder'   => __('Proudly Serving Greater Cincinnati, Columbus and Indianapolis Neighbors', 'globeiron'),
             ],
             [
                 'key'           => 'field_footer_cta_label',
@@ -115,6 +116,37 @@ add_action('acf/init', function (): void {
                 'type'          => 'url',
                 'default_value' => '/contact',
             ],
+            // ── Social media links ──────────────────────────────────────────
+            [
+                'key'   => 'field_social_facebook',
+                'label' => __('Facebook URL', 'globeiron'),
+                'name'  => 'social_facebook',
+                'type'  => 'url',
+            ],
+            [
+                'key'   => 'field_social_instagram',
+                'label' => __('Instagram URL', 'globeiron'),
+                'name'  => 'social_instagram',
+                'type'  => 'url',
+            ],
+            [
+                'key'   => 'field_social_linkedin',
+                'label' => __('LinkedIn URL', 'globeiron'),
+                'name'  => 'social_linkedin',
+                'type'  => 'url',
+            ],
+            [
+                'key'   => 'field_social_youtube',
+                'label' => __('YouTube URL', 'globeiron'),
+                'name'  => 'social_youtube',
+                'type'  => 'url',
+            ],
+            [
+                'key'   => 'field_social_tiktok',
+                'label' => __('TikTok URL', 'globeiron'),
+                'name'  => 'social_tiktok',
+                'type'  => 'url',
+            ],
         ],
         'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'globeiron-general']]],
     ]);
@@ -125,11 +157,22 @@ add_action('acf/init', function (): void {
         'title'  => __('Announcement Bar', 'globeiron'),
         'fields' => [
             [
+                'key'           => 'field_ann_enabled',
+                'label'         => __('Enable Announcement Bar', 'globeiron'),
+                'name'          => 'ann_enabled',
+                'type'          => 'true_false',
+                'instructions'  => __('Toggle to show or hide the announcement bar sitewide.', 'globeiron'),
+                'default_value' => 0,
+                'ui'            => 1,
+                'ui_on_text'    => __('Enabled', 'globeiron'),
+                'ui_off_text'   => __('Disabled', 'globeiron'),
+            ],
+            [
                 'key'          => 'field_ann_text',
                 'label'        => __('Announcement Text', 'globeiron'),
                 'name'         => 'ann_text',
                 'type'         => 'text',
-                'instructions' => __('Leave blank to hide the announcement message.', 'globeiron'),
+                'instructions' => __('The message displayed across the top of every page.', 'globeiron'),
             ],
             [
                 'key'          => 'field_ann_url',

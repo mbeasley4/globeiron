@@ -11,6 +11,32 @@
 <div class="site" id="page">
     <a class="skip-to-content" href="#main"><?php esc_html_e('Skip to content', 'globeiron'); ?></a>
 
+    <!-- ─── Announcement eyebrow ─────────────────────────────────────────────── -->
+    <?php
+    $ann_enabled    = (bool)   get_field('ann_enabled',    'option');
+    $ann_text       = (string) (get_field('ann_text',       'option') ?: '');
+    $ann_url        = (string) (get_field('ann_url',        'option') ?: '');
+    $ann_link_label = (string) (get_field('ann_link_label', 'option') ?: __('Learn more', 'globeiron'));
+    ?>
+    <?php if ($ann_enabled && $ann_text) : ?>
+    <div class="announcement-bar" role="note" aria-label="<?php esc_attr_e('Site announcement', 'globeiron'); ?>">
+        <div class="announcement-bar__inner">
+            <p class="announcement-bar__message">
+                <?php echo esc_html($ann_text); ?>
+                <?php if ($ann_url) : ?>
+                    <a href="<?php echo esc_url($ann_url); ?>" class="announcement-bar__link">
+                        <?php echo esc_html($ann_link_label); ?>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                            <path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.4"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                <?php endif; ?>
+            </p>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <!-- ─── Sticky header bar ─────────────────────────────────────────────────── -->
     <div class="tw-sticky tw-top-0 tw-z-[100]">
         <header id="masthead">
