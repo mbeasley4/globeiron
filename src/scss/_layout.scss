@@ -143,8 +143,8 @@
   }
 
   @include respond-to('lg') {
-    // Contact | Quick Links | Social+Certs
-    grid-template-columns: 2fr 1fr 1.4fr;
+    // Contact | Quick Links (4-col spread) | Social+Certs
+    grid-template-columns: 2fr 3fr 1.4fr;
     gap: $spacing-8;
     align-items: start;
   }
@@ -195,19 +195,27 @@
   .footer-col__heading { margin: 0; }
 }
 
-// Menu-driven nav list — matches the heading-link style used by the old
-// hardcoded footer columns, output by wp_nav_menu with class footer-nav-list.
+// Menu-driven nav list — flows items vertically across multiple columns,
+// matching the old footer's heading-link column style.
 .footer-nav-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-5;
+  columns: 2;
+  column-gap: $spacing-8;
 
-  li { margin: 0; padding: 0; }
+  @include respond-to('lg') {
+    columns: 4;
+  }
+
+  li {
+    margin: 0 0 $spacing-6;
+    padding: 0;
+    break-inside: avoid; // prevent a link from splitting across columns
+  }
 
   li a {
+    display: block;
     font-family: $font-sans;
     font-size: $font-size-sm;
     font-weight: 700;
