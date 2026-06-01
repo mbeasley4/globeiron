@@ -207,13 +207,14 @@
   gap: $spacing-6 $spacing-8;
 
   @include respond-to('lg') {
+    margin-inline: auto;
     grid-template-columns: repeat(3, max-content);
     justify-content: space-between;
     column-gap: 0; // space-between handles distribution; only row-gap needed
     row-gap: $spacing-6;
   }
 
-  li { margin: 0; padding: 0; }
+  li { margin: 0; padding: 0; } 
 
   li a {
     display: block;
