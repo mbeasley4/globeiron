@@ -13,8 +13,8 @@ const SearchIcon = () => (
 
 export default function BlogGrid({ ajaxUrl, nonce, initialPosts, initialPage, totalPages: initTotal, perPage, blogUrl, categories = [] }) {
   const [posts, setPosts]               = useState(initialPosts);
-  const [currentPage, setCurrentPage]   = useState(initialPage);
-  const [totalPages, setTotalPages]     = useState(initTotal);
+  const [currentPage, setCurrentPage]   = useState(Number(initialPage) || 1);
+  const [totalPages, setTotalPages]     = useState(Number(initTotal) || 1);
   const [loading, setLoading]           = useState(false);
   const [error, setError]               = useState(null);
   const [activeCategory, setActiveCategory] = useState(0);

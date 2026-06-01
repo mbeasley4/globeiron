@@ -27,18 +27,23 @@ function buildPageRange(current, total) {
 }
 
 export default function Pagination({ currentPage, totalPages, onPageChange, loading }) {
-  if (totalPages <= 1) return null;
+  // wp_localize_script serialises PHP ints as strings; coerce both so the
+  // strict equality check inside buildPageRange / className works correctly.
+  const page  = Number(currentPage);
+  const total = Number(totalPages);
 
-  const range = buildPageRange(currentPage, totalPages);
+  if (total <= 1) return null;
+
+  const range = buildPageRange(page, total);
 
   return (
     <nav className="navigation pagination" aria-label="Posts pagination">
       <div className="nav-links">
 
-        {currentPage > 1 && (
+        {page > 1 && (
           <button
             className="page-numbers prev"
-            onClick={() => onPageChange(currentPage - 1)}
+            onClick={() => onPageChange(page - 1)}
             disabled={loading}
           >
             &larr; Previous
@@ -51,21 +56,21 @@ export default function Pagination({ currentPage, totalPages, onPageChange, load
           ) : (
             <button
               key={item}
-              className={`page-numbers${item === currentPage ? ' current' : ''}`}
-              onClick={() => item !== currentPage && !loading && onPageChange(item)}
+              className={`page-numbers${item === page ? ' current' : ''}`}
+              onClick={() => item !== page && !loading && onPageChange(item)}
               disabled={loading}
-              aria-current={item === currentPage ? 'page' : undefined}
-              aria-disabled={item === currentPage ? 'true' : undefined}
+              aria-current={item === page ? 'page' : undefined}
+              aria-disabled={item === page ? 'true' : undefined}
             >
               {item}
             </button>
           )
         )}
 
-        {currentPage < totalPages && (
+        {page < total && (
           <button
             className="page-numbers next"
-            onClick={() => onPageChange(currentPage + 1)}
+            onClick={() => onPageChange(page + 1)}
             disabled={loading}
           >
             Next &rarr;
