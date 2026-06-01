@@ -41,7 +41,6 @@ $wrapper_attrs = get_block_wrapper_attributes([
 $allowed_iframe = [
     'iframe' => [
         'src'             => true,
-        'data-src'        => true, // JS-controlled facade: IntersectionObserver swaps this to src
         'width'           => true,
         'height'          => true,
         'style'           => true,
@@ -52,6 +51,12 @@ $allowed_iframe = [
         'frameborder'     => true,
     ],
 ];
+
+// Extract the Maps embed URL so JS can create the iframe lazily.
+// wp_kses strips data-src from iframes, so we store the URL on a wrapper div
+// and let the IntersectionObserver in main.js inject the real <iframe> on demand.
+preg_match('/\bsrc=(["\'])([^"\']+)\1/', (string) $map_embed, $map_src_match);
+$map_facade_src = !empty($map_src_match[2]) ? esc_url($map_src_match[2]) : '';
 
 $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="14" cy="14" r="12" pathLength="1"/><line x1="14" y1="7" x2="14" y2="21" pathLength="1"/><line x1="7" y1="14" x2="21" y2="14" pathLength="1"/></svg>';
 ?>
@@ -115,20 +120,18 @@ $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-
       <?php endif; ?>
 
       <?php if ($map_embed) : ?>
-        <div class="section-contact-map__map">
-          <?php
-          // Move src → data-src so the Maps JS API (~440 KiB on mobile) is
-          // never fetched until an IntersectionObserver in main.js fires.
-          // Strip any existing loading attribute — JS controls the lifecycle.
-          $lazy_embed = preg_replace('/\s+loading=["\'][^"\']*["\']/', '', $map_embed);
-          $lazy_embed = preg_replace(
-              '/(<iframe\b[^>]*?)\s+src=(["\'][^"\']*?["\'])([^>]*?>)/i',
-              '$1 data-src=$2$3',
-              $lazy_embed
-          );
-          echo wp_kses($lazy_embed, $allowed_iframe);
-          ?>
-        </div>
+        <?php if ($map_facade_src) : ?>
+          <?php // No iframe in initial HTML — JS creates it when section enters viewport ?>
+          <div class="section-contact-map__map"
+               data-map-src="<?php echo esc_attr($map_facade_src); ?>"
+               aria-label="<?php esc_attr_e('Interactive map loading…', 'globeiron'); ?>">
+          </div>
+        <?php else : ?>
+          <?php // Fallback: src extraction failed; output as-is with loading=lazy ?>
+          <div class="section-contact-map__map">
+            <?php echo wp_kses($map_embed, $allowed_iframe); ?>
+          </div>
+        <?php endif; ?>
       <?php endif; ?>
 
     </div>
