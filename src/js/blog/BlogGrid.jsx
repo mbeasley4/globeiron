@@ -52,8 +52,13 @@ export default function BlogGrid({ ajaxUrl, nonce, initialPosts, initialPage, to
   };
 
   const handlePageChange = (page) => {
-    document.getElementById('blog-grid-root')
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const el = document.getElementById('blog-grid-root');
+    if (el) {
+      const stickyHeader = document.querySelector('.tw-sticky');
+      const offset = (stickyHeader?.offsetHeight ?? 0) + 24;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
     fetchPosts(page, activeCategory, searchQuery);
   };
 

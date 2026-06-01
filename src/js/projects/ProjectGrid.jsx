@@ -52,8 +52,13 @@ export default function ProjectGrid({ ajaxUrl, nonce, initialPosts, initialPage,
   };
 
   const handlePageChange = (page) => {
-    document.getElementById('projects-grid-root')
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const el = document.getElementById('projects-grid-root');
+    if (el) {
+      const stickyHeader = document.querySelector('.tw-sticky');
+      const offset = (stickyHeader?.offsetHeight ?? 0) + 24;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
     fetchPosts(page, searchQuery);
   };
 
