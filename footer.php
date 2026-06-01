@@ -34,35 +34,22 @@
                     </div>
                 </div>
 
-                <!-- Col 2: Commercial + Maintenance -->
+                <!-- Col 2: Quick Links (Footer — Quick Links Column menu) -->
+                <?php
+                $footer_quick_links = wp_nav_menu([
+                    'theme_location' => 'footer-links',
+                    'container'      => false,
+                    'menu_class'     => 'footer-nav-list',
+                    'items_wrap'     => '<ul class="%2$s">%3$s</ul>',
+                    'depth'          => 1,
+                    'fallback_cb'    => false,
+                    'echo'           => false,
+                ]);
+                if ($footer_quick_links) : ?>
                 <div class="footer-col footer-col--nav">
-                    <h4 class="footer-col__heading">
-                        <a href="<?php echo esc_url(home_url('/commercial')); ?>"><?php esc_html_e('Commercial', 'globeiron'); ?></a>
-                    </h4>
-                    <h4 class="footer-col__heading">
-                        <a href="<?php echo esc_url(home_url('/maintenance')); ?>"><?php esc_html_e('Maintenance', 'globeiron'); ?></a>
-                    </h4>
+                    <?php echo $footer_quick_links; ?>
                 </div>
-
-                <!-- Col 3: Residential + Our Work -->
-                <div class="footer-col footer-col--nav">
-                    <h4 class="footer-col__heading">
-                        <a href="<?php echo esc_url(home_url('/residential')); ?>"><?php esc_html_e('Residential', 'globeiron'); ?></a>
-                    </h4>
-                    <h4 class="footer-col__heading">
-                        <a href="<?php echo esc_url(home_url('/our-work')); ?>"><?php esc_html_e('Our Work', 'globeiron'); ?></a>
-                    </h4>
-                </div>
-
-                <!-- Col 4: Historic Restoration + About -->
-                <div class="footer-col footer-col--nav">
-                    <h4 class="footer-col__heading">
-                        <a href="<?php echo esc_url(home_url('/historic-restoration')); ?>"><?php esc_html_e('Historic Restoration', 'globeiron'); ?></a>
-                    </h4>
-                    <h4 class="footer-col__heading">
-                        <a href="<?php echo esc_url(home_url('/about')); ?>"><?php esc_html_e('About', 'globeiron'); ?></a>
-                    </h4>
-                </div>
+                <?php endif; ?>
 
                 <!-- Col 5: Social icons + Certifications -->
                 <div class="footer-col footer-col--social">

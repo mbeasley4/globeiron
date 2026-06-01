@@ -143,7 +143,8 @@
   }
 
   @include respond-to('lg') {
-    grid-template-columns: 2fr 1fr 1fr 1.2fr 1.4fr;
+    // Contact | Quick Links | Social+Certs
+    grid-template-columns: 2fr 1fr 1.4fr;
     gap: $spacing-8;
     align-items: start;
   }
@@ -192,6 +193,32 @@
   gap: $spacing-8;
 
   .footer-col__heading { margin: 0; }
+}
+
+// Menu-driven nav list — matches the heading-link style used by the old
+// hardcoded footer columns, output by wp_nav_menu with class footer-nav-list.
+.footer-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+
+  li { margin: 0; padding: 0; }
+
+  li a {
+    font-family: $font-sans;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-white;
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-brand-primary; text-decoration: none; }
+  }
 }
 
 // ─── Social + Certs column ────────────────────────────────────────────────────
