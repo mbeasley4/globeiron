@@ -1,17 +1,17 @@
 // ─── Colors ──────────────────────────────────────────────────────────────────
 // Brand palette — Globe Iron site color system
-$color-brand-primary:   #D4A857;   // Gold     — primary CTA, icons, highlights
-$color-brand-secondary: #B8943D;   // Gold (dark) — hover state for primary
+$color-brand-primary:   #DBB76F;   // Gold     — primary CTA, icons, highlights
+$color-brand-secondary: #C4A05A;   // Gold (dark) — hover state for primary
 $color-brand-blue:      #114CA0;   // Royal Blue — headings, eyebrows, accents
 $color-brand-blue-dark: #154891;   // Royal Blue (dark) — hover state for blue elements
 
-$color-brand-navy:      #102060;   // Dark Navy — footer bg, dark sections
+$color-brand-navy:      #092650;   // Dark Navy — footer bg, dark sections
 
 $color-iron-dark:       #171717;   // Near-black — body text, headings
 $color-iron-mid:        #657693;   // Mid grey  — secondary text, placeholders (decorative use only)
 $color-iron-mid-accessible: #4d5f76; // Darker mid grey — passes 4.5:1 on $color-iron-light
 $color-iron-border:     #d0d4db;   // Mid border — UI dividers, filter tabs, search
-$color-iron-light:      #eceef2;   // Light grey — alt-section backgrounds, borders
+$color-iron-light:      #E8E8E8;   // Light grey — alt-section backgrounds, borders
 $color-white:           #ffffff;
 $color-black:           #000000;
 
@@ -23,9 +23,9 @@ $color-yellow-hover:    $color-brand-secondary;
 // Navy tones used as start/end stops in hero and dark-block gradients.
 // Centralised here so hero-home, hero-interior, and partnership blocks all
 // reference the same stops — changing one adjusts every gradient.
-$color-dark-deep-1:  #102060;   // Leading stop — dark navy
-$color-dark-deep-2:  #0D1A50;   // Trailing stop — deeper navy
-$color-dark-deep-3:  #091440;   // Deepest variant — partnership block end stop
+$color-dark-deep-1:  #092650;   // Leading stop — dark navy
+$color-dark-deep-2:  #071E45;   // Trailing stop — deeper navy
+$color-dark-deep-3:  #051535;   // Deepest variant — partnership block end stop
 
 // ─── Partnership section ──────────────────────────────────────────────────────
 $color-partnership-eyebrow: #c7d2fe;  // Indigo-tinted eyebrow label on dark bg
@@ -46,7 +46,8 @@ $color-alert-error-text:   #991b1b;
 
 // ─── Typography ──────────────────────────────────────────────────────────────
 $font-sans:   'Franklin Gothic Demi', 'Franklin Gothic Medium', 'ITC Franklin Gothic', Arial, sans-serif;
-$font-serif:  'ClarendonURW', 'Clarendon', 'Libre Baskerville', Georgia, serif;
+$font-book:   'Franklin Gothic Book', 'Franklin Gothic Medium', Arial, sans-serif;
+$font-serif:  'Clarendon URW', 'Clarendon', 'Libre Baskerville', Georgia, serif;
 $font-mono:   'JetBrains Mono', ui-monospace, monospace;
 
 $font-size-base:   1rem;       // 16px
