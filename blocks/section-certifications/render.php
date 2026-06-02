@@ -32,7 +32,8 @@ if (empty($certifications)) {
     return;
 }
 
-$grid_cols = max(2, min(4, count($certifications)));
+$col_setting = max(3, min(5, (int) (get_field('columns') ?: 4)));
+$grid_cols   = max(2, min($col_setting, count($certifications)));
 $grid_cols_sm = max(2, min(3, count($certifications)));
 $grid_cols_md = max(2, min(4, count($certifications)));
 $grid_style = sprintf(

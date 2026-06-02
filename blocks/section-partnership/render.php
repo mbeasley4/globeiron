@@ -65,8 +65,8 @@ if (empty($items)) {
     return;
 }
 
-$grid_cols = $display === 'certifications' ? 4 : 5;
-$grid_cols = max(2, min($grid_cols, count($items)));
+$col_setting = max(3, min(5, (int) (get_field('columns') ?: 5)));
+$grid_cols   = max(2, min($col_setting, count($items)));
 $grid_cols_sm = max(2, min(3, count($items)));
 $grid_cols_md = max(2, min(4, count($items)));
 $grid_style = sprintf(

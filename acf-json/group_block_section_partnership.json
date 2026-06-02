@@ -52,6 +52,25 @@
             "new_lines": ""
         },
         {
+            "key": "field_sp_columns",
+            "label": "Columns",
+            "name": "columns",
+            "type": "button_group",
+            "instructions": "Number of logo columns on desktop.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "choices": {
+                "3": "3",
+                "4": "4",
+                "5": "5"
+            },
+            "default_value": "5",
+            "return_format": "value",
+            "allow_null": 0,
+            "layout": "horizontal"
+        },
+        {
             "key": "field_sp_bg_style",
             "label": "Background",
             "name": "bg_style",
