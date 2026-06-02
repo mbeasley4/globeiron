@@ -68,7 +68,7 @@ $wrapper_attributes = get_block_wrapper_attributes([
         $logo_id = get_post_thumbnail_id($cert->ID);
         $logo    = $logo_id ? wp_get_attachment_image_src($logo_id, 'medium') : false;
       ?>
-      <li class="partners__item partners__item--cert">
+      <li class="partners__item">
         <?php if ($url) : ?>
           <a href="<?php echo esc_url($url); ?>"
              target="_blank" rel="noopener noreferrer"
