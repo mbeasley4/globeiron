@@ -23,7 +23,7 @@ $certifications = get_posts([
     'post_type'      => 'certification',
     'posts_per_page' => -1,
     'post_status'    => 'publish',
-    'orderby'        => 'title',
+    'orderby'        => 'menu_order',
     'order'          => 'ASC',
     'no_found_rows'  => true,
 ]);
@@ -32,8 +32,18 @@ if (empty($certifications)) {
     return;
 }
 
+$grid_cols = max(2, min(4, count($certifications)));
+$grid_cols_sm = max(2, min(3, count($certifications)));
+$grid_cols_md = max(2, min(4, count($certifications)));
+$grid_style = sprintf(
+    '--partners-cols-sm: %d; --partners-cols-md: %d; --partners-cols: %d;',
+    $grid_cols_sm,
+    $grid_cols_md,
+    $grid_cols
+);
+
 $wrapper_attributes = get_block_wrapper_attributes([
-    'class' => "wp-block-globeiron-section-certifications is-style-{$bg_style}",
+    'class' => "wp-block-globeiron-section-certifications is-style-{$bg_style} is-display-certifications",
 ]);
 ?>
 <section <?php echo $wrapper_attributes; ?>>
@@ -50,14 +60,14 @@ $wrapper_attributes = get_block_wrapper_attributes([
     </header>
     <?php endif; ?>
 
-    <ul class="partners__grid" aria-label="<?php esc_attr_e('Certifications', 'globeiron'); ?>">
+    <ul class="partners__grid" style="<?php echo esc_attr($grid_style); ?>" aria-label="<?php esc_attr_e('Certifications', 'globeiron'); ?>">
       <?php foreach ($certifications as $cert) :
         $name    = get_the_title($cert);
         $url     = get_post_meta($cert->ID, '_certification_url', true);
         $logo_id = get_post_thumbnail_id($cert->ID);
         $logo    = $logo_id ? wp_get_attachment_image_src($logo_id, 'medium') : false;
       ?>
-      <li class="partners__item">
+      <li class="partners__item partners__item--cert">
         <?php if ($url) : ?>
           <a href="<?php echo esc_url($url); ?>"
              target="_blank" rel="noopener noreferrer"

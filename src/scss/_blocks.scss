@@ -1405,9 +1405,15 @@ h6.wp-block-heading {
     padding: 0;
     gap: $spacing-2;
 
-    @include respond-to('sm') { grid-template-columns: repeat(3, 1fr); }
-    @include respond-to('md') { grid-template-columns: repeat(4, 1fr); }
-    @include respond-to('lg') { grid-template-columns: repeat(5, 1fr); }
+    // Column variables are set inline by PHP (partners default 5, certifications 4).
+    @include respond-to('sm') { grid-template-columns: repeat(var(--partners-cols-sm, 3), 1fr); }
+    @include respond-to('md') { grid-template-columns: repeat(var(--partners-cols-md, 4), 1fr); }
+    @include respond-to('lg') { grid-template-columns: repeat(var(--partners-cols, 5), 1fr); }
+  }
+
+  &.is-display-certifications .partners__grid,
+  &.wp-block-globeiron-section-certifications .partners__grid {
+    gap: $spacing-3;
   }
 
   // ── Individual item ────────────────────────────────────────────────────────
@@ -1476,6 +1482,43 @@ h6.wp-block-heading {
   &.is-style-dark .partners__tile-link:focus-visible,
   &.is-style-brand .partners__tile-link:focus-visible {
     outline-color: $color-white;
+  }
+
+  // ── Certification tile variant ─────────────────────────────────────────────
+  // Gold top border distinguishes certification badges from partner logos
+  // without adding extra visible text.
+  .partners__item--cert {
+    .partners__tile {
+      position: relative;
+      gap: $spacing-2;
+      min-height: 118px;
+      background-color: $color-white;
+      border-top: 3px solid $color-brand-primary;
+      padding-block: $spacing-4;
+    }
+
+    .partners__logo {
+      max-height: 52px; // badges are typically taller/squarer than partner logos
+    }
+  }
+
+  &.is-display-certifications,
+  &.wp-block-globeiron-section-certifications {
+    .partners__inner {
+      padding-block: $spacing-12;
+    }
+
+    .partners__header {
+      margin-bottom: $spacing-6;
+    }
+
+    .partners__tile {
+      min-height: 128px;
+    }
+
+    .partners__logo {
+      max-height: 58px;
+    }
   }
 }
 

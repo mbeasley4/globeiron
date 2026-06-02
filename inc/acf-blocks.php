@@ -72,8 +72,8 @@ add_action('acf/init', function (): void {
             'mode'        => 'preview',
         ],
         'section-partnership' => [
-            'title'       => 'Section - Partnership',
-            'description' => 'Partner logo grid.',
+            'title'       => 'Section - Logo Grid',
+            'description' => 'Partners and/or certifications logo grid — choose which to display, ordered by the sort order set in the admin.',
             'icon'        => 'groups',
             'mode'        => 'preview',
         ],
