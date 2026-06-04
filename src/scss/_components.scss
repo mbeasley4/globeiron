@@ -1853,3 +1853,71 @@
     }
   }
 }
+
+// ── Post author card ──────────────────────────────────────────────────────────
+.post-author-card {
+  display: flex;
+  gap: $spacing-5;
+  align-items: flex-start;
+  margin-top: $spacing-12;
+  padding: $spacing-6;
+  border-top: 3px solid $color-brand-blue;
+  background: $color-iron-light;
+  border-radius: 0 0 $border-radius-md $border-radius-md;
+
+  &__avatar {
+    flex-shrink: 0;
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__byline {
+    font-size: $font-size-sm;
+    color: $color-iron-mid-accessible;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 $spacing-1;
+  }
+
+  &__name {
+    display: block;
+    font-family: $font-sans;
+    font-size: $font-size-lg;
+    color: $color-brand-blue;
+    margin-bottom: $spacing-1;
+  }
+
+  &__role {
+    font-size: $font-size-sm;
+    color: $color-iron-mid-accessible;
+    margin: 0 0 $spacing-3;
+  }
+
+  &__bio {
+    font-size: $font-size-base;
+    line-height: $line-height-loose;
+    color: $color-iron-dark;
+
+    p { margin: 0 0 $spacing-2; &:last-child { margin: 0; } }
+  }
+
+  @media (max-width: #{$bp-sm}) {
+    flex-direction: column;
+
+    &__avatar img {
+      width: 64px;
+      height: 64px;
+    }
+  }
+}

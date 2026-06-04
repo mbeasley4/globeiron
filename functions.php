@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-define('GLOBEIRON_VERSION', '1.0.23');
+define('GLOBEIRON_VERSION', '1.0.24');
 define('GLOBEIRON_DIR', get_template_directory());
 define('GLOBEIRON_URI', get_template_directory_uri());
 
@@ -17,6 +17,7 @@ require_once GLOBEIRON_DIR . '/inc/acf-blocks.php';
 require_once GLOBEIRON_DIR . '/inc/block-fields.php';
 require_once GLOBEIRON_DIR . '/inc/options.php';
 require_once GLOBEIRON_DIR . '/inc/schema.php';
+require_once GLOBEIRON_DIR . '/inc/canonical.php';
 
 // ─── Theme setup ─────────────────────────────────────────────────────────────
 add_action('after_setup_theme', function (): void {

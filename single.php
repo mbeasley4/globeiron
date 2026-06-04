@@ -67,6 +67,39 @@ $blog_url  = $blog_page ? get_permalink($blog_page->ID) : home_url('/blog/');
             <article id="post-<?php the_ID(); ?>" <?php post_class('entry'); ?>>
                 <?php the_content(); ?>
             </article>
+
+            <?php
+            $author_post = get_field('post_author_override');
+            if ($author_post instanceof WP_Post) :
+                $author_name = get_the_title($author_post);
+                $author_role = (string) (get_field('role', $author_post->ID) ?: '');
+                $author_bio  = (string) (get_field('bio',  $author_post->ID) ?: '');
+                $headshot    = get_field('headshot', $author_post->ID);
+                $img_url     = is_array($headshot) ? ($headshot['sizes']['medium'] ?? $headshot['url'] ?? '') : '';
+                $img_alt     = is_array($headshot) ? ($headshot['alt'] ?? $author_name) : $author_name;
+            ?>
+            <div class="post-author-card" itemscope itemtype="https://schema.org/Person">
+                <?php if ($img_url) : ?>
+                <div class="post-author-card__avatar">
+                    <img src="<?php echo esc_url($img_url); ?>"
+                         alt="<?php echo esc_attr($img_alt); ?>"
+                         width="80" height="80"
+                         loading="lazy" decoding="async"
+                         itemprop="image">
+                </div>
+                <?php endif; ?>
+                <div class="post-author-card__body">
+                    <p class="post-author-card__byline">Written by</p>
+                    <strong class="post-author-card__name" itemprop="name"><?php echo esc_html($author_name); ?></strong>
+                    <?php if ($author_role) : ?>
+                        <p class="post-author-card__role" itemprop="jobTitle"><?php echo esc_html($author_role); ?></p>
+                    <?php endif; ?>
+                    <?php if ($author_bio) : ?>
+                        <div class="post-author-card__bio" itemprop="description"><?php echo wp_kses_post($author_bio); ?></div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 

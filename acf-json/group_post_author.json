@@ -1,0 +1,42 @@
+{
+    "key": "group_post_author",
+    "title": "Post Author",
+    "fields": [
+        {
+            "key": "field_post_author_override",
+            "label": "Author",
+            "name": "post_author_override",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Link a Team Member to display a byline + bio card below the post and add author structured data.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "post_type": ["team_member"],
+            "taxonomy": [],
+            "return_format": "object",
+            "multiple": false,
+            "allow_null": true,
+            "ui": true,
+            "allow_in_bindings": false
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 5,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": false
+}
