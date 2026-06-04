@@ -16,6 +16,7 @@ require_once GLOBEIRON_DIR . '/inc/meta-boxes.php';
 require_once GLOBEIRON_DIR . '/inc/acf-blocks.php';
 require_once GLOBEIRON_DIR . '/inc/block-fields.php';
 require_once GLOBEIRON_DIR . '/inc/options.php';
+require_once GLOBEIRON_DIR . '/inc/schema.php';
 
 // ─── Theme setup ─────────────────────────────────────────────────────────────
 add_action('after_setup_theme', function (): void {
