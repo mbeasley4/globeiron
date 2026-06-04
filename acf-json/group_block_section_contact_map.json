@@ -166,44 +166,6 @@
             ]
         },
         {
-            "key": "field_group_block_section_contact_map_sidebar_accordion_2",
-            "label": "Map",
-            "name": "",
-            "aria-label": "",
-            "type": "accordion",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "open": 0,
-            "multi_expand": 0,
-            "endpoint": 0
-        },
-        {
-            "key": "field_scm_map_embed",
-            "label": "Google Maps Embed Code",
-            "name": "map_embed",
-            "aria-label": "",
-            "type": "textarea",
-            "instructions": "Paste the full iframe embed code from Google Maps (Share - Embed a map). Only the iframe tag is rendered.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "rows": 4,
-            "default_value": "",
-            "new_lines": "",
-            "maxlength": "",
-            "placeholder": ""
-        },
-        {
             "key": "field_group_block_section_contact_map_sidebar_accordion_3",
             "label": "Display",
             "name": "",
@@ -285,5 +247,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1780210000
+    "modified": 1748995200
 }

@@ -21,8 +21,10 @@ $heading     = (string) (get_field('heading')             ?: '');
 $map_content = (string) (get_field('map_section_content') ?: '');
 $regions_raw = get_field('regions');
 $regions     = is_array($regions_raw) ? $regions_raw : [];
-$map_embed   = (string) (get_field('map_embed')           ?: '');
 $bg_color    = (string) (get_field('background_color')    ?: 'white');
+
+/** @var bool $is_preview ACF block preview flag, injected by ACF at render time. */
+$is_preview = $is_preview ?? false;
 
 if (empty($heading)) {
     return;
@@ -104,6 +106,9 @@ $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-
            class="section-contact-map__map"
            role="region"
            aria-label="<?php esc_attr_e('Service area map', 'globeiron'); ?>">
+        <?php if ($is_preview) : ?>
+          <p class="section-contact-map__map-placeholder">Map · Renders on the front-end</p>
+        <?php endif; ?>
       </div>
 
     </div>

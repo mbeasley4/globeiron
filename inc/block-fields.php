@@ -606,14 +606,6 @@ add_action('acf/init', function (): void {
                 'default_value' => '/contact',
             ],
             [
-                'key'          => 'field_scm_map_embed',
-                'label'        => 'Google Maps Embed Code',
-                'name'         => 'map_embed',
-                'type'         => 'textarea',
-                'rows'         => 4,
-                'instructions' => 'Paste the full &lt;iframe&gt; embed code from Google Maps (Share → Embed a map). Only the iframe tag is rendered.',
-            ],
-            [
                 'key'         => 'field_scm_hours',
                 'label'       => 'Working Hours',
                 'name'        => 'working_hours',
