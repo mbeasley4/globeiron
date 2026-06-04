@@ -583,45 +583,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.wp-block-globeiron-section-contact-map').forEach(animateMapRail);
   document.querySelectorAll('.wp-block-globeiron-section-border-columns').forEach(animateBorderColumns);
 
-  // ── Maps facade: inject iframe only when the section enters the viewport ───────
-  // The PHP render stores the embed URL on a div[data-map-src] rather than
-  // outputting an <iframe>, so the Maps JS API (~440 KiB) is never fetched
-  // until the user scrolls within 200px of the map section.
-  const mapFacadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      mapFacadeObserver.unobserve(entry.target);
-
-      // Primary path: div[data-map-src] — create the iframe from scratch
-      const placeholder = entry.target.querySelector('[data-map-src]');
-      if (placeholder) {
-        const iframe = document.createElement('iframe');
-        iframe.src = placeholder.dataset.mapSrc;
-        iframe.style.cssText = 'display:block;width:100%;height:100%;border:0;';
-        iframe.allowFullscreen = true;
-        iframe.referrerPolicy = 'no-referrer-when-downgrade';
-        iframe.title = placeholder.getAttribute('aria-label') || 'Map';
-        iframe.loading = 'lazy';
-        placeholder.removeAttribute('data-map-src');
-        placeholder.removeAttribute('aria-label');
-        placeholder.appendChild(iframe);
-        return;
-      }
-
-      // Fallback: legacy iframe[data-src] (handles any cached old markup)
-      const legacyIframe = entry.target.querySelector('iframe[data-src]');
-      if (legacyIframe) {
-        legacyIframe.src = legacyIframe.dataset.src;
-        legacyIframe.removeAttribute('data-src');
-      }
-    });
-  }, { rootMargin: '200px 0px' });
-
-  document.querySelectorAll('.wp-block-globeiron-section-contact-map').forEach((section) => {
-    if (section.querySelector('[data-map-src], iframe[data-src]')) {
-      mapFacadeObserver.observe(section);
-    }
-  });
 
   // ── Project header ornament + snapshot positioning ──────────────────────────
   function positionProjectOrnaments() {

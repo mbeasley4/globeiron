@@ -127,7 +127,7 @@
   margin: $spacing-10 0 $spacing-4;
   color: $color-brand-blue;
   font-family: $font-serif;
-  font-weight: 700;
+  font-weight: 400;
   line-height: $line-height-tight;
   letter-spacing: 0;
   text-align: left;
@@ -490,7 +490,7 @@ h6.wp-block-heading {
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-color: rgba($color-black, var(--hero-overlay, 0.40));
+    background-color: rgba($color-black, var(--hero-overlay, 0.45));
   }
 
   // ── Inner content — constrained to nav width ──────────────────────────────
@@ -508,7 +508,7 @@ h6.wp-block-heading {
   .hero__heading {
     color: $color-white;
     font-size: clamp($font-size-3xl, 5vw, $font-size-5xl);
-    font-weight: 800;
+    font-weight: 400;
     line-height: $line-height-tight;
     max-width: 820px;
     margin-top: 0;
@@ -652,7 +652,7 @@ h6.wp-block-heading {
     font-family: $font-serif;
     color: $color-white;
     font-size: clamp(2.5rem, 8vw, 8rem);
-    font-weight: 800;
+    font-weight: 400;
     line-height: 1.1;
     max-width: 1000px;
     margin-top: 0;
@@ -839,7 +839,7 @@ h6.wp-block-heading {
   .hero-interior__heading {
     color: $color-white;
     font-size: clamp(1.5rem, 2.75vw, 2.75rem);
-    font-weight: 800;
+    font-weight: 400;
     line-height: $line-height-tight;
     margin: 0;
     text-wrap: balance;
@@ -1373,7 +1373,7 @@ h6.wp-block-heading {
 
   .partners__heading {
     font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
-    font-weight: 800;
+    font-weight: 400;
     line-height: $line-height-tight;
     margin: 0 0 $spacing-4;
     text-wrap: balance;
@@ -1668,7 +1668,7 @@ h6.wp-block-heading {
 
   .section-features__heading {
     font-size: clamp($font-size-3xl, 4.5vw, 2.75rem);
-    font-weight: 800;
+    font-weight: 400;
     color: $color-brand-blue;
     line-height: $line-height-tight;
     margin: 0 0 $spacing-6;
@@ -1716,7 +1716,7 @@ h6.wp-block-heading {
   .section-features__item-title {
     font-family: $font-sans;
     font-size: $font-size-xl;
-    font-weight: 800;
+    font-weight: 700;
     color: $color-brand-blue;
     text-transform: uppercase;
     margin: 0;
@@ -1855,7 +1855,7 @@ h6.wp-block-heading {
   .section-services__heading {
     font-family: $font-serif;
     font-size: clamp($font-size-3xl, 4.5vw, 2.75rem);
-    font-weight: 800;
+    font-weight: 400;
     color: $color-white;
     line-height: $line-height-tight;
     margin: 0 0 $spacing-4;
@@ -1946,7 +1946,7 @@ h6.wp-block-heading {
     transition: opacity $transition-slow;
   }
 
-  // Gold hover overlay (kept at 0 — background-color handles the tint)
+  // Gold hover overlay — hidden by default; shown on hover for has-cta cards
   .section-services__card-overlay {
     position: absolute;
     inset: 0;
@@ -1954,6 +1954,28 @@ h6.wp-block-heading {
     background: $color-brand-primary;
     opacity: 0;
     pointer-events: none;
+    transition: opacity $transition-slow;
+  }
+
+  // has-cta: 40% black overlay initially, cross-fades to gold on hover
+  .section-services__card.has-cta {
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba($color-black, 0.40);
+      pointer-events: none;
+      transition: opacity $transition-slow;
+    }
+
+    &:hover::before {
+      opacity: 0;
+    }
+
+    &:hover .section-services__card-overlay {
+      opacity: 1;
+    }
   }
 
   // Title pinned to top of card
@@ -1982,7 +2004,7 @@ h6.wp-block-heading {
   .section-services__type-title {
     font-family: $font-sans;
     font-size: $font-size-base;
-    font-weight: 800;
+    font-weight: 600;
     color: $color-white;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -2295,7 +2317,7 @@ h6.wp-block-heading {
 
   .section-process__heading {
     font-size: clamp($font-size-3xl, 4vw, 2.5rem);
-    font-weight: 800;
+    font-weight: 400;
     color: $color-iron-dark;
     line-height: $line-height-tight;
     margin: 0;
@@ -2338,7 +2360,7 @@ h6.wp-block-heading {
 
   .section-process__step-title {
     font-size: $font-size-xl;
-    font-weight: 800;
+    font-weight: 400;
     color: $color-iron-dark;
     margin: 0;
   }
@@ -2377,7 +2399,7 @@ h6.wp-block-heading {
 
   .section-testimonials__heading {
     font-size: clamp($font-size-3xl, 4vw, 2.5rem);
-    font-weight: 800;
+    font-weight: 400;
     color: $color-iron-dark;
     line-height: $line-height-tight;
     margin: 0;
@@ -2425,7 +2447,7 @@ h6.wp-block-heading {
 
   .section-testimonials__client-name {
     font-size: $font-size-lg;
-    font-weight: 800;
+    font-weight: 400;
     color: $color-iron-dark;
     margin: 0;
   }
@@ -2722,19 +2744,48 @@ h6.wp-block-heading {
   // ── Map panel ────────────────────────────────────────────────────────────
   .section-contact-map__map {
     width: 100%;
-    max-width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 480px;
     overflow: hidden;
 
-    iframe {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: none;
+    @include respond-to('lg') {
+      height: 560px;
     }
   }
 
 }
+
+// ── MapLibre custom marker ────────────────────────────────────────────────────
+.marker-wrapper {
+  width: 36px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.15));
+  transform: translateY(0) scale(1);
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.25s ease;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: #D4A73C;
+  }
+
+  &:hover {
+    transform: translateY(-6px) scale(1.08);
+    filter: drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.2));
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(0.96);
+  }
+}
+
+// MapLibre default marker override — hide when using custom elements
+.maplibregl-marker { background: none; border: none; }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SECTION — OUR WORK (PROJECTS SLIDER)
@@ -3187,11 +3238,16 @@ h6.wp-block-heading {
   &--centered .section-border-columns__grid {
     @include respond-to('sm') {
       grid-template-columns: repeat(var(--col-count), 1fr);
+      max-width: 680px;
+      margin-inline: auto;
+      gap: $spacing-10 $spacing-6;
     }
 
     @include respond-to('lg') {
+      max-width: none;
       grid-template-columns: repeat(var(--col-count), minmax(0, 320px));
       justify-content: center;
+      gap: $spacing-10 $spacing-8;
     }
   }
 
@@ -4069,6 +4125,10 @@ h6.wp-block-heading {
     margin: 0 0 $spacing-10;
   }
 
+  &__body + &__highlights {
+    margin-top: $spacing-10;
+  }
+
   &__highlights {
     display: flex;
     flex-direction: column;
@@ -4078,7 +4138,7 @@ h6.wp-block-heading {
   &__highlight-heading {
     font-family: $font-sans;
     font-size: $font-size-base;
-    font-weight: 800;
+    font-weight: 400;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: $color-brand-blue;
@@ -4111,6 +4171,8 @@ h6.wp-block-heading {
     .project-outcome__heading { color: $color-white; }
     .project-outcome__body    { color: $color-white; }
   }
+
+  &.has-bg-image .project-outcome__bg { opacity: 0.12; }
 
   &__bg {
     position: absolute;

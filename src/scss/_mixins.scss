@@ -93,9 +93,11 @@
   border: none;
   border-radius: 0;
   font-family: $font-sans;
-  font-size: $font-size-base;
+  font-size: 1.125rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.02;
+  text-transform: uppercase;
+  color: $color-brand-blue;
   cursor: pointer;
   transition: all $transition-fast;
   text-decoration: none;

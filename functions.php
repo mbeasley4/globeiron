@@ -381,6 +381,116 @@ add_action('wp_enqueue_scripts', function (): void {
     }
 });
 
+// ─── MapLibre GL — only on pages that contain the section-map block ───────────
+add_action('wp_enqueue_scripts', function (): void {
+    if (! has_block('acf/section-map')) {
+        return;
+    }
+
+    wp_enqueue_style(
+        'maplibre-gl',
+        'https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.css',
+        [],
+        null
+    );
+
+    wp_enqueue_script(
+        'maplibre-gl',
+        'https://unpkg.com/maplibre-gl@4/dist/maplibre-gl.js',
+        [],
+        null,
+        true
+    );
+
+    wp_add_inline_script('maplibre-gl', <<<'JS'
+        (function () {
+            function initMap() {
+                var container = document.getElementById('globeiron-map');
+                if (!container || typeof maplibregl === 'undefined') return;
+
+                var map = new maplibregl.Map({
+                    container: 'globeiron-map',
+                    style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+                    center: [-84.5, 39.1],
+                    zoom: 6.5,
+                    attributionControl: false,
+                    interactive: false
+                });
+
+                map.on('load', function () {
+
+                    // ── Hide clutter (Voyager layer names) ────────────────────
+                    ['poi_stadium', 'poi_park', 'housenumber',
+                     'aeroway-runway', 'aeroway-taxiway'].forEach(function (id) {
+                        if (map.getLayer(id)) {
+                            map.setLayoutProperty(id, 'visibility', 'none');
+                        }
+                    });
+
+                    // ── Base canvas — fills gaps between landcover polygons ───
+                    if (map.getLayer('background')) {
+                        map.setPaintProperty('background', 'background-color', '#E7F1E7');
+                    }
+
+                    // ── Parks ─────────────────────────────────────────────────
+                    if (map.getLayer('park_national_park')) {
+                        map.setPaintProperty('park_national_park', 'fill-color', '#C8DFC8');
+                    }
+                    if (map.getLayer('park_nature_reserve')) {
+                        map.setPaintProperty('park_nature_reserve', 'fill-color', '#CFE6CF');
+                    }
+
+                    // ── Water ─────────────────────────────────────────────────
+                    if (map.getLayer('water')) {
+                        map.setPaintProperty('water', 'fill-color', '#DDEAF6');
+                    }
+
+                    // ── Motorway / trunk fill (blue tone) ─────────────────────
+                    ['road_mot_fill_noramp', 'road_mot_fill_ramp',
+                     'road_trunk_fill_noramp', 'road_trunk_fill_ramp'].forEach(function (id) {
+                        if (map.getLayer(id)) {
+                            map.setPaintProperty(id, 'line-color', '#7AABD4');
+                        }
+                    });
+
+                    // ── Markers ──────────────────────────────────────────────
+                    var locations = [
+                        { name: 'Indianapolis', coords: [-86.1581, 39.7684] },
+                        { name: 'Cincinnati',   coords: [-84.5120, 39.1031] },
+                        { name: 'Columbus',     coords: [-82.9988, 39.9612] }
+                    ];
+
+                    function createMarkerEl() {
+                        var el = document.createElement('div');
+                        el.className = 'marker-wrapper';
+                        el.style.pointerEvents = 'auto';
+                        el.innerHTML = '<svg viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg">'
+                            + '<path d="M18 0C8 0 0 8 0 18c0 13 18 30 18 30s18-17 18-30C36 8 28 0 18 0zm0 24a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/>'
+                            + '</svg>';
+                        return el;
+                    }
+
+                    var bounds = new maplibregl.LngLatBounds();
+                    locations.forEach(function (loc) {
+                        new maplibregl.Marker({ element: createMarkerEl(), anchor: 'bottom' })
+                            .setLngLat(loc.coords)
+                            .addTo(map);
+                        bounds.extend(loc.coords);
+                    });
+
+                    map.fitBounds(bounds, { padding: 80, maxZoom: 7.5 });
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initMap);
+            } else {
+                initMap();
+            }
+        })();
+    JS);
+}, 20);
+
 // ─── Block editor assets ─────────────────────────────────────────────────────
 add_action('enqueue_block_editor_assets', function (): void {
     wp_enqueue_script(

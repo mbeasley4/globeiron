@@ -55,42 +55,31 @@
 .btn {
   @include btn-base;
   background: $color-brand-primary;
-  color: $color-brand-navy;
-  text-transform: uppercase;
-  &:hover { background: $color-brand-secondary; color: $color-brand-navy; text-decoration: none; }
-  &:focus-visible { outline-color: $color-brand-navy; }
+  &:hover { background: $color-brand-secondary; text-decoration: none; }
+  &:focus-visible { outline-color: $color-brand-blue; }
 }
 
 .btn--primary {
   background: $color-brand-primary;
-  color: $color-brand-navy;
-
-  &:hover { background: $color-brand-secondary; color: $color-brand-navy; text-decoration: none; }
+  &:hover { background: $color-brand-secondary; text-decoration: none; }
 }
 
 .btn--secondary {
   background: transparent;
-  color: $color-brand-navy;
-  border: 2px solid $color-brand-navy;
-
-  &:hover { background: $color-brand-navy; color: $color-white; text-decoration: none; }
+  border: 2px solid $color-brand-blue;
+  &:hover { background: $color-brand-blue; color: $color-white; text-decoration: none; }
 }
 
 // Yellow / roofing-brand CTA button (alias of default)
 .btn--brand {
   background: $color-yellow;
-  color: $color-brand-navy;
-
-  &:hover { background: $color-yellow-hover; color: $color-brand-navy; text-decoration: none; }
-
-  &:focus-visible { outline-color: $color-brand-navy; }
+  &:hover { background: $color-yellow-hover; text-decoration: none; }
+  &:focus-visible { outline-color: $color-brand-blue; }
 }
 
 .btn--ghost {
   background: transparent;
-  color: $color-iron-dark;
   border: 2px solid $border-color;
-
   &:hover { background: $color-iron-light; text-decoration: none; }
 }
 
@@ -98,8 +87,7 @@
   background: transparent;
   color: $color-brand-primary;
   border: 2px solid $color-brand-primary;
-
-  &:hover { background: $color-brand-primary; color: $color-brand-navy; text-decoration: none; }
+  &:hover { background: $color-brand-primary; color: $color-brand-blue; text-decoration: none; }
   &:focus-visible { outline-color: $color-brand-primary; }
 }
 
@@ -256,7 +244,16 @@
   padding: $spacing-6;
   flex-shrink: 0;
 
-  .btn { width: 100%; justify-content: center; }
+  .btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1.25rem; // 20px per design spec
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1.02;
+    color: $color-brand-blue;
+    &:hover { color: $color-brand-blue; }
+  }
 
   @include respond-to('lg') { display: none; }
 }
@@ -355,9 +352,11 @@
     align-items: center;
     padding: $spacing-4 $spacing-6;
     font-family: $font-serif;
-    font-size: $font-size-lg;
-    font-weight: 600;
-    color: $color-white; // panel background is dark navy — needs white text
+    font-size: 1.25rem; // 20px
+    font-weight: 300; // kit resolves to 400 (lightest available in clarendon-urw)
+    line-height: 1.02; // ~20.35px at 20px
+    overflow-wrap: break-word;
+    color: $color-white;
     text-decoration: none;
     transition: color $transition-fast, background $transition-fast;
 
@@ -377,10 +376,8 @@
       flex: unset;
       padding: $spacing-2 $spacing-3;
       border-radius: $border-radius-sm;
-      font-size: clamp(0.625rem, 1.1vw, $font-size-sm);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      font-size: 1.25rem; // 20px — matches design spec
+      font-weight: 300;   // resolves to 400 (clarendon-urw lightest available)
     }
 
     // Reveal dropdown on hover and keyboard focus-within
@@ -401,7 +398,6 @@
   @include respond-to('xl') {
     > a {
       padding: $spacing-2 $spacing-4;
-      letter-spacing: 0.05em;
     }
   }
 }
@@ -567,8 +563,8 @@
       gap: $spacing-2;
       padding: $spacing-3 $spacing-6 $spacing-3 $spacing-4;
       color: $color-iron-dark;
-      font-size: $font-size-sm;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 500;
       letter-spacing: 0.01em;
       background: transparent;
       border-left: 3px solid transparent;
@@ -627,24 +623,25 @@
     > a {
       padding: $spacing-2 $spacing-5;
       background: $color-brand-primary;
-      color: $color-brand-navy !important;
+      color: $color-brand-blue !important;
       border-radius: 0;
       font-family: $font-sans;
-      font-size: $font-size-base;
-      font-weight: 800;
-      letter-spacing: 0.06em;
+      font-size: 1.125rem; 
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.02;
       transition: background $transition-fast, color $transition-fast;
 
       &:hover {
         background: $color-brand-secondary;
-        color: $color-brand-navy !important;
+        color: $color-brand-blue !important;
       }
     }
 
     &.current-menu-item > a,
     &.current-menu-ancestor > a {
       background: $color-brand-secondary;
-      color: $color-brand-navy !important;
+      color: $color-brand-blue !important;
     }
   }
 }

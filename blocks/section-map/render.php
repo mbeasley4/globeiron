@@ -38,25 +38,6 @@ $wrapper_attrs = get_block_wrapper_attributes([
     'class' => "wp-block-globeiron-section-contact-map section-contact-map {$bg_class}",
 ]);
 
-$allowed_iframe = [
-    'iframe' => [
-        'src'             => true,
-        'width'           => true,
-        'height'          => true,
-        'style'           => true,
-        'allowfullscreen' => true,
-        'loading'         => true,
-        'referrerpolicy'  => true,
-        'title'           => true,
-        'frameborder'     => true,
-    ],
-];
-
-// Extract the Maps embed URL so JS can create the iframe lazily.
-// wp_kses strips data-src from iframes, so we store the URL on a wrapper div
-// and let the IntersectionObserver in main.js inject the real <iframe> on demand.
-preg_match('/\bsrc=(["\'])([^"\']+)\1/', (string) $map_embed, $map_src_match);
-$map_facade_src = !empty($map_src_match[2]) ? esc_url($map_src_match[2]) : '';
 
 $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="14" cy="14" r="12" pathLength="1"/><line x1="14" y1="7" x2="14" y2="21" pathLength="1"/><line x1="7" y1="14" x2="21" y2="14" pathLength="1"/></svg>';
 ?>
@@ -107,7 +88,7 @@ $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-
         <?php endif; ?>
       </div>
 
-      <?php if (! $has_regions && $map_embed) : ?>
+      <?php if (! $has_regions) : ?>
         <div class="section-contact-map__divider" aria-hidden="true">
           <div class="section-contact-map__divider-crosshair section-contact-map__divider-crosshair--top">
             <?php echo $crosshair; ?>
@@ -119,20 +100,11 @@ $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-
         </div>
       <?php endif; ?>
 
-      <?php if ($map_embed) : ?>
-        <?php if ($map_facade_src) : ?>
-          <?php // No iframe in initial HTML — JS creates it when section enters viewport ?>
-          <div class="section-contact-map__map"
-               data-map-src="<?php echo esc_attr($map_facade_src); ?>"
-               aria-label="<?php esc_attr_e('Interactive map loading…', 'globeiron'); ?>">
-          </div>
-        <?php else : ?>
-          <?php // Fallback: src extraction failed; output as-is with loading=lazy ?>
-          <div class="section-contact-map__map">
-            <?php echo wp_kses($map_embed, $allowed_iframe); ?>
-          </div>
-        <?php endif; ?>
-      <?php endif; ?>
+      <div id="globeiron-map"
+           class="section-contact-map__map"
+           role="region"
+           aria-label="<?php esc_attr_e('Service area map', 'globeiron'); ?>">
+      </div>
 
     </div>
 
