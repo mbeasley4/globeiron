@@ -29,10 +29,12 @@ $wrapper_attrs = get_block_wrapper_attributes([
   <?php endif; ?>
   <img class="hero-home__globe-left"
        src="<?php echo esc_url(get_template_directory_uri()); ?>/img/hero/hero-bot-left.png"
-       alt="" aria-hidden="true" loading="eager">
+       alt="<?php esc_attr_e('Decorative Globe Iron roofing graphic', 'globeiron'); ?>"
+       loading="eager">
   <img class="hero-home__globe-right"
        src="<?php echo esc_url(get_template_directory_uri()); ?>/img/hero/hero-bot-right.png"
-       alt="" aria-hidden="true" loading="eager">
+       alt="<?php esc_attr_e('Decorative Globe Iron roofing graphic', 'globeiron'); ?>"
+       loading="eager">
 
   <div class="hero-home__inner">
 

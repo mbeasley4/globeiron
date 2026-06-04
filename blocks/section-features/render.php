@@ -55,10 +55,12 @@ $crosshair_svg = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" str
     <?php if ($show_globes) : ?>
       <img class="section-features__globe-left"
            src="<?php echo esc_url(get_template_directory_uri()); ?>/img/features/feat-top-left.png"
-           alt="" aria-hidden="true" loading="lazy">
+           alt="<?php esc_attr_e('Decorative Globe Iron roofing graphic', 'globeiron'); ?>"
+           loading="lazy">
       <img class="section-features__globe-right"
            src="<?php echo esc_url(get_template_directory_uri()); ?>/img/features/feat-top-right.png"
-           alt="" aria-hidden="true" loading="lazy">
+           alt="<?php esc_attr_e('Decorative Globe Iron roofing graphic', 'globeiron'); ?>"
+           loading="lazy">
     <?php endif; ?>
 
     <div class="section-features__inner">
