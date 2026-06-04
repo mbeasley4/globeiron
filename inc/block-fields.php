@@ -23,6 +23,244 @@ if (! function_exists('acf_add_local_field_group')) {
     return;
 }
 
+/**
+ * Detect ACF field groups that belong to custom blocks.
+ */
+function globeiron_is_block_field_group(array $group): bool {
+    $key = (string) ($group['key'] ?? '');
+
+    if (strpos($key, 'group_block_') === 0 || $key === 'group_project_header') {
+        return true;
+    }
+
+    foreach (($group['location'] ?? []) as $rules) {
+        foreach ($rules as $rule) {
+            if (($rule['param'] ?? '') === 'block') {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Sidebar panels are narrow, so normalize field widths and repeater layouts.
+ */
+function globeiron_prepare_sidebar_fields(array $fields): array {
+    foreach ($fields as &$field) {
+        if (! isset($field['wrapper']) || ! is_array($field['wrapper'])) {
+            $field['wrapper'] = ['width' => '', 'class' => '', 'id' => ''];
+        }
+
+        $field['wrapper']['width'] = '';
+
+        if (($field['type'] ?? '') === 'repeater') {
+            $field['layout'] = 'block';
+        }
+
+        if (($field['type'] ?? '') === 'image') {
+            $field['preview_size'] = 'thumbnail';
+        }
+
+        if (($field['type'] ?? '') === 'wysiwyg') {
+            $field['tabs']         = 'visual';
+            $field['toolbar']      = $field['toolbar'] ?? 'basic';
+            $field['media_upload'] = 0;
+            $field['delay']        = $field['delay'] ?? 0;
+        }
+
+        if (! empty($field['sub_fields']) && is_array($field['sub_fields'])) {
+            $field['sub_fields'] = globeiron_prepare_sidebar_fields($field['sub_fields']);
+        }
+    }
+    unset($field);
+
+    return $fields;
+}
+
+/**
+ * Add sidebar-friendly accordions to longer block field groups.
+ */
+function globeiron_add_sidebar_accordions(array $group): array {
+    $group_key = (string) ($group['key'] ?? '');
+    $fields    = $group['fields'] ?? [];
+
+    if (! is_array($fields) || $fields === []) {
+        return $group;
+    }
+
+    foreach ($fields as &$field) {
+        if (($field['type'] ?? '') === 'tab') {
+            $field['type']         = 'accordion';
+            $field['open']         = 0;
+            $field['multi_expand'] = 0;
+            $field['endpoint']     = 0;
+        }
+    }
+    unset($field);
+
+    $sections = [
+        'group_block_hero_home_form' => [
+            'field_hero_home_headline'       => 'Content',
+            'field_hero_home_cta1'           => 'Calls to Action',
+            'field_hero_home_style'          => 'Layout & Form',
+            'field_hero_home_bg_image'       => 'Media',
+        ],
+        'group_block_hero_interior' => [
+            'field_hi_layout'                => 'Layout',
+            'field_hi_heading'               => 'Content',
+            'field_hi_eyebrow'               => 'Standard Banner',
+            'field_hi_body'                  => 'Split Content',
+            'field_hi_collage_img_1'         => 'Split Media',
+            'field_hi_bg_image'              => 'Banner Media',
+        ],
+        'group_block_project_details' => [
+            'field_pd_heading'               => 'Content',
+            'field_pd_image_pairs'           => 'Before / After',
+            'field_pd_highlights'            => 'Highlights',
+        ],
+        'group_block_project_outcome' => [
+            'field_po_heading'               => 'Content',
+            'field_po_background_image'      => 'Media',
+            'field_po_background'            => 'Display',
+        ],
+        'group_block_section_certifications' => [
+            'field_sc_heading'               => 'Content',
+            'field_sc_columns'               => 'Display',
+        ],
+        'group_block_section_contact_map' => [
+            'field_scm_eyebrow'              => 'Content',
+            'field_69fc85cad43f1'            => 'Regions',
+            'field_scm_map_embed'            => 'Map',
+            'field_scm_background_color'     => 'Display',
+        ],
+        'group_block_section_content_image_split' => [
+            'field_scis_heading'             => 'Content',
+            'field_scis_image'               => 'Media',
+            'field_scis_background_color'    => 'Display',
+        ],
+        'group_block_section_features' => [
+            'field_sf_eyebrow'               => 'Content',
+            'field_sf_features'              => 'Feature Items',
+            'field_sf_show_globes'           => 'Display',
+        ],
+        'group_block_section_partnership' => [
+            'field_sp_display'               => 'Source',
+            'field_sp_heading'               => 'Content',
+            'field_sp_columns'               => 'Display',
+        ],
+        'group_block_section_post_listing' => [
+            'field_spl_post_type'            => 'Query',
+            'field_spl_grid_title'           => 'Content',
+        ],
+        'group_block_section_process' => [
+            'field_sp_eyebrow'               => 'Content',
+            'field_sp_steps'                 => 'Steps',
+        ],
+        'group_block_section_reviews' => [
+            'field_sr_heading'               => 'Content',
+            'field_sr_overall_rating'        => 'Rating',
+            'field_sr_reviews_count'         => 'Query',
+        ],
+        'group_block_section_services' => [
+            'field_ss_heading'               => 'Content',
+            'field_ss_services'              => 'Services',
+        ],
+        'group_block_section_team_grid' => [
+            'field_stg_heading'              => 'Content',
+            'field_stg_background_color'     => 'Display',
+            'field_stg_members'              => 'Team Members',
+        ],
+        'group_block_section_testimonials' => [
+            'field_st_eyebrow'               => 'Content',
+            'field_st_cta_label'             => 'Call to Action',
+            'field_st_source'                => 'Source',
+            'field_st_testimonials'          => 'Manual Testimonials',
+        ],
+    ][$group_key] ?? [];
+
+    if ($sections === [] || array_filter($fields, fn($field) => ($field['type'] ?? '') === 'accordion')) {
+        $group['fields'] = $fields;
+        return $group;
+    }
+
+    $group['fields'] = [];
+    $index           = 0;
+
+    foreach ($fields as $field) {
+        $field_key = (string) ($field['key'] ?? '');
+
+        if (isset($sections[$field_key])) {
+            $group['fields'][] = [
+                'key'           => "field_{$group_key}_sidebar_accordion_{$index}",
+                'label'         => $sections[$field_key],
+                'name'          => '',
+                'type'          => 'accordion',
+                'open'          => $index === 0 ? 1 : 0,
+                'multi_expand'  => 0,
+                'endpoint'      => 0,
+            ];
+            $index++;
+        }
+
+        $group['fields'][] = $field;
+    }
+
+    $group['fields'][] = [
+        'key'      => "field_{$group_key}_sidebar_accordion_end",
+        'label'    => '',
+        'name'     => '',
+        'type'     => 'accordion',
+        'endpoint' => 1,
+    ];
+
+    return $group;
+}
+
+add_filter('acf/load_field_group', function (array $group): array {
+    if (! globeiron_is_block_field_group($group)) {
+        return $group;
+    }
+
+    $group['position']              = 'side';
+    $group['style']                 = 'default';
+    $group['label_placement']       = 'top';
+    $group['instruction_placement'] = 'label';
+
+    if (! empty($group['fields']) && is_array($group['fields'])) {
+        $group['fields'] = globeiron_prepare_sidebar_fields($group['fields']);
+        $group           = globeiron_add_sidebar_accordions($group);
+    }
+
+    return $group;
+}, 20);
+
+add_filter('tiny_mce_before_init', function (array $settings): array {
+    $selector = (string) ($settings['selector'] ?? '');
+
+    if (strpos($selector, 'acf-editor') === false) {
+        return $settings;
+    }
+
+    $acf_content_style = implode(' ', [
+        'body {',
+        'font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;',
+        'font-size: 15px;',
+        'line-height: 1.55;',
+        'color: #1e1e1e;',
+        'margin: 12px 14px;',
+        '}',
+        'body, p, ul, ol { max-width: none; }',
+        'p { margin: 0 0 0.85em; }',
+        'p:last-child { margin-bottom: 0; }',
+    ]);
+
+    $settings['content_style'] = trim(($settings['content_style'] ?? '') . ' ' . $acf_content_style);
+
+    return $settings;
+}, 20);
+
 add_action('acf/init', function (): void {
 
     // ── hero-home: form-layout fields (added on top of existing bg/heading fields)

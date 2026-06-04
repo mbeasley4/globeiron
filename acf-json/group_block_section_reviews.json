@@ -3,6 +3,24 @@
     "title": "Customer Reviews",
     "fields": [
         {
+            "key": "field_group_block_section_reviews_sidebar_accordion_0",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_sr_heading",
             "label": "Section Heading",
             "name": "heading",
@@ -23,12 +41,30 @@
             "append": ""
         },
         {
+            "key": "field_group_block_section_reviews_sidebar_accordion_1",
+            "label": "Rating",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_sr_overall_rating",
             "label": "Overall Star Rating",
             "name": "overall_rating",
             "aria-label": "",
             "type": "number",
-            "instructions": "Aggregate rating displayed as large stars at the top right (1\u20135).",
+            "instructions": "Aggregate rating displayed as large stars at the top right (1–5).",
             "required": false,
             "conditional_logic": false,
             "wrapper": {
@@ -65,6 +101,24 @@
             "append": ""
         },
         {
+            "key": "field_group_block_section_reviews_sidebar_accordion_2",
+            "label": "Query",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_sr_reviews_count",
             "label": "Number of Reviews to Show",
             "name": "reviews_count",
@@ -85,6 +139,24 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_group_block_section_reviews_sidebar_accordion_end",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -97,7 +169,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",

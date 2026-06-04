@@ -1,7 +1,25 @@
 {
     "key": "group_block_section_services",
-    "title": "Block: Section \u2014 Services",
+    "title": "Block: Section — Services",
     "fields": [
+        {
+            "key": "field_group_block_section_services_sidebar_accordion_0",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
         {
             "key": "field_ss_heading",
             "label": "Heading",
@@ -41,6 +59,24 @@
             "placeholder": "One Partner. Zero Gaps.",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_group_block_section_services_sidebar_accordion_1",
+            "label": "Services",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_ss_services",
@@ -87,7 +123,7 @@
                     "max_height": "",
                     "max_size": "",
                     "mime_types": "",
-                    "preview_size": "medium",
+                    "preview_size": "thumbnail",
                     "parent_repeater": "field_ss_services"
                 },
                 {
@@ -126,7 +162,7 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "tabs": "all",
+                    "tabs": "visual",
                     "toolbar": "basic",
                     "media_upload": 0,
                     "delay": 0,
@@ -150,6 +186,24 @@
                     "parent_repeater": "field_ss_services"
                 }
             ]
+        },
+        {
+            "key": "field_group_block_section_services_sidebar_accordion_end",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -162,7 +216,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",

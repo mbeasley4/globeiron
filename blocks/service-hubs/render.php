@@ -87,7 +87,7 @@ $crosshair = '<svg class="section-service-hubs__ornament-crosshair" viewBox="0 0
                     <?php if ($img) : ?>
                         <figure class="section-service-hubs__figure">
                             <img src="<?php echo esc_url($img['sizes']['large'] ?? $img['url']); ?>"
-                                alt="<?php echo esc_attr($img['alt']); ?>"
+                                alt="<?php echo esc_attr(($img['alt'] ?? '') ?: $title); ?>"
                                 loading="lazy">
                         </figure>
                     <?php endif; ?>

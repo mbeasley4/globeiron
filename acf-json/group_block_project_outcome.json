@@ -3,6 +3,24 @@
     "title": "Block: Project Outcome",
     "fields": [
         {
+            "key": "field_group_block_project_outcome_sidebar_accordion_0",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_po_heading",
             "label": "Heading",
             "name": "heading",
@@ -49,7 +67,7 @@
             "name": "hide_text",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "When enabled, heading and body are hidden \u2014 only the background image is shown.",
+            "instructions": "When enabled, heading and body are hidden — only the background image is shown.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -57,12 +75,30 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Hide all text \u2014 image only",
+            "message": "Hide all text — image only",
             "default_value": 0,
             "ui": 1,
             "ui_on_text": "Yes",
             "ui_off_text": "No",
             "allow_in_bindings": 0
+        },
+        {
+            "key": "field_group_block_project_outcome_sidebar_accordion_1",
+            "label": "Media",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_po_background_image",
@@ -88,7 +124,25 @@
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 0,
-            "preview_size": "medium"
+            "preview_size": "thumbnail"
+        },
+        {
+            "key": "field_group_block_project_outcome_sidebar_accordion_2",
+            "label": "Display",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_po_background",
@@ -113,6 +167,24 @@
             "return_format": "value",
             "allow_null": 0,
             "layout": "horizontal"
+        },
+        {
+            "key": "field_group_block_project_outcome_sidebar_accordion_end",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -125,13 +197,13 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Full-width outcome section \u2014 headline, body copy, optional background image, and grey/white/blue colour theme.",
+    "description": "Full-width outcome section — headline, body copy, optional background image, and grey/white/blue colour theme.",
     "show_in_rest": 0,
     "display_title": "",
     "allow_ai_access": false,

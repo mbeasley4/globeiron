@@ -7,7 +7,7 @@
             "label": "Hero",
             "name": "",
             "aria-label": "",
-            "type": "tab",
+            "type": "accordion",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -18,7 +18,49 @@
             },
             "placement": "top",
             "endpoint": 0,
-            "selected": 0
+            "selected": 0,
+            "open": 0,
+            "multi_expand": 0
+        },
+        {
+            "key": "field_ph_eyebrow",
+            "label": "Eyebrow",
+            "name": "eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Short project identifier shown above the headline.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "e.g. First Baptist Church of Dayton:",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ph_headline",
+            "label": "Headline",
+            "name": "headline",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "e.g. Restoring a Landmark.",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_ph_hero_image",
@@ -43,55 +85,15 @@
             "max_height": "",
             "max_size": "",
             "mime_types": "",
-            "preview_size": "medium",
+            "preview_size": "thumbnail",
             "allow_in_bindings": 0
-        },
-        {
-            "key": "field_ph_eyebrow",
-            "label": "Eyebrow",
-            "name": "eyebrow",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Short project identifier shown above the headline.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "e.g. First Baptist Church of Dayton:",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_ph_headline",
-            "label": "Headline",
-            "name": "headline",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "e.g. Restoring a Landmark.",
-            "prepend": "",
-            "append": ""
         },
         {
             "key": "field_ph_tab_snapshot",
             "label": "Technical Snapshot",
             "name": "",
             "aria-label": "",
-            "type": "tab",
+            "type": "accordion",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -102,7 +104,9 @@
             },
             "placement": "top",
             "endpoint": 0,
-            "selected": 0
+            "selected": 0,
+            "open": 0,
+            "multi_expand": 0
         },
         {
             "key": "field_ph_tech_intro",
@@ -138,7 +142,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
+            "layout": "block",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -156,7 +160,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "40",
+                        "width": "",
                         "class": "",
                         "id": ""
                     },
@@ -177,13 +181,13 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "60",
+                        "width": "",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
                     "maxlength": "",
-                    "placeholder": "e.g. 6 Months (November \u2013 April)",
+                    "placeholder": "e.g. 6 Months (November – April)",
                     "prepend": "",
                     "append": "",
                     "parent_repeater": "field_ph_tech_specs"
@@ -195,7 +199,7 @@
             "label": "Description",
             "name": "",
             "aria-label": "",
-            "type": "tab",
+            "type": "accordion",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -206,7 +210,9 @@
             },
             "placement": "top",
             "endpoint": 0,
-            "selected": 0
+            "selected": 0,
+            "open": 0,
+            "multi_expand": 0
         },
         {
             "key": "field_ph_description",
@@ -223,9 +229,9 @@
                 "id": ""
             },
             "default_value": "",
-            "tabs": "all",
+            "tabs": "visual",
             "toolbar": "full",
-            "media_upload": 1,
+            "media_upload": 0,
             "delay": 0
         }
     ],
@@ -239,7 +245,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",

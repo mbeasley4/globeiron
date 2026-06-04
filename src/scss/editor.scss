@@ -493,3 +493,157 @@
     display: none;
   }
 }
+
+// ─── ACF block controls in the right inspector sidebar ───────────────────────
+// ACF keeps several meta-box-era dimensions when a field group is moved into
+// the block sidebar. These overrides make custom block controls scan cleanly in
+// the narrow inspector column.
+.interface-complementary-area,
+.edit-post-sidebar,
+.edit-site-sidebar {
+  .acf-block-component {
+    .acf-fields {
+      border: 0;
+    }
+
+    .acf-field {
+      width: 100% !important;
+      min-height: 0;
+      padding: 14px 16px;
+      border-top-color: #e0e0e0;
+
+      &:first-child {
+        border-top: 0;
+      }
+    }
+
+    .acf-label {
+      margin: 0 0 6px;
+
+      label {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      p.description {
+        margin: 4px 0 0;
+        font-size: 11px;
+        line-height: 1.35;
+      }
+    }
+
+    .acf-input {
+      input[type='text'],
+      input[type='url'],
+      input[type='number'],
+      textarea,
+      select {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .acf-editor-wrap {
+      .wp-editor-tools {
+        padding-top: 0;
+      }
+
+      .mce-toolbar-grp {
+        border-color: #dcdcde;
+        background: #f6f7f7;
+      }
+
+      .mce-btn button {
+        padding: 5px 6px;
+      }
+
+      iframe {
+        min-height: 180px;
+      }
+    }
+
+    .acf-button-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+
+      label {
+        min-height: 34px;
+        padding-inline: 8px;
+        white-space: normal;
+      }
+    }
+
+    .acf-radio-list,
+    .acf-checkbox-list {
+      li {
+        margin: 0 0 6px;
+        line-height: 1.35;
+      }
+    }
+
+    .acf-image-uploader .image-wrap {
+      max-width: 160px !important;
+
+      img {
+        max-height: 112px;
+        object-fit: cover;
+      }
+    }
+
+    .acf-url {
+      i {
+        top: 8px;
+      }
+
+      input[type='url'] {
+        padding-left: 30px;
+      }
+    }
+
+    .acf-repeater {
+      margin-top: 4px;
+
+      .acf-row-handle {
+        width: 28px;
+      }
+
+      .acf-row-handle.order {
+        font-size: 11px;
+      }
+
+      .acf-fields {
+        padding: 0 12px;
+      }
+
+      .acf-field {
+        padding: 10px 0;
+      }
+
+      .acf-actions {
+        text-align: left;
+      }
+    }
+
+    .acf-field-accordion {
+      margin-top: 4px;
+      padding: 0;
+      border-top: 0;
+
+      .acf-accordion-title {
+        padding: 12px 16px;
+        border-top: 1px solid #dcdcde;
+
+        label {
+          font-size: 12px;
+          font-weight: 600;
+        }
+      }
+
+      .acf-accordion-content {
+        padding: 0;
+        border: 0;
+      }
+    }
+  }
+}

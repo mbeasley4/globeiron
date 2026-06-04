@@ -3,6 +3,24 @@
     "title": "Process Steps Section",
     "fields": [
         {
+            "key": "field_group_block_section_process_sidebar_accordion_0",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_sp_eyebrow",
             "label": "Eyebrow Text",
             "name": "eyebrow",
@@ -41,6 +59,24 @@
             "placeholder": "Our Trusted Partners",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_group_block_section_process_sidebar_accordion_1",
+            "label": "Steps",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_sp_steps",
@@ -171,6 +207,24 @@
             ],
             "rows_per_page": 20,
             "collapsed": ""
+        },
+        {
+            "key": "field_group_block_section_process_sidebar_accordion_end",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -183,7 +237,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",

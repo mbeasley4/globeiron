@@ -1,7 +1,25 @@
 {
     "key": "group_block_hero_interior",
-    "title": "Hero \u2014 Interior Page",
+    "title": "Hero — Interior Page",
     "fields": [
+        {
+            "key": "field_group_block_hero_interior_sidebar_accordion_0",
+            "label": "Layout",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
         {
             "key": "field_hi_layout",
             "label": "Layout",
@@ -17,8 +35,8 @@
                 "id": ""
             },
             "choices": {
-                "standard": "Standard \u2014 full-width banner with background image",
-                "split_collage": "Split Collage \u2014 left text / right image grid"
+                "standard": "Standard — full-width banner with background image",
+                "split_collage": "Split Collage — left text / right image grid"
             },
             "default_value": "standard",
             "return_format": "value",
@@ -26,6 +44,24 @@
             "other_choice": 0,
             "save_other_choice": 0,
             "layout": "vertical"
+        },
+        {
+            "key": "field_group_block_hero_interior_sidebar_accordion_1",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_hi_heading",
@@ -46,6 +82,24 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_group_block_hero_interior_sidebar_accordion_2",
+            "label": "Standard Banner",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_hi_eyebrow",
@@ -136,6 +190,24 @@
             "save_other_choice": 0,
             "allow_null": 0,
             "return_format": "value"
+        },
+        {
+            "key": "field_group_block_hero_interior_sidebar_accordion_3",
+            "label": "Split Content",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_hi_body",
@@ -272,12 +344,30 @@
             "placeholder": ""
         },
         {
+            "key": "field_group_block_hero_interior_sidebar_accordion_4",
+            "label": "Split Media",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_hi_collage_img_1",
-            "label": "Collage Image \u2014 Top",
+            "label": "Collage Image — Top",
             "name": "collage_image_1",
             "aria-label": "",
             "type": "image",
-            "instructions": "Landscape orientation. Recommended: 900 \u00d7 350 px.",
+            "instructions": "Landscape orientation. Recommended: 900 × 350 px.",
             "required": false,
             "conditional_logic": [
                 [
@@ -294,7 +384,7 @@
                 "id": ""
             },
             "return_format": "array",
-            "preview_size": "medium",
+            "preview_size": "thumbnail",
             "library": "all",
             "min_width": 0,
             "min_height": 0,
@@ -306,11 +396,11 @@
         },
         {
             "key": "field_hi_collage_img_2",
-            "label": "Collage Image \u2014 Bottom",
+            "label": "Collage Image — Bottom",
             "name": "collage_image_2",
             "aria-label": "",
             "type": "image",
-            "instructions": "Portrait orientation. Recommended: 450 \u00d7 350 px.",
+            "instructions": "Portrait orientation. Recommended: 450 × 350 px.",
             "required": false,
             "conditional_logic": [
                 [
@@ -327,7 +417,7 @@
                 "id": ""
             },
             "return_format": "array",
-            "preview_size": "medium",
+            "preview_size": "thumbnail",
             "library": "all",
             "min_width": 0,
             "min_height": 0,
@@ -336,6 +426,24 @@
             "max_height": 0,
             "max_size": 0,
             "mime_types": ""
+        },
+        {
+            "key": "field_group_block_hero_interior_sidebar_accordion_5",
+            "label": "Banner Media",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_hi_bg_image",
@@ -352,7 +460,7 @@
                 "id": ""
             },
             "return_format": "array",
-            "preview_size": "medium",
+            "preview_size": "thumbnail",
             "library": "all",
             "min_width": 0,
             "min_height": 0,
@@ -361,6 +469,24 @@
             "max_height": 0,
             "max_size": 0,
             "mime_types": ""
+        },
+        {
+            "key": "field_group_block_hero_interior_sidebar_accordion_end",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -373,7 +499,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",

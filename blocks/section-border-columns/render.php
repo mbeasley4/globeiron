@@ -97,9 +97,9 @@ $crosshair = '<svg class="section-border-columns__crosshair" viewBox="0 0 28 28"
                 <div class="section-border-columns__col">
 
                     <?php if ($icon) : ?>
-                        <figure class="section-border-columns__icon">
+                        <figure class="section-border-columns__icon" aria-hidden="true">
                             <img src="<?php echo esc_url($icon['sizes']['medium'] ?? $icon['url']); ?>"
-                                 alt="<?php echo esc_attr($icon['alt']); ?>"
+                                 alt=""
                                  loading="lazy">
                         </figure>
                     <?php endif; ?>

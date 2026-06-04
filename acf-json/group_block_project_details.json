@@ -3,6 +3,24 @@
     "title": "Block: Project Details",
     "fields": [
         {
+            "key": "field_group_block_project_details_sidebar_accordion_0",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_pd_heading",
             "label": "Heading",
             "name": "heading",
@@ -21,6 +39,24 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_group_block_project_details_sidebar_accordion_1",
+            "label": "Before / After",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_pd_image_pairs",
@@ -56,7 +92,7 @@
                         "id": ""
                     },
                     "return_format": "array",
-                    "preview_size": "medium",
+                    "preview_size": "thumbnail",
                     "library": "all",
                     "min_width": 0,
                     "min_height": 0,
@@ -82,7 +118,7 @@
                         "id": ""
                     },
                     "return_format": "array",
-                    "preview_size": "medium",
+                    "preview_size": "thumbnail",
                     "library": "all",
                     "min_width": 0,
                     "min_height": 0,
@@ -96,6 +132,24 @@
             ],
             "rows_per_page": 20,
             "collapsed": ""
+        },
+        {
+            "key": "field_group_block_project_details_sidebar_accordion_2",
+            "label": "Highlights",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_pd_highlights",
@@ -161,6 +215,24 @@
             ],
             "rows_per_page": 20,
             "collapsed": ""
+        },
+        {
+            "key": "field_group_block_project_details_sidebar_accordion_end",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -173,13 +245,13 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Fields for the Project Details block \u2014 image pairs and a single highlight section.",
+    "description": "Fields for the Project Details block — image pairs and a single highlight section.",
     "show_in_rest": 1,
     "display_title": "",
     "allow_ai_access": false,

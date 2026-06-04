@@ -3,6 +3,24 @@
     "title": "Testimonials Section",
     "fields": [
         {
+            "key": "field_group_block_section_testimonials_sidebar_accordion_0",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_st_eyebrow",
             "label": "Eyebrow Text",
             "name": "eyebrow",
@@ -43,6 +61,24 @@
             "append": ""
         },
         {
+            "key": "field_group_block_section_testimonials_sidebar_accordion_1",
+            "label": "Call to Action",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_st_cta_label",
             "label": "CTA Button Label (optional)",
             "name": "cta_label",
@@ -78,6 +114,24 @@
             },
             "default_value": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_group_block_section_testimonials_sidebar_accordion_2",
+            "label": "Source",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_st_source",
@@ -135,6 +189,24 @@
             "append": ""
         },
         {
+            "key": "field_group_block_section_testimonials_sidebar_accordion_3",
+            "label": "Manual Testimonials",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_st_testimonials",
             "label": "Testimonials",
             "name": "testimonials",
@@ -175,7 +247,7 @@
                         "id": ""
                     },
                     "return_format": "array",
-                    "preview_size": "medium",
+                    "preview_size": "thumbnail",
                     "library": "all",
                     "min_width": 0,
                     "min_height": 0,
@@ -301,6 +373,24 @@
             "max": 0,
             "rows_per_page": 20,
             "collapsed": ""
+        },
+        {
+            "key": "field_group_block_section_testimonials_sidebar_accordion_end",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -313,7 +403,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",

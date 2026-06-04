@@ -45,7 +45,7 @@ $wrapper_attrs = get_block_wrapper_attributes([
   <?php if ($has_image) : ?>
     <img class="project-outcome__bg"
          src="<?php echo esc_url($bg_image['url']); ?>"
-         alt="<?php echo esc_attr($bg_image['alt'] ?? ''); ?>"
+         alt="" aria-hidden="true"
          loading="lazy" decoding="async">
   <?php endif; ?>
 

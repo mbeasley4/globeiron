@@ -3,25 +3,22 @@
     "title": "Block: Homepage Hero",
     "fields": [
         {
-            "key": "field_hero_home_bg_image",
-            "label": "Background Image",
-            "name": "background_image",
+            "key": "field_group_block_hero_home_form_sidebar_accordion_0",
+            "label": "Content",
+            "name": "",
             "aria-label": "",
-            "type": "image",
-            "instructions": "Full-width hero background. Aim for at least 1920×1080px.",
-            "required": false,
-            "conditional_logic": false,
-            "wrapper": { "width": "", "class": "", "id": "" },
-            "return_format": "array",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "allow_in_bindings": false
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_hero_home_headline",
@@ -32,7 +29,11 @@
             "instructions": "",
             "required": false,
             "conditional_logic": false,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "",
             "maxlength": "",
             "placeholder": "Expert Roofing You Can Trust",
@@ -48,12 +49,34 @@
             "instructions": "Short supporting copy displayed below the headline.",
             "required": false,
             "conditional_logic": false,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "",
-            "tabs": "all",
+            "tabs": "visual",
             "toolbar": "basic",
             "media_upload": 0,
             "delay": 0
+        },
+        {
+            "key": "field_group_block_hero_home_form_sidebar_accordion_1",
+            "label": "Calls to Action",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_hero_home_cta1",
@@ -64,7 +87,11 @@
             "instructions": "",
             "required": false,
             "conditional_logic": false,
-            "wrapper": { "width": "50", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "return_format": "array"
         },
         {
@@ -76,8 +103,30 @@
             "instructions": "",
             "required": false,
             "conditional_logic": false,
-            "wrapper": { "width": "50", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "return_format": "array"
+        },
+        {
+            "key": "field_group_block_hero_home_form_sidebar_accordion_2",
+            "label": "Layout & Form",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_hero_home_style",
@@ -95,7 +144,7 @@
             },
             "choices": {
                 "standard": "Standard (centred headline + CTA buttons)",
-                "with_form": "With Form Card (left headline \u00b7 right inspection form)"
+                "with_form": "With Form Card (left headline · right inspection form)"
             },
             "default_value": "standard",
             "layout": "vertical",
@@ -159,6 +208,68 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_group_block_hero_home_form_sidebar_accordion_3",
+            "label": "Media",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_hero_home_bg_image",
+            "label": "Background Image",
+            "name": "background_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Full-width hero background. Aim for at least 1920×1080px.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": false,
+            "preview_size": "thumbnail"
+        },
+        {
+            "key": "field_group_block_hero_home_form_sidebar_accordion_end",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 1
         }
     ],
     "location": [
@@ -171,7 +282,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "side",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",

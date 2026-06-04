@@ -92,7 +92,7 @@ $wrapper_attrs = get_block_wrapper_attributes([
       <div class="section-content-image-split__media">
         <img
           src="<?php echo esc_url($image['sizes']['large'] ?? $image['url']); ?>"
-          alt="<?php echo esc_attr($image['alt'] ?? ''); ?>"
+          alt="<?php echo esc_attr(($image['alt'] ?? '') ?: $heading); ?>"
           loading="lazy"
           decoding="async">
       </div>

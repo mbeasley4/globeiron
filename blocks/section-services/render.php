@@ -59,7 +59,7 @@ $crosshair_svg = '<svg class="section-services__crosshair" viewBox="0 0 28 28"
     <?php foreach ($services as $type) :
       $img      = $type['image']       ?? null;
       $img_url  = $img['url']          ?? '';
-      $img_alt  = $img['alt']          ?? '';
+      $img_alt  = ($img['alt'] ?? '') ?: $title;
       $title    = $type['title']       ?? '';
       $desc     = $type['description'] ?? '';
       $cta      = $type['cta_link']    ?? null;
