@@ -44,10 +44,10 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans:      ['Franklin Gothic Demi', 'Franklin Gothic Medium', 'ITC Franklin Gothic', 'Arial', 'sans-serif'],
-        serif:     ['ClarendonURW', 'Clarendon', 'Libre Baskerville', 'Georgia', 'serif'],
-        clarendon: ['ClarendonURW', 'Clarendon', 'Libre Baskerville', 'Georgia', 'serif'],
-        franklin:  ['Franklin Gothic Demi', 'Franklin Gothic Medium', 'ITC Franklin Gothic', 'Arial', 'sans-serif'],
+        sans:      ['franklin-gothic', 'Arial', 'sans-serif'],
+        serif:     ['clarendon-urw', 'Georgia', 'serif'],
+        clarendon: ['clarendon-urw', 'Georgia', 'serif'],
+        franklin:  ['franklin-gothic', 'Arial', 'sans-serif'],
         mono:      ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       spacing: {

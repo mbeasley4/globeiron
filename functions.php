@@ -266,26 +266,26 @@ add_action('wp_ajax_nopriv_globeiron_get_projects', 'globeiron_ajax_get_projects
 
 // ─── Preconnect hints ────────────────────────────────────────────────────────
 add_action('wp_head', function (): void {
-    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
-    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+    echo '<link rel="preconnect" href="https://use.typekit.net" crossorigin>' . "\n";
+    echo '<link rel="preconnect" href="https://p.typekit.net" crossorigin>' . "\n";
 }, 1);
 
-// Make Google Fonts load non-render-blocking
+// Make Typekit load non-render-blocking
 add_filter('style_loader_tag', function (string $html, string $handle): string {
     if ($handle !== 'globeiron-fonts') {
         return $html;
     }
-    $href = 'https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap';
+    $href = 'https://use.typekit.net/rnm3xmu.css';
     return '<link rel="preload" href="' . esc_url($href) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">' . "\n"
         . '<noscript><link rel="stylesheet" href="' . esc_url($href) . '"></noscript>' . "\n";
 }, 10, 2);
 
 // ─── Enqueue assets ──────────────────────────────────────────────────────────
 add_action('wp_enqueue_scripts', function (): void {
-    // Load Google Fonts non-render-blocking via preload swap trick
+    // Load Typekit non-render-blocking via preload swap trick
     wp_enqueue_style(
         'globeiron-fonts',
-        'https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap',
+        'https://use.typekit.net/rnm3xmu.css',
         [],
         null
     );
@@ -493,6 +493,13 @@ add_action('wp_enqueue_scripts', function (): void {
 
 // ─── Block editor assets ─────────────────────────────────────────────────────
 add_action('enqueue_block_editor_assets', function (): void {
+    wp_enqueue_style(
+        'globeiron-fonts',
+        'https://use.typekit.net/rnm3xmu.css',
+        [],
+        null
+    );
+
     wp_enqueue_script(
         'globeiron-editor',
         GLOBEIRON_URI . '/dist/js/editor.js',
@@ -504,7 +511,7 @@ add_action('enqueue_block_editor_assets', function (): void {
     wp_enqueue_style(
         'globeiron-editor',
         GLOBEIRON_URI . '/dist/css/editor.css',
-        ['wp-edit-blocks'],
+        ['wp-edit-blocks', 'globeiron-fonts'],
         GLOBEIRON_VERSION
     );
 });

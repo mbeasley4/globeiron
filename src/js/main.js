@@ -560,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', positionFeaturesOrnaments);
   });
   // Re-run after web fonts load to correct any layout shift caused by
-  // Libre Baskerville swapping in and reflowing the features section text.
+  // Typekit swapping in and reflowing the features section text.
   document.fonts.ready.then(positionFeaturesOrnaments);
 
   // ── Section Map: variant dropdown + animation observer ───────────────────────

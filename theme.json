@@ -18,13 +18,13 @@
       "fontFamilies": [
         {
           "slug": "sans",
-          "name": "Inter (Sans)",
-          "fontFamily": "Inter, ui-sans-serif, system-ui, sans-serif"
+          "name": "Franklin Gothic",
+          "fontFamily": "franklin-gothic, Arial, sans-serif"
         },
         {
           "slug": "serif",
-          "name": "Merriweather (Serif)",
-          "fontFamily": "Merriweather, ui-serif, Georgia, serif"
+          "name": "Clarendon URW",
+          "fontFamily": "clarendon-urw, Georgia, serif"
         },
         {
           "slug": "mono",
