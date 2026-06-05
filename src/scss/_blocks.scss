@@ -1910,7 +1910,7 @@ h6.wp-block-heading {
       }
 
       .section-services__card-overlay {
-        opacity: 0.75;
+        opacity: 0;
       }
 
       .section-services__card-top {
@@ -1974,7 +1974,7 @@ h6.wp-block-heading {
     }
 
     &:hover .section-services__card-overlay {
-      opacity: 1;
+      opacity: 0.45;
     }
   }
 
