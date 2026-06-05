@@ -166,6 +166,44 @@
             ]
         },
         {
+            "key": "field_group_block_section_contact_map_sidebar_accordion_2",
+            "label": "Map",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_scm_map_embed",
+            "label": "Map Location",
+            "name": "map_address",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. Enter an address or place name to override the default. Leave blank to use the business address from Site Settings → General.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "e.g. Cincinnati, OH",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_group_block_section_contact_map_sidebar_accordion_3",
             "label": "Display",
             "name": "",

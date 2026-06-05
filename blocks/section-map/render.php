@@ -5,11 +5,11 @@
  * ACF fields:
  *   eyebrow             (Text)      — optional eyebrow label
  *   heading             (Text)      — required heading
- *   map_section_content (Textarea)  — body copy beneath heading
+ *   map_section_content (Wysiwyg)   — body copy beneath heading
  *   regions             (Repeater)  — service area items; when present shows crosshair rail
  *     └─ region_name   (Text)
  *     └─ region_desc   (Text)
- *   map_embed           (Textarea)  — Google Maps <iframe>
+ *   map_address         (Text)      — Optional override label (unused by JS; regions drive markers)
  *   background_color    (Button)    — white (default) | grey | blue
  *
  * @package Globeiron
@@ -21,7 +21,12 @@ $heading     = (string) (get_field('heading')             ?: '');
 $map_content = (string) (get_field('map_section_content') ?: '');
 $regions_raw = get_field('regions');
 $regions     = is_array($regions_raw) ? $regions_raw : [];
-$bg_color    = (string) (get_field('background_color')    ?: 'white');
+$bg_color    = (string) (get_field('background_color') ?: 'white');
+
+$locations = array_values(array_filter(array_map(
+    fn($r) => ($n = trim((string) ($r['region_name'] ?? ''))) !== '' ? ['name' => $n] : null,
+    $regions
+)));
 
 /** @var bool $is_preview ACF block preview flag, injected by ACF at render time. */
 $is_preview = $is_preview ?? false;
@@ -105,7 +110,8 @@ $crosshair = '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-
       <div id="globeiron-map"
            class="section-contact-map__map"
            role="region"
-           aria-label="<?php esc_attr_e('Service area map', 'globeiron'); ?>">
+           aria-label="<?php esc_attr_e('Service area map', 'globeiron'); ?>"
+           data-locations="<?php echo esc_attr(wp_json_encode($locations)); ?>">
         <?php if ($is_preview) : ?>
           <p class="section-contact-map__map-placeholder">Map · Renders on the front-end</p>
         <?php endif; ?>
