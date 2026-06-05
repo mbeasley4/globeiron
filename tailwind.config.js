@@ -48,6 +48,7 @@ module.exports = {
         serif:     ['clarendon-urw', 'Georgia', 'serif'],
         clarendon: ['clarendon-urw', 'Georgia', 'serif'],
         franklin:  ['franklin-gothic', 'Arial', 'sans-serif'],
+        condensed: ['franklin-gothic-condensed', 'Arial', 'sans-serif'],
         mono:      ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       spacing: {

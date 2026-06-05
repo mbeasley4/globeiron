@@ -625,9 +625,9 @@
       background: $color-brand-primary;
       color: $color-brand-blue !important;
       border-radius: 0;
-      font-family: $font-sans;
+      font-family: $font-condensed;
       font-size: 1.125rem;
-      font-weight: 400;
+      font-weight: 600;
       text-transform: uppercase;
       line-height: 1.02;
       transition: background $transition-fast, color $transition-fast;
@@ -871,9 +871,9 @@
 }
 
 .post-card__title {
-  font-family: $font-sans;
+  font-family: $font-condensed;
   font-size: $font-size-sm;
-  font-weight: 700;
+  font-weight: 600;
   line-height: $line-height-tight;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -1058,9 +1058,9 @@
   // Field labels (added manually inside CF7 template as <label>)
   label {
     display: block;
-    font-family: $font-sans;
+    font-family: $font-condensed;
     font-size: 0.6875rem;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.14em;
     color: $color-brand-blue;
@@ -1104,9 +1104,9 @@
     color: $color-brand-navy;
     border: none;
     padding: $spacing-4 $spacing-10;
-    font-family: $font-sans;
+    font-family: $font-condensed;
     font-size: $font-size-sm;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     cursor: pointer;
@@ -1343,9 +1343,9 @@
   }
 
   &__cat {
-    font-family: $font-sans;
+    font-family: $font-condensed;
     font-size: $font-size-sm;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: $color-brand-primary;
@@ -1733,9 +1733,9 @@
 
   &__eyebrow {
     display: block;
-    font-family: $font-sans;
+    font-family: $font-condensed;
     font-size: $font-size-sm;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: $color-white;

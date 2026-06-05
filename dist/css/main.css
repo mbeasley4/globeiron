@@ -753,9 +753,9 @@ body.page-template-default .site-content {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.02;
   text-transform: uppercase;
   color: #114CA0;
@@ -1350,9 +1350,9 @@ body.page-template-default .site-content {
     background: #DBB76F;
     color: #114CA0 !important;
     border-radius: 0;
-    font-family: "franklin-gothic", Arial, sans-serif;
+    font-family: "franklin-gothic-condensed", Arial, sans-serif;
     font-size: 1.125rem;
-    font-weight: 400;
+    font-weight: 600;
     text-transform: uppercase;
     line-height: 1.02;
     transition: background 150ms ease-in-out, color 150ms ease-in-out;
@@ -1592,9 +1592,9 @@ body.page-template-default .site-content {
 }
 
 .post-card__title {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.25;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -1759,9 +1759,9 @@ body.page-template-default .site-content {
 }
 .wpcf7 label {
   display: block;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.6875rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: #114CA0;
@@ -1809,9 +1809,9 @@ body.page-template-default .site-content {
   color: #092650;
   border: none;
   padding: 1rem 2.5rem;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
@@ -2053,9 +2053,9 @@ body.page-template-default .site-content {
   margin-bottom: 1.25rem;
 }
 .single-post-hero__cat {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #DBB76F;
@@ -2453,9 +2453,9 @@ body.page-template-default .site-content {
 }
 .project-header__eyebrow {
   display: block;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #ffffff;
@@ -2775,8 +2775,8 @@ h4.wp-block-heading {
 
 h5.wp-block-heading,
 h6.wp-block-heading {
-  font-family: "franklin-gothic", Arial, sans-serif;
-  font-weight: 700;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
+  font-weight: 600;
   text-transform: uppercase;
   color: #114CA0;
 }
@@ -2812,9 +2812,9 @@ h6.wp-block-heading {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.02;
   text-transform: uppercase;
   color: #114CA0;
@@ -2928,10 +2928,10 @@ h6.wp-block-heading {
   display: block;
   margin-top: 0.75rem;
   color: #657693;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -2959,10 +2959,10 @@ h6.wp-block-heading {
   display: block;
   margin-top: 1rem;
   color: #657693;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -3004,9 +3004,9 @@ h6.wp-block-heading {
 .wp-block-table th {
   background: #114CA0;
   color: #ffffff;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -3421,9 +3421,9 @@ h6.wp-block-heading {
 .wp-block-globeiron-hero-interior .hero-interior__eyebrow {
   margin: 0 0 0.75rem;
   color: #DBB76F;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.5;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -4289,9 +4289,9 @@ h6.wp-block-heading {
   margin-inline: auto;
 }
 .wp-block-globeiron-section-features .section-features__item-title {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #114CA0;
   text-transform: uppercase;
   margin: 0;
@@ -4514,7 +4514,7 @@ h6.wp-block-heading {
   transition: background 400ms ease-in-out;
 }
 .wp-block-globeiron-section-services .section-services__type-title {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
@@ -4721,9 +4721,9 @@ h6.wp-block-heading {
   transform: scale(1.03);
 }
 .wp-block-globeiron-service-hubs .section-service-hubs__card-title {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #114CA0;
@@ -5681,9 +5681,9 @@ h6.wp-block-heading {
      object-fit: contain;
 }
 .wp-block-globeiron-section-border-columns .section-border-columns__col-title {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #ffffff;
@@ -5819,9 +5819,9 @@ h6.wp-block-heading {
 }
 .blog-hero__category-badge {
   display: inline-block;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #DBB76F;
@@ -5832,9 +5832,9 @@ h6.wp-block-heading {
   color: #C4A05A;
 }
 .blog-hero__eyebrow {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #171717;
@@ -6037,9 +6037,9 @@ h6.wp-block-heading {
 }
 
 .section-reviews__rating-label {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #657693;
@@ -6340,9 +6340,9 @@ h6.wp-block-heading {
 .project-details__img-label {
   display: block;
   margin-top: 0.5rem;
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #657693;
@@ -6484,7 +6484,7 @@ h6.wp-block-heading {
   gap: 2rem;
 }
 .project-details__highlight-heading {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   letter-spacing: 0.08em;
@@ -6945,9 +6945,9 @@ h6.wp-block-heading {
   transition: transform 250ms ease-in-out;
 }
 .wp-block-globeiron-section-team-grid .team-card__cta span {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #ffffff;
@@ -7068,9 +7068,9 @@ h6.wp-block-heading {
   }
 }
 .team-modal .team-modal__role {
-  font-family: "franklin-gothic", Arial, sans-serif;
+  font-family: "franklin-gothic-condensed", Arial, sans-serif;
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #114CA0;
