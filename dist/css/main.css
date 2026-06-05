@@ -755,7 +755,7 @@ body.page-template-default .site-content {
   border-radius: 0;
   font-family: "franklin-gothic", Arial, sans-serif;
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.02;
   text-transform: uppercase;
   color: #114CA0;
@@ -1352,7 +1352,7 @@ body.page-template-default .site-content {
     border-radius: 0;
     font-family: "franklin-gothic", Arial, sans-serif;
     font-size: 1.125rem;
-    font-weight: 400;
+    font-weight: 700;
     text-transform: uppercase;
     line-height: 1.02;
     transition: background 150ms ease-in-out, color 150ms ease-in-out;
@@ -2814,7 +2814,7 @@ h6.wp-block-heading {
   border-radius: 0;
   font-family: "franklin-gothic", Arial, sans-serif;
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.02;
   text-transform: uppercase;
   color: #114CA0;
