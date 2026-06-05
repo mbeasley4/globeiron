@@ -170,8 +170,8 @@ h4.wp-block-heading {
 
 h5.wp-block-heading,
 h6.wp-block-heading {
-  font-family: $font-condensed;
-  font-weight: 600;
+  font-family: $font-sans;
+  font-weight: 700;
   text-transform: uppercase;
   color: $color-brand-blue;
 }
@@ -315,10 +315,10 @@ h6.wp-block-heading {
     display: block;
     margin-top: $spacing-3;
     color: $color-iron-mid;
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-sm;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -349,10 +349,10 @@ h6.wp-block-heading {
     display: block;
     margin-top: $spacing-4;
     color: $color-iron-mid;
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-sm;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -401,9 +401,9 @@ h6.wp-block-heading {
   th {
     background: $color-brand-blue;
     color: $color-white;
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-sm;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
@@ -827,9 +827,9 @@ h6.wp-block-heading {
   .hero-interior__eyebrow {
     margin: 0 0 $spacing-3;
     color: $color-brand-primary;
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-sm;
-    font-weight: 600;
+    font-weight: 700;
     line-height: $line-height-normal;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -1715,9 +1715,9 @@ h6.wp-block-heading {
   }
 
   .section-features__item-title {
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-xl;
-    font-weight: 600;
+    font-weight: 700;
     color: $color-brand-blue;
     text-transform: uppercase;
     margin: 0;
@@ -2003,7 +2003,7 @@ h6.wp-block-heading {
   }
 
   .section-services__type-title {
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-base;
     font-weight: 600;
     color: $color-white;
@@ -2232,9 +2232,9 @@ h6.wp-block-heading {
   }
 
   .section-service-hubs__card-title {
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-base;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: $color-brand-blue;
@@ -3277,9 +3277,9 @@ h6.wp-block-heading {
 
   // ── Column title ─────────────────────────────────────────────────────────
   .section-border-columns__col-title {
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-base;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: $color-white;
@@ -3411,9 +3411,9 @@ h6.wp-block-heading {
 
   &__category-badge {
     display: inline-block;
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-sm;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: $color-brand-primary;
@@ -3424,9 +3424,9 @@ h6.wp-block-heading {
   }
 
   &__eyebrow {
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-sm;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: $color-iron-dark;
@@ -3634,9 +3634,9 @@ h6.wp-block-heading {
 }
 
 .section-reviews__rating-label {
-  font-family: $font-condensed;
+  font-family: $font-sans;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: $color-iron-mid;
@@ -3982,9 +3982,9 @@ h6.wp-block-heading {
   &__img-label {
     display: block;
     margin-top: $spacing-2;
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: $color-iron-mid;
@@ -4138,7 +4138,7 @@ h6.wp-block-heading {
   }
 
   &__highlight-heading {
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-base;
     font-weight: 400;
     letter-spacing: 0.08em;
@@ -4581,9 +4581,9 @@ h6.wp-block-heading {
     transition: transform $transition-normal;
 
     span {
-      font-family: $font-condensed;
+      font-family: $font-sans;
       font-size: $font-size-sm;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: $color-white;
@@ -4709,9 +4709,9 @@ h6.wp-block-heading {
   }
 
   .team-modal__role {
-    font-family: $font-condensed;
+    font-family: $font-sans;
     font-size: $font-size-sm;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: $color-brand-blue;
