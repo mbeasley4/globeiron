@@ -1667,7 +1667,8 @@ h6.wp-block-heading {
   }
 
   .section-features__heading {
-    font-size: clamp($font-size-3xl, 4.5vw, 2.75rem);
+    font-family: $font-serif;
+    font-size: clamp($font-size-3xl, 4.5vw, $font-size-5xl);
     font-weight: 400;
     color: $color-brand-blue;
     line-height: $line-height-tight;
@@ -1854,7 +1855,7 @@ h6.wp-block-heading {
 
   .section-services__heading {
     font-family: $font-serif;
-    font-size: clamp($font-size-3xl, 4.5vw, 2.75rem);
+    font-size: clamp($font-size-3xl, 4.5vw, $font-size-5xl);
     font-weight: 400;
     color: $color-white;
     line-height: $line-height-tight;
@@ -2808,6 +2809,7 @@ h6.wp-block-heading {
   &__heading {
     font-family: $font-serif;
     font-size: clamp($font-size-3xl, 4vw, $font-size-5xl);
+    font-weight: 700;
     color: $color-brand-blue;
     line-height: $line-height-tight;
     margin: 0 0 $spacing-4;

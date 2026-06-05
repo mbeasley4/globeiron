@@ -4243,7 +4243,8 @@ h6.wp-block-heading {
   margin: 0 0 0.75rem;
 }
 .wp-block-globeiron-section-features .section-features__heading {
-  font-size: clamp(1.875rem, 4.5vw, 2.75rem);
+  font-family: "clarendon-urw", Georgia, serif;
+  font-size: clamp(1.875rem, 4.5vw, 3rem);
   font-weight: 400;
   color: #114CA0;
   line-height: 1.25;
@@ -4393,7 +4394,7 @@ h6.wp-block-heading {
 }
 .wp-block-globeiron-section-services .section-services__heading {
   font-family: "clarendon-urw", Georgia, serif;
-  font-size: clamp(1.875rem, 4.5vw, 2.75rem);
+  font-size: clamp(1.875rem, 4.5vw, 3rem);
   font-weight: 400;
   color: #ffffff;
   line-height: 1.25;
@@ -5270,6 +5271,7 @@ h6.wp-block-heading {
 .section-work__heading {
   font-family: "clarendon-urw", Georgia, serif;
   font-size: clamp(1.875rem, 4vw, 3rem);
+  font-weight: 700;
   color: #114CA0;
   line-height: 1.25;
   margin: 0 0 1rem;
