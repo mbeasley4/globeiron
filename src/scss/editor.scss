@@ -159,6 +159,22 @@
     padding-block: $spacing-12;
   }
 
+  .wp-block-globeiron-section-contact-map .section-contact-map__map {
+    min-height: 320px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .section-contact-map__map-placeholder {
+      margin: 0;
+      font-size: $font-size-sm;
+      color: #6b7280;
+      letter-spacing: 0.04em;
+    }
+  }
+
   // ── 2k. Section: Team Grid ──────────────────────────────────────────────────
   // Reduce vertical padding and hide modals (dialogs don't render in the canvas).
   .wp-block-globeiron-section-team-grid {
