@@ -353,7 +353,7 @@
     padding: $spacing-4 $spacing-6;
     font-family: $font-serif;
     font-size: 1.25rem; // 20px
-    font-weight: 300; // kit resolves to 400 (lightest available in clarendon-urw)
+    font-weight: 400;
     line-height: 1.02; // ~20.35px at 20px
     overflow-wrap: break-word;
     color: $color-white;
@@ -377,7 +377,7 @@
       padding: $spacing-2 $spacing-3;
       border-radius: $border-radius-sm;
       font-size: 1.25rem; // 20px — matches design spec
-      font-weight: 300;   // resolves to 400 (clarendon-urw lightest available)
+      font-weight: 400;
     }
 
     // Reveal dropdown on hover and keyboard focus-within

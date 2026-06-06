@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-define('GLOBEIRON_VERSION', '1.0.36');
+define('GLOBEIRON_VERSION', '1.0.37');
 define('GLOBEIRON_DIR', get_template_directory());
 define('GLOBEIRON_URI', get_template_directory_uri());
 
@@ -263,6 +263,16 @@ function globeiron_ajax_get_projects(): void {
 }
 add_action('wp_ajax_globeiron_get_projects',        'globeiron_ajax_get_projects');
 add_action('wp_ajax_nopriv_globeiron_get_projects', 'globeiron_ajax_get_projects');
+
+// ─── Google Fonts ─────────────────────────────────────────────────────────────
+add_action('wp_enqueue_scripts', function (): void {
+    wp_enqueue_style(
+        'globeiron-google-fonts',
+        'https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600;700;800&display=swap',
+        [],
+        null
+    );
+}, 5);
 
 // ─── Enqueue assets ──────────────────────────────────────────────────────────
 add_action('wp_enqueue_scripts', function (): void {
