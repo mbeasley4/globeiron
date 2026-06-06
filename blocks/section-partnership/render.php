@@ -3,10 +3,11 @@
  * Partners / Certifications block — server-side render.
  *
  * ACF fields:
- *   display  (button_group) — partners | certifications | both
- *   heading  (text)         — optional headline above logo grid
- *   intro    (textarea)     — optional intro paragraph
- *   bg_style (button_group) — dark | light | brand
+ *   display   (button_group) — partners | certifications | both
+ *   heading   (text)         — optional headline above logo grid
+ *   intro     (textarea)     — optional intro paragraph
+ *   columns   (button_group) — 3 | 4 | 5
+ *   bg_style  (button_group) — light (default) | dark | brand
  *
  * @package Globeiron
  */
@@ -16,9 +17,8 @@ declare(strict_types=1);
 $display  = (string) (get_field('display')  ?: 'partners');
 $heading  = (string) (get_field('heading')  ?: '');
 $intro    = (string) (get_field('intro')    ?: '');
-$bg_style = esc_attr(get_field('bg_style')  ?: 'dark');
+$bg_style = esc_attr(get_field('bg_style')  ?: 'light');
 
-// ── Build item list based on display mode ─────────────────────────────────────
 $query_args_base = [
     'posts_per_page' => -1,
     'post_status'    => 'publish',
@@ -30,8 +30,7 @@ $query_args_base = [
 $items = [];
 
 if ($display === 'partners' || $display === 'both') {
-    $partners = get_posts(array_merge($query_args_base, ['post_type' => 'partner']));
-    foreach ($partners as $p) {
+    foreach (get_posts(array_merge($query_args_base, ['post_type' => 'partner'])) as $p) {
         $items[] = [
             'id'         => $p->ID,
             'type'       => 'partner',
@@ -43,8 +42,7 @@ if ($display === 'partners' || $display === 'both') {
 }
 
 if ($display === 'certifications' || $display === 'both') {
-    $certs = get_posts(array_merge($query_args_base, ['post_type' => 'certification']));
-    foreach ($certs as $c) {
+    foreach (get_posts(array_merge($query_args_base, ['post_type' => 'certification'])) as $c) {
         $items[] = [
             'id'         => $c->ID,
             'type'       => 'certification',
@@ -55,8 +53,6 @@ if ($display === 'certifications' || $display === 'both') {
     }
 }
 
-// When showing both, sort the merged list by menu_order so the admin's
-// drag-and-drop ordering plugin controls the combined sequence.
 if ($display === 'both') {
     usort($items, fn($a, $b) => $a['menu_order'] <=> $b['menu_order']);
 }
@@ -65,15 +61,12 @@ if (empty($items)) {
     return;
 }
 
-$col_setting = max(3, min(5, (int) (get_field('columns') ?: 5)));
-$grid_cols   = max(2, min($col_setting, count($items)));
-$grid_cols_sm = max(2, min(3, count($items)));
-$grid_cols_md = max(2, min(4, count($items)));
+$col_count  = max(2, min((int) (get_field('columns') ?: 5), count($items)));
 $grid_style = sprintf(
     '--partners-cols-sm: %d; --partners-cols-md: %d; --partners-cols: %d;',
-    $grid_cols_sm,
-    $grid_cols_md,
-    $grid_cols
+    max(2, min(3, $col_count)),
+    max(2, min(4, $col_count)),
+    $col_count
 );
 
 $aria_label = match ($display) {
@@ -102,10 +95,8 @@ $wrapper_attributes = get_block_wrapper_attributes([
 
     <ul class="partners__grid" style="<?php echo esc_attr($grid_style); ?>" aria-label="<?php echo esc_attr($aria_label); ?>">
       <?php foreach ($items as $item) :
-        $is_cert = $item['type'] === 'certification';
-        $logo_id = get_post_thumbnail_id($item['id']);
-        $logo    = $logo_id ? wp_get_attachment_image_src($logo_id, 'medium') : false;
-        $item_class = 'partners__item' . ($is_cert ? ' partners__item--cert' : '');
+        $logo_id    = get_post_thumbnail_id($item['id']);
+        $item_class = 'partners__item' . ($item['type'] === 'certification' ? ' partners__item--cert' : '');
       ?>
       <li class="<?php echo esc_attr($item_class); ?>">
         <?php if ($item['url']) : ?>
@@ -115,13 +106,13 @@ $wrapper_attributes = get_block_wrapper_attributes([
              class="partners__tile-link">
         <?php endif; ?>
         <div class="partners__tile">
-          <?php if ($logo) : ?>
-            <img src="<?php echo esc_url($logo[0]); ?>"
-                 alt="<?php echo esc_attr($item['name']); ?>"
-                 class="partners__logo"
-                 width="<?php echo esc_attr((string) $logo[1]); ?>"
-                 height="<?php echo esc_attr((string) $logo[2]); ?>"
-                 loading="lazy" decoding="async">
+          <?php if ($logo_id) : ?>
+            <?php echo wp_get_attachment_image($logo_id, 'medium', false, [
+                'class'   => 'partners__logo',
+                'loading' => 'lazy',
+                'decoding'=> 'async',
+                'alt'     => esc_attr($item['name']),
+            ]); ?>
           <?php else : ?>
             <span class="partners__logo-placeholder"><?php echo esc_html($item['name']); ?></span>
           <?php endif; ?>

@@ -1230,7 +1230,6 @@ h6.wp-block-heading {
     .partners__tile-link:hover .partners__tile,
     .partners__item:not(:has(.partners__tile-link)):hover .partners__tile {
       box-shadow: 0 4px 20px rgba(#000, 0.35);
-      border-color: rgba($color-brand-primary, 0.4);
     }
 
     .partners__logo {
@@ -1242,16 +1241,6 @@ h6.wp-block-heading {
       color: $color-iron-mid;
     }
 
-    // Decorative top stripe
-    &::before {
-      content: '';
-      position: absolute;
-      inset-inline: 0;
-      top: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent 0%, $color-brand-primary 30%, $color-brand-secondary 70%, transparent 100%);
-      opacity: 0.8;
-    }
   }
 
   // LIGHT — bright, open, airy
@@ -1284,7 +1273,6 @@ h6.wp-block-heading {
     .partners__tile-link:hover .partners__tile,
     .partners__item:not(:has(.partners__tile-link)):hover .partners__tile {
       box-shadow: $shadow-lg;
-      border-color: rgba($color-brand-primary, 0.25);
     }
 
     .partners__logo {
@@ -1296,14 +1284,6 @@ h6.wp-block-heading {
       color: $color-iron-mid;
     }
 
-    &::before {
-      content: '';
-      position: absolute;
-      inset-inline: 0;
-      top: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent 0%, $color-brand-primary 30%, $color-brand-secondary 70%, transparent 100%);
-    }
   }
 
   // BRAND — full brand-color saturation
@@ -1485,15 +1465,12 @@ h6.wp-block-heading {
   }
 
   // ── Certification tile variant ─────────────────────────────────────────────
-  // Gold top border distinguishes certification badges from partner logos
-  // without adding extra visible text.
   .partners__item--cert {
     .partners__tile {
       position: relative;
       gap: $spacing-2;
       min-height: 118px;
       background-color: $color-white;
-      border-top: 3px solid $color-brand-primary;
       padding-block: $spacing-4;
     }
 
