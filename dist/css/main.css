@@ -1152,7 +1152,7 @@ body.page-template-default .site-content {
     padding: 0.5rem 0.75rem;
     border-radius: 0.25rem;
     font-size: 1.25rem;
-    font-weight: 400;
+    font-weight: 600;
   }
   .nav > .menu-item:hover > .sub-menu, .nav > .menu-item:focus-within > .sub-menu {
     visibility: visible;
