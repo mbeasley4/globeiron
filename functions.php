@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-define('GLOBEIRON_VERSION', '1.0.39');
+define('GLOBEIRON_VERSION', '1.0.40');
 define('GLOBEIRON_DIR', get_template_directory());
 define('GLOBEIRON_URI', get_template_directory_uri());
 
@@ -209,6 +209,9 @@ function globeiron_format_projects(array $posts): array {
         $thumb_id  = get_post_thumbnail_id($post->ID);
         $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'medium_large') : '';
         $thumb_alt = $thumb_id ? (string) get_post_meta($thumb_id, '_wp_attachment_image_alt', true) : '';
+        $location  = function_exists('get_field')
+            ? (get_field('tech_location', $post->ID) ?: get_post_meta($post->ID, '_project_location', true))
+            : get_post_meta($post->ID, '_project_location', true);
 
         $out[] = [
             'id'            => $post->ID,
@@ -216,6 +219,7 @@ function globeiron_format_projects(array $posts): array {
             'permalink'     => get_permalink($post->ID),
             'excerpt'       => html_entity_decode(wp_trim_words(get_the_excerpt($post), 20, '…'), ENT_QUOTES | ENT_HTML5, 'UTF-8'),
             'featuredImage' => ['url' => $thumb_url ?: $no_image, 'alt' => $thumb_alt],
+            'location'      => (string) ($location ?: ''),
             'year'          => get_post_meta($post->ID, '_project_year', true),
         ];
     }

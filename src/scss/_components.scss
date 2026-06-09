@@ -930,6 +930,13 @@
     color: $color-iron-mid;
     border-bottom-color: transparent;
   }
+
+  &--location {
+    display: inline-flex;
+    align-items: center;
+    color: $color-iron-mid;
+    border-bottom-color: transparent;
+  }
 }
 
 // ─── Posts pagination ─────────────────────────────────────────────────────────

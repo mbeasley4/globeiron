@@ -70,7 +70,7 @@ export default function ProjectGrid({ ajaxUrl, nonce, initialPosts, initialPage,
   return (
     <>
       <div className="blog-controls">
-        <form className="blog-search" onSubmit={handleSearchSubmit} role="search">
+        <form className="blog-search" onSubmit={handleSearchSubmit} role="search" style={{ marginLeft: 'auto' }}>
           <input
             type="search"
             className="blog-search__input"
