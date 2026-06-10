@@ -405,14 +405,15 @@ add_action('wp_enqueue_scripts', function (): void {
             if (!container || typeof google === 'undefined') return;
 
             var defaults = [
-                { lat: 39.7684, lng: -86.1581 },
-                { lat: 39.1031, lng: -84.5120 },
-                { lat: 39.9612, lng: -82.9988 }
+                { lat: 39.7589, lng: -84.1916 }, // Dayton, OH
+                { lat: 38.0406, lng: -84.5037 }, // Central KY (Lexington)
+                { lat: 37.0920, lng: -84.6041 }, // South KY (Somerset)
+                { lat: 37.4793, lng: -82.5182 }  // Eastern KY (Pikeville)
             ];
 
             var map = new google.maps.Map(container, {
                 zoom: 7,
-                center: { lat: 39.53, lng: -84.58 },
+                center: { lat: 38.3, lng: -83.8 },
                 disableDefaultUI: true,
                 gestureHandling: 'none',
                 keyboardShortcuts: false
