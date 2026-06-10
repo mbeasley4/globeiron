@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-define('GLOBEIRON_VERSION', '1.0.40');
+define('GLOBEIRON_VERSION', '1.0.41');
 define('GLOBEIRON_DIR', get_template_directory());
 define('GLOBEIRON_URI', get_template_directory_uri());
 
