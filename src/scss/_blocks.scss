@@ -1487,15 +1487,7 @@ h6.wp-block-heading {
   // ── Certification tile variant ─────────────────────────────────────────────
   .partners__item--cert {
     .partners__tile {
-      position: relative;
-      gap: $spacing-2;
-      min-height: 118px;
       background-color: $color-white;
-      padding-block: $spacing-4;
-    }
-
-    .partners__logo {
-      max-height: 52px; // badges are typically taller/squarer than partner logos
     }
   }
 
