@@ -1423,11 +1423,12 @@ h6.wp-block-heading {
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 96px;
+    height: 108px;
     padding: $spacing-5 $spacing-6;
     border: 1px solid transparent;
     border-radius: 0;
     position: relative;
+    overflow: hidden;
     transition: background $transition-normal, border-color $transition-normal,
       box-shadow $transition-normal;
   }
@@ -1488,6 +1489,10 @@ h6.wp-block-heading {
   .partners__item--cert {
     .partners__tile {
       background-color: $color-white;
+    }
+
+    .partners__tile-link:hover .partners__tile-external {
+      color: $color-brand-blue;
     }
   }
 
