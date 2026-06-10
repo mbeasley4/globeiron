@@ -196,6 +196,10 @@ add_action('wp_head', function (): void {
         'description' => $d['tagline'] ?: null,
         'isPartOf'   => ['@id' => $home_url . '#website'],
         'about'      => ['@id' => $home_url . '#business'],
+        'speakable'  => [
+            '@type'       => 'SpeakableSpecification',
+            'cssSelector' => ['.hero-home__heading', '.hero-home__content-body'],
+        ],
         'breadcrumb' => [
             '@type'           => 'BreadcrumbList',
             'itemListElement' => [[
@@ -298,6 +302,9 @@ add_action('wp_head', function (): void {
         $headshot    = get_field('headshot', $author_post->ID);
         $author_img  = is_array($headshot) ? ($headshot['url'] ?? '') : '';
         $author_bio  = wp_strip_all_tags((string) (get_field('bio', $author_post->ID) ?: ''));
+        $linkedin    = (string) (get_field('linkedin_url', $author_post->ID) ?: '');
+        $same_as     = array_values(array_filter([$linkedin]));
+
         $author_node = array_filter([
             '@type'       => 'Person',
             '@id'         => $home_url . '#person-' . $author_post->ID,
@@ -306,6 +313,7 @@ add_action('wp_head', function (): void {
             'description' => $author_bio ?: null,
             'image'       => $author_img ? ['@type' => 'ImageObject', 'url' => $author_img] : null,
             'worksFor'    => ['@id' => $home_url . '#organization'],
+            'sameAs'      => $same_as ?: null,
         ]);
     }
 
@@ -323,6 +331,10 @@ add_action('wp_head', function (): void {
         'publisher'     => ['@id' => $home_url . '#organization'],
         'isPartOf'      => ['@id' => $home_url . '#website'],
         'inLanguage'    => get_bloginfo('language'),
+        'speakable'     => [
+            '@type'       => 'SpeakableSpecification',
+            'cssSelector' => ['.single-post-hero__title', '.single-post-body .entry > p'],
+        ],
     ]);
 
     echo "\n<script type=\"application/ld+json\">\n"

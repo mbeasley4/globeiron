@@ -49,6 +49,23 @@
             "preview_size": "medium"
         },
         {
+            "key": "field_tm_linkedin",
+            "label": "LinkedIn Profile URL",
+            "name": "linkedin_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Full LinkedIn profile URL, e.g. https://www.linkedin.com/in/yourname",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "https://www.linkedin.com/in/"
+        },
+        {
             "key": "field_tm_bio",
             "label": "Bio",
             "name": "bio",

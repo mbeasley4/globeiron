@@ -18,6 +18,7 @@ require_once GLOBEIRON_DIR . '/inc/block-fields.php';
 require_once GLOBEIRON_DIR . '/inc/options.php';
 require_once GLOBEIRON_DIR . '/inc/schema.php';
 require_once GLOBEIRON_DIR . '/inc/canonical.php';
+require_once GLOBEIRON_DIR . '/inc/opengraph.php';
 
 // ─── Theme setup ─────────────────────────────────────────────────────────────
 add_action('after_setup_theme', function (): void {
@@ -267,6 +268,17 @@ function globeiron_ajax_get_projects(): void {
 }
 add_action('wp_ajax_globeiron_get_projects',        'globeiron_ajax_get_projects');
 add_action('wp_ajax_nopriv_globeiron_get_projects', 'globeiron_ajax_get_projects');
+
+// ─── Resource hints ───────────────────────────────────────────────────────────
+add_action('wp_head', function (): void {
+    // Preconnect to Google Fonts CDN — eliminates connection latency on font fetch
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+    // DNS prefetch for Maps API — only loaded on pages that use the map block
+    if (has_block('acf/section-map')) {
+        echo '<link rel="dns-prefetch" href="https://maps.googleapis.com">' . "\n";
+    }
+}, 1);
 
 // ─── Google Fonts ─────────────────────────────────────────────────────────────
 add_action('wp_enqueue_scripts', function (): void {

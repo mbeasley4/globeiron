@@ -53,7 +53,7 @@ if ($layout === 'split_collage') {
             <figure class="hero-interior__collage-top" aria-hidden="true">
                 <img src="<?php echo esc_url($collage_img_1['sizes']['large'] ?? $collage_img_1['url']); ?>"
                     alt=""
-                    loading="eager">
+                    loading="eager" fetchpriority="high" decoding="sync">
             </figure>
         <?php endif; ?>
 

@@ -55,7 +55,7 @@ $blog_url  = $blog_page ? get_permalink($blog_page->ID) : home_url('/blog/');
                 <div class="single-post-hero__ornament-crosshair"><?php echo $crosshair; ?></div>
             </div>
             <div class="single-post-hero__media">
-                <?php the_post_thumbnail('large', ['class' => 'single-post-hero__img', 'loading' => 'eager', 'decoding' => 'async']); ?>
+                <?php the_post_thumbnail('large', ['class' => 'single-post-hero__img', 'loading' => 'eager', 'decoding' => 'sync', 'fetchpriority' => 'high']); ?>
             </div>
             <?php endif; ?>
 

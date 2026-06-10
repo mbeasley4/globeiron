@@ -518,6 +518,154 @@ add_action('save_post_partner', function (int $post_id): void {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
+//  Register: Certification details meta box
+// ─────────────────────────────────────────────────────────────────────────────
+
+add_action('add_meta_boxes', function (): void {
+    add_meta_box(
+        'globeiron_certification_details',
+        __('Certification Details', 'globeiron'),
+        'globeiron_certification_meta_box_html',
+        'certification',
+        'normal',
+        'high'
+    );
+});
+
+function globeiron_certification_meta_box_html(WP_Post $post): void {
+    wp_nonce_field('globeiron_certification_save', 'globeiron_certification_nonce');
+
+    $url = get_post_meta($post->ID, '_certification_url', true);
+    ?>
+    <style>
+        .globeiron-cert-meta {
+            padding: 4px 0;
+        }
+        .globeiron-cert-meta label {
+            display: block;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        .globeiron-cert-meta .field-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .globeiron-cert-meta input[type="url"] {
+            flex: 1;
+        }
+        .globeiron-cert-meta .hint {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+        }
+        .globeiron-cert-meta .link-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #2271b1;
+            padding: 4px 8px;
+            border: 1px solid #c3d9f0;
+            border-radius: 4px;
+            background: #f0f6fc;
+            white-space: nowrap;
+        }
+        .globeiron-cert-meta .link-indicator svg {
+            flex-shrink: 0;
+        }
+        #certification-url-status { margin-top: 8px; }
+    </style>
+
+    <div class="globeiron-cert-meta">
+
+        <p style="color:#555;margin-top:0;font-size:13px;">
+            <?php esc_html_e('The post title is the certification name. Set the featured image (Badge / Logo) in the right-hand panel.', 'globeiron'); ?>
+        </p>
+
+        <!-- Website URL -->
+        <div style="margin-bottom: 12px;">
+            <label for="certification_url"><?php esc_html_e('Website URL', 'globeiron'); ?></label>
+            <div class="field-row">
+                <input
+                    type="url"
+                    id="certification_url"
+                    name="_certification_url"
+                    value="<?php echo esc_attr($url); ?>"
+                    placeholder="https://example.com"
+                    class="regular-text"
+                >
+            </div>
+            <p class="hint">
+                <?php esc_html_e('Optional. If provided, the badge will link to this URL in a new window. A link icon will be shown on the card.', 'globeiron'); ?>
+            </p>
+            <div id="certification-url-status">
+                <?php if ($url) : ?>
+                    <span class="link-indicator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        <?php esc_html_e('Opens in new window', 'globeiron'); ?>
+                    </span>
+                <?php endif; ?>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    (function() {
+        var input  = document.getElementById('certification_url');
+        var status = document.getElementById('certification-url-status');
+        if (!input || !status) return;
+
+        input.addEventListener('input', function() {
+            var val = input.value.trim();
+            if (val) {
+                status.innerHTML = '<span class="link-indicator">'
+                    + '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">'
+                    + '<path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>'
+                    + '</svg>'
+                    + '<?php echo esc_js(__('Opens in new window', 'globeiron')); ?>'
+                    + '</span>';
+            } else {
+                status.innerHTML = '';
+            }
+        });
+    }());
+    </script>
+    <?php
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Save: Certification
+// ─────────────────────────────────────────────────────────────────────────────
+
+add_action('save_post_certification', function (int $post_id): void {
+    if (
+        ! isset($_POST['globeiron_certification_nonce']) ||
+        ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['globeiron_certification_nonce'])), 'globeiron_certification_save') ||
+        (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) ||
+        ! current_user_can('edit_post', $post_id)
+    ) {
+        return;
+    }
+
+    $url = isset($_POST['_certification_url']) ? esc_url_raw(wp_unslash($_POST['_certification_url'])) : '';
+
+    if ($url) {
+        update_post_meta($post_id, '_certification_url', $url);
+    } else {
+        delete_post_meta($post_id, '_certification_url');
+    }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
 //  Shared: media picker script (enqueued once per page)
 // ─────────────────────────────────────────────────────────────────────────────
 
