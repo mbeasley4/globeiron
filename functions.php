@@ -405,6 +405,9 @@ add_action('wp_enqueue_scripts', function (): void {
             if (!container || typeof google === 'undefined') return;
 
             var defaults = [
+                { lat: 39.7684, lng: -86.1581 }, // Indianapolis, IN
+                { lat: 39.1031, lng: -84.5120 }, // Cincinnati, OH
+                { lat: 39.9612, lng: -82.9988 }, // Columbus, OH
                 { lat: 39.7589, lng: -84.1916 }, // Dayton, OH
                 { lat: 38.0406, lng: -84.5037 }, // Central KY (Lexington)
                 { lat: 37.0920, lng: -84.6041 }, // South KY (Somerset)
