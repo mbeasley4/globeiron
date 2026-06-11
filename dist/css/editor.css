@@ -585,23 +585,14 @@ body.page-template-default .site-content {
 
 .page-404__sub {
   font-family: "Libre Franklin", Arial, sans-serif;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.02em;
+  font-size: 1.25rem;
+  color: #ffffff;
+  letter-spacing: 0.01em;
   margin: 0;
   animation: err-fade-up 0.8s ease-out 0.65s both;
 }
 
 .page-404__cta {
-  animation: err-fade-up 0.8s ease-out 0.8s both;
-}
-
-.page-404__tagline {
-  font-family: "Libre Franklin", Arial, sans-serif;
-  font-size: 1rem;
-  color: #ffffff;
-  letter-spacing: 0.02em;
-  margin: 0;
   animation: err-fade-up 0.8s ease-out 0.8s both;
 }
 

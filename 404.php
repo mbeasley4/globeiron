@@ -32,11 +32,7 @@ get_header(); ?>
             </h1>
 
             <p class="page-404__sub">
-                <?php esc_html_e( 'Even the best-built roofs need a map.', 'globeiron' ); ?>
-            </p>
-
-            <p class="page-404__tagline">
-                <?php esc_html_e( 'Expert hands. We\'ll find you the right page.', 'globeiron' ); ?>
+                <?php esc_html_e( 'One partner, zero gaps — let\'s get you back on track.', 'globeiron' ); ?>
             </p>
 
             <div class="page-404__cta">
