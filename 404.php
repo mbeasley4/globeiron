@@ -44,10 +44,7 @@ get_header(); ?>
             <nav class="page-404__nav" aria-label="<?php esc_attr_e( 'Quick links', 'globeiron' ); ?>">
                 <?php
                 $links = [
-                    __( 'About',                'globeiron' ) => '/about',
                     __( 'Our Work',             'globeiron' ) => '/our-work',
-                    __( 'Commercial',           'globeiron' ) => '/commercial',
-                    __( 'Residential',          'globeiron' ) => '/residential',
                     __( 'Historic Restoration', 'globeiron' ) => '/historic-restoration',
                 ];
                 foreach ( $links as $label => $path ) : ?>
