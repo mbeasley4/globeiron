@@ -596,29 +596,18 @@ body.page-template-default .site-content {
   animation: err-fade-up 0.8s ease-out 0.8s both;
 }
 
-.page-404__nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem 1.5rem;
+.page-404__tagline {
+  font-family: "Libre Franklin", Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
   animation: err-fade-up 0.8s ease-out 0.95s both;
-}
-
-.page-404__nav-link {
-  font-family: "Libre Franklin", Arial, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.45);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  transition: color 150ms ease-in-out;
-}
-.page-404__nav-link:hover {
-  color: #DBB76F;
 }
 
 .entry-content {
