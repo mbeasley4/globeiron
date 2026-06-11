@@ -2,15 +2,17 @@
 /**
  * Structured data — schema.org JSON-LD
  *
- * Homepage:    full @graph — WebSite + Organization + RoofingContractor + WebPage.
- * Other pages: lean RoofingContractor that references /#organization by @id pointer.
+ * Homepage:       full @graph — WebSite + Organization + RoofingContractor + WebPage + Reviews.
+ * Other pages:    lean RoofingContractor/LocalBusiness that references /#organization by @id.
+ * Service pages:  Service schema keyed by page slug.
+ * Any page:       FAQPage schema when the `faq_items` ACF repeater is populated.
  *
  * @package Globeiron
  */
 
 declare(strict_types=1);
 
-// ─── Shared data builder ──────────────────────────────────────────────────────
+// ─── Shared helpers ───────────────────────────────────────────────────────────
 
 function globeiron_schema_data(): array {
     $phone    = (string) (get_field('site_phone',   'option') ?: '513-371-1841');
@@ -95,6 +97,77 @@ function globeiron_schema_data(): array {
     );
 }
 
+/**
+ * All service areas — shared across homepage, inner pages, and service schema.
+ */
+function globeiron_schema_area_served(): array {
+    return [
+        ['@type' => 'City', 'name' => 'Cincinnati',   'containedInPlace' => ['@type' => 'State', 'name' => 'Ohio']],
+        ['@type' => 'City', 'name' => 'Columbus',     'containedInPlace' => ['@type' => 'State', 'name' => 'Ohio']],
+        ['@type' => 'City', 'name' => 'Indianapolis', 'containedInPlace' => ['@type' => 'State', 'name' => 'Indiana']],
+        ['@type' => 'City', 'name' => 'Dayton',       'containedInPlace' => ['@type' => 'State', 'name' => 'Ohio']],
+        ['@type' => 'City', 'name' => 'Lexington',    'containedInPlace' => ['@type' => 'State', 'name' => 'Kentucky']],
+        ['@type' => 'City', 'name' => 'Somerset',     'containedInPlace' => ['@type' => 'State', 'name' => 'Kentucky']],
+        ['@type' => 'City', 'name' => 'Pikeville',    'containedInPlace' => ['@type' => 'State', 'name' => 'Kentucky']],
+    ];
+}
+
+/**
+ * Individual Review nodes from the globeiron_review CPT.
+ */
+function globeiron_schema_reviews(int $limit = 6): array {
+    $posts = get_posts([
+        'post_type'      => 'globeiron_review',
+        'post_status'    => 'publish',
+        'posts_per_page' => $limit,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'no_found_rows'  => true,
+    ]);
+
+    if (empty($posts)) {
+        return [];
+    }
+
+    $home_url = trailingslashit(home_url('/'));
+    $reviews  = [];
+
+    foreach ($posts as $post) {
+        $body   = wp_strip_all_tags(get_the_content(null, false, $post));
+        $name   = get_the_title($post);
+        $rating = (int) (
+            get_field('review_rating', $post->ID)
+            ?: get_post_meta($post->ID, '_review_rating', true)
+            ?: 5
+        );
+        $date = (string) (
+            get_field('review_date', $post->ID)
+            ?: get_post_meta($post->ID, '_review_date', true)
+            ?: get_the_date('Y-m-d', $post)
+        );
+
+        if (! $body || ! $name) {
+            continue;
+        }
+
+        $reviews[] = [
+            '@type'         => 'Review',
+            'author'        => ['@type' => 'Person', 'name' => $name],
+            'datePublished' => $date,
+            'reviewBody'    => $body,
+            'reviewRating'  => [
+                '@type'       => 'Rating',
+                'ratingValue' => $rating,
+                'bestRating'  => 5,
+                'worstRating' => 1,
+            ],
+            'itemReviewed'  => ['@id' => $home_url . '#business'],
+        ];
+    }
+
+    return $reviews;
+}
+
 // ─── 1. Homepage — full @graph ────────────────────────────────────────────────
 
 add_action('wp_head', function (): void {
@@ -148,6 +221,7 @@ add_action('wp_head', function (): void {
     ]);
 
     // RoofingContractor / LocalBusiness — feeds Local Pack + Maps
+    $reviews  = globeiron_schema_reviews();
     $business = array_filter([
         '@type'       => ['RoofingContractor', 'LocalBusiness'],
         '@id'         => $home_url . '#business',
@@ -165,11 +239,7 @@ add_action('wp_head', function (): void {
         ],
         'hasMap'             => $d['maps_url'],
         'parentOrganization' => ['@id' => $home_url . '#organization'],
-        'areaServed'         => [
-            ['@type' => 'City', 'name' => 'Cincinnati',  'containedInPlace' => ['@type' => 'State', 'name' => 'Ohio']],
-            ['@type' => 'City', 'name' => 'Columbus',    'containedInPlace' => ['@type' => 'State', 'name' => 'Ohio']],
-            ['@type' => 'City', 'name' => 'Indianapolis','containedInPlace' => ['@type' => 'State', 'name' => 'Indiana']],
-        ],
+        'areaServed'         => globeiron_schema_area_served(),
         'serviceType' => [
             'Commercial Roofing',
             'Residential Roofing',
@@ -178,6 +248,7 @@ add_action('wp_head', function (): void {
             'Roof Repair',
             'Roof Replacement',
             'Roof Inspection',
+            'Historic Restoration Roofing',
         ],
         'openingHoursSpecification' => $d['opening_hours'] ?: null,
         'priceRange'         => '$$',
@@ -185,18 +256,19 @@ add_action('wp_head', function (): void {
         'paymentAccepted'    => 'Cash, Check, Credit Card',
         'sameAs'             => $d['socials'] ?: null,
         'aggregateRating'    => $d['aggregate'],
+        'review'             => $reviews ?: null,
     ]);
 
     // WebPage — identifies the homepage and connects all entities
     $webpage = array_filter([
-        '@type'      => 'WebPage',
-        '@id'        => $home_url . '#webpage',
-        'url'        => $home_url,
-        'name'       => $page_name,
+        '@type'       => 'WebPage',
+        '@id'         => $home_url . '#webpage',
+        'url'         => $home_url,
+        'name'        => $page_name,
         'description' => $d['tagline'] ?: null,
-        'isPartOf'   => ['@id' => $home_url . '#website'],
-        'about'      => ['@id' => $home_url . '#business'],
-        'speakable'  => [
+        'isPartOf'    => ['@id' => $home_url . '#website'],
+        'about'       => ['@id' => $home_url . '#business'],
+        'speakable'   => [
             '@type'       => 'SpeakableSpecification',
             'cssSelector' => ['.hero-home__heading', '.hero-home__content-body'],
         ],
@@ -223,12 +295,12 @@ add_action('wp_head', function (): void {
 }, 5);
 
 
-// ─── 2. All other pages — lean RoofingContractor ──────────────────────────────
+// ─── 2. All other pages — lean RoofingContractor + LocalBusiness ───────────────
 
 add_action('wp_head', function (): void {
 
     if (is_front_page()) {
-        return; // full @graph covers this
+        return;
     }
 
     $d        = globeiron_schema_data();
@@ -236,7 +308,7 @@ add_action('wp_head', function (): void {
 
     $schema = array_filter([
         '@context'    => 'https://schema.org',
-        '@type'       => 'RoofingContractor',
+        '@type'       => ['RoofingContractor', 'LocalBusiness'],
         '@id'         => $home_url . '#business',
         'name'        => get_bloginfo('name'),
         'url'         => $home_url,
@@ -250,11 +322,7 @@ add_action('wp_head', function (): void {
             'longitude' => -84.5120,
         ],
         'parentOrganization' => ['@id' => $home_url . '#organization'],
-        'areaServed'         => [
-            ['@type' => 'City', 'name' => 'Cincinnati',   'containedInPlace' => ['@type' => 'State', 'name' => 'Ohio']],
-            ['@type' => 'City', 'name' => 'Columbus',     'containedInPlace' => ['@type' => 'State', 'name' => 'Ohio']],
-            ['@type' => 'City', 'name' => 'Indianapolis', 'containedInPlace' => ['@type' => 'State', 'name' => 'Indiana']],
-        ],
+        'areaServed'  => globeiron_schema_area_served(),
         'serviceType' => [
             'Commercial Roofing',
             'Residential Roofing',
@@ -263,6 +331,7 @@ add_action('wp_head', function (): void {
             'Roof Repair',
             'Roof Replacement',
             'Roof Inspection',
+            'Historic Restoration Roofing',
         ],
         'priceRange'      => '$$',
         'sameAs'          => $d['socials'] ?: null,
@@ -295,7 +364,6 @@ add_action('wp_head', function (): void {
     $featured_id = get_post_thumbnail_id($post->ID);
     $image_url   = $featured_id ? (string) wp_get_attachment_image_url($featured_id, 'large') : '';
 
-    // Author Person — linked team_member post
     $author_post = get_field('post_author_override', $post->ID);
     $author_node = null;
     if ($author_post instanceof WP_Post) {
@@ -342,3 +410,74 @@ add_action('wp_head', function (): void {
         . "\n</script>\n";
 
 }, 5);
+
+
+// ─── 4. Service pages — Service schema ────────────────────────────────────────
+
+add_action('wp_head', function (): void {
+
+    if (! is_page()) {
+        return;
+    }
+
+    $slug = get_post_field('post_name', get_queried_object_id());
+
+    $service_map = [
+        'commercial' => [
+            'name' => 'Commercial Roofing',
+            'desc' => 'Full-service commercial roofing including flat roofing, TPO, EPDM, modified bitumen, and metal systems for businesses, institutions, and industrial facilities.',
+        ],
+        'residential' => [
+            'name' => 'Residential Roofing',
+            'desc' => 'Expert residential roofing installation, repair, and full replacement using premium materials and time-tested craftsmanship.',
+        ],
+        'historic-restoration' => [
+            'name' => 'Historic Restoration Roofing',
+            'desc' => 'Specialized historic and architectural roofing restoration using period-appropriate materials — slate, copper, clay tile, and standing-seam metal — with the precision the work demands.',
+        ],
+        'metal-roofing' => [
+            'name' => 'Metal Roofing',
+            'desc' => 'Standing-seam, corrugated, and architectural metal roofing for commercial and residential properties.',
+        ],
+        'roof-repair' => [
+            'name' => 'Roof Repair',
+            'desc' => 'Rapid-response roof repair for leaks, storm damage, flashing failures, and membrane defects across all roofing types.',
+        ],
+        'roof-replacement' => [
+            'name' => 'Roof Replacement',
+            'desc' => 'Complete roof replacement with full tear-off, deck inspection, and quality material installation backed by manufacturer warranties.',
+        ],
+        'roof-inspection' => [
+            'name' => 'Roof Inspection',
+            'desc' => 'Detailed roof inspections with written reports for property purchases, insurance claims, and preventive maintenance.',
+        ],
+    ];
+
+    if (! isset($service_map[$slug])) {
+        return;
+    }
+
+    $svc      = $service_map[$slug];
+    $home_url = trailingslashit(home_url('/'));
+    $page_url = trailingslashit(home_url('/' . $slug . '/'));
+
+    $schema = [
+        '@context'    => 'https://schema.org',
+        '@type'       => 'Service',
+        '@id'         => $page_url . '#service',
+        'name'        => $svc['name'],
+        'description' => $svc['desc'],
+        'url'         => $page_url,
+        'provider'    => ['@id' => $home_url . '#business'],
+        'areaServed'  => globeiron_schema_area_served(),
+        'serviceType' => $svc['name'],
+        'serviceOutput' => 'Roofing installation, repair, or restoration',
+    ];
+
+    echo "\n<script type=\"application/ld+json\">\n"
+        . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
+        . "\n</script>\n";
+
+}, 5);
+
+
