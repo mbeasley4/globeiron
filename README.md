@@ -1,6 +1,6 @@
 # Globe Iron Roofing — WordPress Theme
 
-A fully custom WordPress block theme built for **Globe Iron Roofing** by **Mike Beasley** at [Black Lab Development](https://blacklabdev.com). Designed from the ground up as a performance-first, editor-friendly theme that gives a regional roofing contractor enterprise-grade web presence without the enterprise overhead.
+A fully custom WordPress block theme built for **Globe Iron Roofing**. Designed by [BLDG](https://bldg.agency) and developed by **Mike Beasley** at [Black Lab Development](https://blacklabdev.com). Built from the ground up as a performance-first, editor-friendly theme that gives a regional roofing contractor enterprise-grade web presence without the enterprise overhead.
 
 ---
 
@@ -176,9 +176,10 @@ Map pins and service areas are hardcoded in `functions.php` alongside the Google
 
 ---
 
-## Author
+## Credits
 
-Built by **Mike Beasley**  
-[Black Lab Development](https://blacklabdev.com) — Cincinnati, OH
+**Design** — [BLDG](https://bldg.agency)
+
+**Development** — Mike Beasley, [Black Lab Development](https://blacklabdev.com) — Cincinnati, OH
 
 > *"Solid roofs, precise code."*
