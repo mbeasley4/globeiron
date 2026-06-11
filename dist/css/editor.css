@@ -598,16 +598,11 @@ body.page-template-default .site-content {
 
 .page-404__tagline {
   font-family: "Libre Franklin", Arial, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.35);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-size: 1rem;
+  color: #ffffff;
+  letter-spacing: 0.02em;
   margin: 0;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  width: 100%;
-  animation: err-fade-up 0.8s ease-out 0.95s both;
+  animation: err-fade-up 0.8s ease-out 0.8s both;
 }
 
 .entry-content {

@@ -35,15 +35,15 @@ get_header(); ?>
                 <?php esc_html_e( 'Even the best-built roofs need a map.', 'globeiron' ); ?>
             </p>
 
+            <p class="page-404__tagline">
+                <?php esc_html_e( 'Expert hands. We\'ll find you the right page.', 'globeiron' ); ?>
+            </p>
+
             <div class="page-404__cta">
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn btn--brand">
                     <?php esc_html_e( 'Return Home', 'globeiron' ); ?>
                 </a>
             </div>
-
-            <p class="page-404__tagline">
-                <?php esc_html_e( 'Expert hands. We\'ll find you the right page.', 'globeiron' ); ?>
-            </p>
 
         </div>
 
