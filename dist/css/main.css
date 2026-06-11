@@ -588,14 +588,30 @@ body.page-template-default .site-content {
 @keyframes err-fade-up {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+@keyframes err-ring-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
 .page-404 {
+  position: relative;
+  overflow: hidden;
   min-height: calc(100svh - 100px);
   background: linear-gradient(160deg, #092650 0%, #071E45 55%, #051535 100%);
   display: flex;
@@ -604,8 +620,17 @@ body.page-template-default .site-content {
   text-align: center;
   padding: 4rem 1.5rem;
 }
+.page-404::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 65% 55% at 50% 42%, rgba(219, 183, 111, 0.11) 0%, transparent 70%);
+  pointer-events: none;
+}
 
 .page-404__inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -614,17 +639,31 @@ body.page-template-default .site-content {
 }
 
 .page-404__indicator {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #DBB76F;
 }
+.page-404__indicator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(219, 183, 111, 0.5);
+  transform: translate(-50%, -50%) scale(1);
+  animation: err-ring-pulse 2.4s ease-out 1.2s infinite;
+  pointer-events: none;
+}
 
 .page-404__crosshair {
   position: relative;
   z-index: 1;
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
 }
 .page-404__crosshair circle, .page-404__crosshair line {
   stroke-dasharray: 1;
@@ -642,18 +681,22 @@ body.page-template-default .site-content {
 
 .page-404__number {
   font-family: "Libre Franklin", Arial, sans-serif;
-  font-size: clamp(5rem, 20vw, 10rem);
+  font-size: clamp(6rem, 22vw, 12rem);
   font-weight: 800;
-  color: rgba(219, 183, 111, 0.12);
   line-height: 1;
   letter-spacing: -0.04em;
   margin: 0;
+  background: linear-gradient(160deg, #F2DC8A 0%, #DBB76F 60%, rgba(219, 183, 111, 0.55) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 40px rgba(219, 183, 111, 0.35));
   animation: err-fade-up 0.8s ease-out 0.3s both;
 }
 
 .page-404__heading {
   font-family: "Bitter", Georgia, serif;
-  font-size: clamp(1.75rem, 5vw, 3rem);
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
   font-weight: 700;
   color: #ffffff;
   line-height: 1.25;
@@ -664,7 +707,7 @@ body.page-template-default .site-content {
 .page-404__sub {
   font-family: "Libre Franklin", Arial, sans-serif;
   font-size: 1.25rem;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.65);
   letter-spacing: 0.01em;
   margin: 0;
   animation: err-fade-up 0.8s ease-out 0.65s both;
