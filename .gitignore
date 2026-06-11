@@ -15,6 +15,11 @@ npm-debug.log*
 *.swp
 *.swo
 
+# Claude Code — local AI assistant files, never commit
+.claude/
+CLAUDE.md
+AGENTS.md
+
 # Env
 .env
 .env.local
