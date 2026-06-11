@@ -41,19 +41,9 @@ get_header(); ?>
                 </a>
             </div>
 
-            <nav class="page-404__nav" aria-label="<?php esc_attr_e( 'Quick links', 'globeiron' ); ?>">
-                <?php
-                $links = [
-                    __( 'Our Work',             'globeiron' ) => '/our-work',
-                    __( 'Historic Restoration', 'globeiron' ) => '/historic-restoration',
-                ];
-                foreach ( $links as $label => $path ) : ?>
-                    <a href="<?php echo esc_url( home_url( $path ) ); ?>"
-                       class="page-404__nav-link">
-                        <?php echo esc_html( $label ); ?>
-                    </a>
-                <?php endforeach; ?>
-            </nav>
+            <p class="page-404__tagline">
+                <?php esc_html_e( 'Expert hands. We\'ll find you the right page.', 'globeiron' ); ?>
+            </p>
 
         </div>
 

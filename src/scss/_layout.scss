@@ -416,28 +416,18 @@ body.page-template-default .site-content {
   animation: err-fade-up 0.8s ease-out 0.8s both;
 }
 
-.page-404__nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: $spacing-2 $spacing-6;
+.page-404__tagline {
+  font-family: $font-sans;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: rgba($color-white, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0;
   padding-top: $spacing-6;
   border-top: 1px solid rgba($color-white, 0.10);
   width: 100%;
   animation: err-fade-up 0.8s ease-out 0.95s both;
-}
-
-.page-404__nav-link {
-  font-family: $font-sans;
-  font-size: $font-size-sm;
-  font-weight: 600;
-  color: rgba($color-white, 0.45);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  transition: color $transition-fast;
-
-  &:hover { color: $color-brand-primary; }
 }
 
 // ─── Post layout ─────────────────────────────────────────────────────────────
